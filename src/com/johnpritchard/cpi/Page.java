@@ -12,7 +12,6 @@ public enum Page {
     view     (CPIPageView.Instance,      true),
     examples (CPIPageExamples.Instance,  false),
     inventory(CPIPageInventory.Instance, false),
-    sharing  (CPIPageSharing.Instance,   false),
     about    (CPIPageAbout.Instance,     true);
 
 

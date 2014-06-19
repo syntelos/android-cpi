@@ -19,8 +19,7 @@ public final class CPIPageStart
     private final static int PRACTICE  = 1;
     private final static int INVENTORY = 2;
     private final static int COMPLETED = 3;
-    private final static int SHARING   = 4;
-    private final static int ABOUT     = 5;
+    private final static int ABOUT     = 4;
 
 
     private CPIPageStart(){
@@ -29,7 +28,6 @@ public final class CPIPageStart
                 new CPIButtonPractice(),
                 new CPIButtonInventory(),
                 new CPIButtonCompleted(),
-                new CPIButtonSharing(),
                 new CPIButtonAbout(),
             });
     }
@@ -71,9 +69,6 @@ public final class CPIPageStart
                 break;
             case COMPLETED:
                 view.script(Page.view);
-                break;
-            case SHARING:
-                view.script(Page.sharing);
                 break;
             case ABOUT:
                 view.script(Page.about);

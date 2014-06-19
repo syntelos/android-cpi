@@ -17,7 +17,7 @@ public class CPIButtonInventory
 
 
     public CPIButtonInventory(){
-        super("CPIInventory");
+        super("Inventory");
     }
 
 }
