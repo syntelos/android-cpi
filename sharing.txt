@@ -1,0 +1,52 @@
+"Send by email" mailto:?subject=Cognitive+Profile&body=CPI+%0D%0A+{{=thisPageUrlEncoded}} {{=pageUrlRoot}}/images/mail_share-20x16.png
+"Share with Twitter" http://twitter.com/share?url={{=thisPageUrlEncoded}}&text=CPI+rocks%21+{{=thisPageUrlEncoded}} {{=pageUrlRoot}}/images/twitter_share-16x16.gif
+"Share with Facebook" http://www.facebook.com/sharer.php?u={{=thisPageUrlEncoded}}&t=Cognitive+Profile+is+fun%21 {{=pageUrlRoot}}/images/fb_share-14x14.png
+
+                Code.Decode dec = this.getCode(req);
+                if (null == dec)
+                    this.error(req,rep,404,"Not found");
+
+                else if (dec.old){
+
+                    rep.sendRedirect("/profile/"+dec.code+"/index.html"); /* (show new code in web user interface)
+                                                                           */
+                }
+                else {
+                    req.setVariable(InventorySf,dec.toStringSf());
+                    req.setVariable(InventorySt,dec.toStringSt());
+                    req.setVariable(InventoryNf,dec.toStringNf());
+                    req.setVariable(InventoryNt,dec.toStringNt());
+                    req.setVariable(InventoryCode,dec.getCode());
+                    req.setVariable(InventoryPng,"image.png");
+
+                    Sharing(req,req.getRequestURL().toString());
+
+                    super.render(req,rep);
+                }
+
+
+    protected static void Sharing(Request req, String url)
+        throws java.io.UnsupportedEncodingException
+    {
+
+        req.setVariable(LogonEtc,"div.logon.sharing.html");
+
+        String urlEnc = java.net.URLEncoder.encode(url,"US-ASCII");
+
+        req.addSection(LogonEtc).setVariable(ThisPageUrlEncoded,urlEnc);
+    }
+
+
+    private Code.Decode getCode(Request req){
+
+        String code = req.getSource();
+        if (null != code){
+            try {
+                return new Code.Decode(code);
+            }
+            catch (RuntimeException any){
+            }
+        }
+        return null;
+    }
+
