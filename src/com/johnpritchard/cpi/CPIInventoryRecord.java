@@ -71,6 +71,8 @@ public final class CPIInventoryRecord
     }
 
 
+    private CPIProcess process;
+
     private long results = -1;
 
     private String identifier, title;
@@ -91,6 +93,12 @@ public final class CPIInventoryRecord
     }
 
 
+    public boolean inProcess(){
+        return (null != this.process);
+    }
+    public CPIProcess whichProcess(){
+        return this.process;
+    }
     /**
      * Used by {@link #write()}
      */
@@ -122,6 +130,14 @@ public final class CPIInventoryRecord
             }
             this.created = source.created;
             this.completed = source.completed;
+
+            if (this.isOpen()){
+
+                this.process = CPIProcess.Inventory;
+            }
+            else {
+                this.process = CPIProcess.Completed;
+            }
             return this;
         }
     }
@@ -129,6 +145,7 @@ public final class CPIInventoryRecord
      * Reinitialize record to init state
      */
     public CPIInventoryRecord clear(){
+        process = null;
         results = -1;
         identifier = null;
         sf = null;
@@ -145,6 +162,9 @@ public final class CPIInventoryRecord
      */
     public CPIInventoryRecord create(){
         clear();
+        {
+            this.process = CPIProcess.Inventory;
+        }
         setIdentifier();
         setCreated();
         setSession();
@@ -202,6 +222,8 @@ public final class CPIInventoryRecord
                  */
                 if (hasNotCompleted()){
 
+                    this.process = CPIProcess.Inventory;
+
                     setSession();
 
                     SQLiteQueryBuilder sQ = CPIDatabase.QuerySessionInternal();
@@ -213,6 +235,9 @@ public final class CPIInventoryRecord
                     finally {
                         cursor.close();
                     }
+                }
+                else {
+                    this.process = CPIProcess.Completed;
                 }
             }
             finally {
@@ -554,9 +579,13 @@ public final class CPIInventoryRecord
         final long completed = cursor.getLong(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.COMPLETED));
         if (0 < completed){
             this.completed = new Date(completed);
+
+            this.process = CPIProcess.Completed;
         }
         else {
             this.completed = null;
+
+            this.process = CPIProcess.Inventory;
         }
         return this;
     }
