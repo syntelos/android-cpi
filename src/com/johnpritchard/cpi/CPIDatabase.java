@@ -111,6 +111,16 @@ public final class CPIDatabase
 
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
         {
+            /*
+             * Initialize a new session
+             */
+            inventory.inventory();
+
+            inventory.setIdentifier();
+            inventory.setCreated();
+            inventory.setSession();
+            inventory.setTitle();
+
             SQLiteDatabase db = CPIDatabase.Readable();
             try {
                 SQLiteQueryBuilder rQ = null;
@@ -123,7 +133,7 @@ public final class CPIDatabase
                     rQ = CPIDatabase.QueryResultsInternal(inventory.cursor);
                 }
                 /*
-                 * Read the most recently created record
+                 * Look at the most recent session
                  */
                 final String[] projection = CPIDatabaseTables.Results.ProjectionInternal();
 
@@ -150,12 +160,11 @@ public final class CPIDatabase
                     cursor.close();
                 }
                 /*
-                 * Load the session table when the referenced results
-                 * record is incomplete
+                 * Look at the session table: delete when the most
+                 * recent session has completed (redundant to
+                 * completion operation)
                  */
                 if (null == inventory.completed){
-
-                    inventory.setSession();
 
                     SQLiteQueryBuilder sQ = CPIDatabase.QuerySessionInternal();
 
@@ -169,22 +178,42 @@ public final class CPIDatabase
                     finally {
                         cursor.close();
                     }
+                    /*
+                     * The most recent session doesn't exist
+                     */
+                    final int six = inventory.getSessionIndex();
+
+                    if (0 >= six || CPIInventory.Size <= six){
+                        /*
+                         * Create a new session
+                         */
+                        inventory.inventory();
+
+                        inventory.setIdentifier();
+                        inventory.setCreated();
+                        inventory.setSession();
+                        inventory.setTitle();
+                        /*
+                         * Ensure that the session table is clear
+                         */
+                        db.delete(CPIDatabase.SESSION,null,null);
+                    }
                 }
-                /*
-                 * Initialize a new session when the record is complete
-                 */
                 else {
                     /*
-                     * Ensure that the session table is clear
+                     * The most recent session has completed,
+                     * therefore create a new session
                      */
-                    db.delete(CPIDatabase.SESSION,null,null);
-
                     inventory.inventory();
 
                     inventory.setIdentifier();
                     inventory.setCreated();
                     inventory.setSession();
                     inventory.setTitle();
+                    /*
+                     * Ensure that the session table is clear
+                     */
+                    db.delete(CPIDatabase.SESSION,null,null);
                 }
             }
             finally {

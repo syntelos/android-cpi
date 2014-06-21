@@ -36,9 +36,13 @@ public final class CPIPostInput
         try {
             if (CPIProcess.Practice == inventory.process){
 
+                info("practice");
+
                 ViewAnimation.Script(Page.start);
             }
             else if (this.completion){
+
+                info("completion");
 
                 CPIDatabase.Completion(this.index,this.input);
 
@@ -46,9 +50,13 @@ public final class CPIPostInput
             }
             else if (CPIDatabase.Input(this.index,this.input)){
 
+                info("input");
+
                 CPIPageInventory.Input();
             }
             else {
+                info("not input");
+
                 throw new IllegalStateException();
             }
         }
