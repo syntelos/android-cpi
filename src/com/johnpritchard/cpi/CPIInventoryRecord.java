@@ -27,49 +27,6 @@ public final class CPIInventoryRecord
      */
     public final static CPIInventoryRecord Instance = new CPIInventoryRecord();
 
-    // private static ArrayList<CPIInventoryRecord> InstanceList;
-    // /**
-    //  */
-    // public final static void ListClear(){
-    //     InstanceList = null;
-    // }
-    // /**
-    //  * @return Cached copy of database query result
-    //  */
-    // public final static List<CPIInventoryRecord> List(){
-    //     if (null == InstanceList){
-    //         ArrayList<CPIInventoryRecord> list = new ArrayList();
-
-    //         SQLiteDatabase db = CPIDatabase.Readable();
-    //         try {
-    //             SQLiteQueryBuilder rQ = CPIDatabase.QueryResultsInternal();
-    //             /*
-    //              * In "created" order
-    //              */
-    //             Cursor cursor = rQ.query(db,null,null,null,null,null,CPIDatabaseTables.Results.CREATED+" asc",null);
-    //             try {
-    //                 while (cursor.moveToNext()){
-
-    //                     CPIInventoryRecord instance = (new CPIInventoryRecord()).results(cursor);
-
-    //                     if (instance.hasIdentifier()){
-
-    //                         list.add(instance);
-    //                     }
-    //                 }
-    //             }
-    //             finally {
-    //                 cursor.close();
-    //             }
-    //         }
-    //         finally {
-    //             db.close();
-    //         }
-    //         InstanceList = list;
-    //     }
-    //     return (List<CPIInventoryRecord>)InstanceList.clone();
-    // }
-
 
     protected volatile CPIProcess process;
 
@@ -131,36 +88,6 @@ public final class CPIInventoryRecord
     public boolean isClosed(){
         return (null == created);
     }
-    // /**
-    //  * Reinitialize record to state of source
-    //  */
-    // private CPIInventoryRecord copy(CPIInventoryRecord source){
-    //     if (null == source)
-    //         return this.clear();
-    //     else {
-    //         this.cursor = source.cursor;
-    //         this.identifier = source.identifier;
-    //         this.title = source.title;
-    //         this.sf = source.sf;
-    //         this.st = source.st;
-    //         this.nf = source.nf;
-    //         this.nt = source.nt;
-    //         if (null != source.session){
-    //             this.session = (List<CPIInventory>)((ArrayList<CPIInventory>)source.session).clone();
-    //         }
-    //         this.created = source.created;
-    //         this.completed = source.completed;
-
-    //         if (this.isOpen()){
-
-    //             this.process = CPIProcess.Inventory;
-    //         }
-    //         else {
-    //             this.process = CPIProcess.Completed;
-    //         }
-    //         return this;
-    //     }
-    // }
     /**
      * Reinitialize record to init state
      */
@@ -177,24 +104,6 @@ public final class CPIInventoryRecord
         completed = null;
         return this;
     }
-    // /**
-    //  * Used by {@link CPIPageView}
-    //  */
-    // protected boolean view(){
-    //     return (hasCompleted() || CPIInventory.Size == read());
-    // }
-    // /**
-    //  * Load the referenced record, or the most recently created record.
-    //  * 
-    //  * @return CPIInventory index
-    //  */
-    // protected int read(){
-
-    //     if (this.isClosed()){
-
-    //     }
-    //     return getSessionIndex();
-    // }
     public boolean hasCursor(){
         return (-1L < cursor);
     }
@@ -242,58 +151,6 @@ public final class CPIInventoryRecord
         this.title = this.created.toString();
         return this;
     }
-    // public boolean hasSf(){
-    //     return (null != sf);
-    // }
-    // public boolean hasNotSf(){
-    //     return (null == sf);
-    // }
-    // public Float getSf(){
-    //     return sf;
-    // }
-    // public CPIInventoryRecord setSf(Float sf){
-    //     this.sf = sf;
-    //     return this;
-    // }
-    // public boolean hasSt(){
-    //     return (null != st);
-    // }
-    // public boolean hasNotSt(){
-    //     return (null == st);
-    // }
-    // public Float getSt(){
-    //     return st;
-    // }
-    // public CPIInventoryRecord setSt(Float st){
-    //     this.st = st;
-    //     return this;
-    // }
-    // public boolean hasNf(){
-    //     return (null != nf);
-    // }
-    // public boolean hasNotNf(){
-    //     return (null == nf);
-    // }
-    // public Float getNf(){
-    //     return nf;
-    // }
-    // public CPIInventoryRecord setNf(Float nf){
-    //     this.nf = nf;
-    //     return this;
-    // }
-    // public boolean hasNt(){
-    //     return (null != nt);
-    // }
-    // public boolean hasNotNt(){
-    //     return (null == nt);
-    // }
-    // public Float getNt(){
-    //     return nt;
-    // }
-    // public CPIInventoryRecord setNt(Float nt){
-    //     this.nt = nt;
-    //     return this;
-    // }
     public boolean hasSession(){
         return (null != session);
     }
@@ -319,10 +176,6 @@ public final class CPIInventoryRecord
         this.session = new java.util.ArrayList(60);
         return this;
     }
-    // public CPIInventoryRecord setSession(List<CPIInventory> session){
-    //     this.session = session;
-    //     return this;
-    // }
     /**
      * Used by {@link #open()}.
      */
@@ -341,58 +194,28 @@ public final class CPIInventoryRecord
             return this.session.size();
         }
     }
-    // /**
-    //  * Used by {@link CPIPageInventory} 
-    //  */
-    // protected boolean updateSession(int index, CPIInventory input){
+    public boolean setSession(int index, CPIInventory input){
 
-    //     if (-1 < index && index < CPIInventory.Size){
+        final List<CPIInventory> session = this.getCreateSession();
 
-    //         SQLiteDatabase db = CPIDatabase.Writable();
-    //         try {
-    //             ContentValues values = new ContentValues();
-    //             {
-    //                 values.put(CPIDatabaseTables.Session.INDEX,index);
-    //                 values.put(CPIDatabaseTables.Session.CHOICE,input.name());
-    //             }
+        final int session_size = session.size();
 
-    //             long id = db.insert(CPIDatabase.SESSION,null,values);
-    //             if (0L > id){
+        if (index < session_size){
 
-    //                 if (1 != db.update(CPIDatabase.SESSION,values,CPIDatabaseTables.Session.INDEX+" = "+index,null))
-    //                 {
-    //                     return false;
-    //                 }
-    //             }
+            session.set(index,input);
 
-    //             final List<CPIInventory> session = getCreateSession();
+            return ((index+1) == CPIInventory.Size);
+        }
+        else if (index == session_size){
 
-    //             final int session_size = session.size();
+            session.add(input);
 
-    //             if (index < session_size){
-
-    //                 session.set(index,input);
-
-    //                 return true;
-    //             }
-    //             else if (index == session_size){
-
-    //                 session.add(input);
-
-    //                 return true;
-    //             }
-    //             else {
-    //                 throw new IllegalStateException(String.valueOf(index));
-    //             }
-    //         }
-    //         finally {
-    //             db.close();
-    //         }
-    //     }
-    //     else {
-    //         return false;
-    //     }
-    // }
+            return ((index+1) == CPIInventory.Size);
+        }
+        else {
+            throw new IllegalStateException(String.valueOf(index));
+        }
+    }
     public boolean hasCreated(){
         return (null != created);
     }
@@ -514,15 +337,13 @@ public final class CPIInventoryRecord
         }
         return values;
     }
-    public CPIInventoryRecord readSession(Cursor cursor){
+    public boolean readSession(Cursor cursor){
 
         final int index = cursor.getInt(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Session.INDEX));
 
         final String choice = cursor.getString(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Session.CHOICE));
 
-        this.session.set(index,CPIInventory.valueOf(choice));
-
-        return this;
+        return setSession(index,CPIInventory.valueOf(choice));
     }
     public ContentValues writeSession(int index){
 

@@ -10,7 +10,7 @@ public final class CPIPostInput
     extends ObjectLog
     implements Runnable
 {
-    private final static int Term = (CPIInventory.Size-1);
+    private final static int Terminal = (CPIInventory.Size-1);
 
 
     private final int index;
@@ -23,7 +23,7 @@ public final class CPIPostInput
         if (-1 < index && null != input){
             this.index = index;
             this.input = input;
-            this.completion = (Term == index);
+            this.completion = (Terminal == index);
         }
         else {
             throw new IllegalArgumentException();

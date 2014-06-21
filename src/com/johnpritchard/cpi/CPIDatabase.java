@@ -211,25 +211,7 @@ public final class CPIDatabase
             }
         }
 
-        final List<CPIInventory> session = inventory.getCreateSession();
-
-        final int session_size = session.size();
-
-        if (index < session_size){
-
-            session.set(index,input);
-
-            return ((index+1) == CPIInventory.Size);
-        }
-        else if (index == session_size){
-
-            session.add(input);
-
-            return ((index+1) == CPIInventory.Size);
-        }
-        else {
-            throw new IllegalStateException(String.valueOf(index));
-        }
+        return inventory.setSession(index,input);
     }
     public static boolean Input(int index, CPIInventory input){
 
