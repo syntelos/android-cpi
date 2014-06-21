@@ -16,18 +16,18 @@ public class CPIButtonR1
 
     public CPIButtonR1(){
         super(new Operand[]{
-                new Operand(Op.MoveTo,new float[]{2.0f,2.0f}),
-                new Operand(Op.LineTo,new float[]{4.0f,6.0f}),
-                new Operand(Op.LineTo,new float[]{2.0f,10.0f}),
-                new Operand(Op.LineTo,new float[]{4.0f,10.0f}),
-                new Operand(Op.LineTo,new float[]{6.0f,6.0f}),
-                new Operand(Op.LineTo,new float[]{4.0f,2.0f}),
+                new Operand(Op.MoveTo,new float[]{2.0f,4.0f}),
+                new Operand(Op.LineTo,new float[]{4.0f,12.0f}),
+                new Operand(Op.LineTo,new float[]{2.0f,20.0f}),
+                new Operand(Op.LineTo,new float[]{4.0f,20.0f}),
+                new Operand(Op.LineTo,new float[]{6.0f,12.0f}),
+                new Operand(Op.LineTo,new float[]{4.0f,4.0f}),
                 new Operand(Op.Close,new float[]{}),
             }, new Operand[]{
-                new Operand(Op.MoveTo,new float[]{0.0f,0.0f}),
-                new Operand(Op.LineTo,new float[]{0.0f,12.0f}),
-                new Operand(Op.LineTo,new float[]{8.0f,12.0f}),
-                new Operand(Op.LineTo,new float[]{8.0f,0.0f}),
+                new Operand(Op.MoveTo,new float[]{-4.0f,0.0f}),
+                new Operand(Op.LineTo,new float[]{-4.0f,24.0f}),
+                new Operand(Op.LineTo,new float[]{+12.0f,24.0f}),
+                new Operand(Op.LineTo,new float[]{+12.0f,0.0f}),
                 new Operand(Op.Close,new float[]{}),
             });
 
