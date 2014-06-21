@@ -140,13 +140,14 @@ public final class CPIDatabase
                 final String limit = "1";
 
                 Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
-                if (cursor.moveToFirst()){
-                    try {
+                try {
+                    if (cursor.moveToFirst()){
+
                         inventory.readResults(cursor);
                     }
-                    finally {
-                        cursor.close();
-                    }
+                }
+                finally {
+                    cursor.close();
                 }
                 /*
                  * Load the session table when the referenced results
@@ -160,7 +161,6 @@ public final class CPIDatabase
 
                     cursor = sQ.query(db,null,null,null,null,null,CPIDatabaseTables.Session.INDEX+" asc",null);
                     try {
-
                         while (cursor.moveToNext()){
 
                             inventory.readSession(cursor);
@@ -184,11 +184,51 @@ public final class CPIDatabase
                     inventory.setIdentifier();
                     inventory.setCreated();
                     inventory.setSession();
+                    inventory.setTitle();
                 }
             }
             finally {
                 db.close();
             }
+        }
+    }
+    private static boolean Session(SQLiteDatabase db, int index, CPIInventory input){
+
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+
+        ContentValues values = new ContentValues();
+        {
+            values.put(CPIDatabaseTables.Session.INDEX,index);
+            values.put(CPIDatabaseTables.Session.CHOICE,input.name());
+        }
+
+        long id = db.insert(CPIDatabase.SESSION,null,values);
+        if (0L > id){
+
+            if (1 != db.update(CPIDatabase.SESSION,values,CPIDatabaseTables.Session.INDEX+" = "+index,null)){
+
+                throw new IllegalStateException();
+            }
+        }
+
+        final List<CPIInventory> session = inventory.getCreateSession();
+
+        final int session_size = session.size();
+
+        if (index < session_size){
+
+            session.set(index,input);
+
+            return ((index+1) == CPIInventory.Size);
+        }
+        else if (index == session_size){
+
+            session.add(input);
+
+            return ((index+1) == CPIInventory.Size);
+        }
+        else {
+            throw new IllegalStateException(String.valueOf(index));
         }
     }
     public static boolean Input(int index, CPIInventory input){
@@ -199,40 +239,7 @@ public final class CPIDatabase
 
                 SQLiteDatabase db = CPIDatabase.Writable();
                 try {
-                    ContentValues values = new ContentValues();
-                    {
-                        values.put(CPIDatabaseTables.Session.INDEX,index);
-                        values.put(CPIDatabaseTables.Session.CHOICE,input.name());
-                    }
-
-                    long id = db.insert(CPIDatabase.SESSION,null,values);
-                    if (0L > id){
-
-                        if (1 != db.update(CPIDatabase.SESSION,values,CPIDatabaseTables.Session.INDEX+" = "+index,null))
-                            {
-                                return false;
-                            }
-                    }
-
-                    final List<CPIInventory> session = inventory.getCreateSession();
-
-                    final int session_size = session.size();
-
-                    if (index < session_size){
-
-                        session.set(index,input);
-
-                        return true;
-                    }
-                    else if (index == session_size){
-
-                        session.add(input);
-
-                        return true;
-                    }
-                    else {
-                        throw new IllegalStateException(String.valueOf(index));
-                    }
+                    return (!Session(db,index,input));
                 }
                 finally {
                     db.close();
@@ -240,6 +247,55 @@ public final class CPIDatabase
             }
             else {
                 return false;
+            }
+        }
+    }
+    /**
+     * Close an open session
+     */
+    public static void Completion(int index, CPIInventory input){
+
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        {
+            SQLiteDatabase db = Writable();
+            try {
+                if (Session(db,index,input) && CPIInventory.Complete(inventory)){
+                    /*
+                     * State
+                     */
+                    ContentValues state = inventory.writeResults();
+
+                    if (0L > inventory.cursor){
+
+                        inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
+                        if (0L > inventory.cursor){
+
+                            db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null);
+                        }
+                    }
+                    else {
+
+                        if (1 > db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null)){
+
+                            inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
+                        }
+                    }
+                    /*
+                     * Session
+                     */
+                    if (inventory.hasCompleted()){
+                        /*
+                         * Clear the session table
+                         */
+                        db.delete(CPIDatabase.SESSION,null,null);
+                    }
+                }
+                else {
+                    throw new IllegalStateException();
+                }
+            }
+            finally {
+                db.close();
             }
         }
     }
@@ -271,69 +327,24 @@ public final class CPIDatabase
                 final String limit = "1";
 
                 Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
-                if (cursor.moveToFirst()){
-                    /*
-                     * Have history
-                     */
-                    try {
+                try {
+                    if (cursor.moveToFirst()){
+                        /*
+                         * Have history
+                         */
                         inventory.readResults(cursor);
 
                         return;
                     }
-                    finally {
-                        cursor.close();
+                    else {
+                        /*
+                         * No history
+                         */
+                        return;
                     }
                 }
-                else {
-                    /*
-                     * No history
-                     */
-                    return;
-                }
-            }
-            finally {
-                db.close();
-            }
-        }
-    }
-    /**
-     * Close an open session
-     */
-    public static void Completion(){
-
-        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
-        {
-            SQLiteDatabase db = Writable();
-            try {
-                CPIInventory.Complete(inventory);
-                /*
-                 * State
-                 */
-                ContentValues state = inventory.writeResults();
-
-                if (0L > inventory.cursor){
-
-                    inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
-                    if (0L > inventory.cursor){
-
-                        db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null);
-                    }
-                }
-                else {
-
-                    if (1 > db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null)){
-
-                        inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
-                    }
-                }
-                /*
-                 * Session
-                 */
-                if (inventory.hasCompleted()){
-                    /*
-                     * Clear the session table
-                     */
-                    db.delete(CPIDatabase.SESSION,null,null);
+                finally {
+                    cursor.close();
                 }
             }
             finally {
@@ -370,24 +381,24 @@ public final class CPIDatabase
                 final String limit = null;
 
                 Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
+                try {
+                    if (cursor.moveToFirst()){
 
-                if (cursor.moveToFirst()){
 
-                    try {
                         inventory.readResults(cursor);
 
                         //Info("history prev: ok");
 
                         return true;
                     }
-                    finally {
-                        cursor.close();
+                    else {
+                        //Info("history prev: <end>");
+
+                        return false;
                     }
                 }
-                else {
-                    //Info("history prev: <end>");
-
-                    return false;
+                finally {
+                    cursor.close();
                 }
             }
             finally {
@@ -434,23 +445,23 @@ public final class CPIDatabase
                 final String limit = null;
 
                 Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
-                if (cursor.moveToFirst()){
-                    try {
+                try {
+                    if (cursor.moveToFirst()){
                         CPIInventoryRecord.Instance.readResults(cursor);
 
                         //Info("history next: ok");
 
                         return true;
                     }
-                    finally {
-                        cursor.close();
+                    else {
+
+                        //Info("history next: <end>");
+
+                        return false;
                     }
                 }
-                else {
-
-                    //Info("history next: <end>");
-
-                    return false;
+                finally {
+                    cursor.close();
                 }
             }
             finally {

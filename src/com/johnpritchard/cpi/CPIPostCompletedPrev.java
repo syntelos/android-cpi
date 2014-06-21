@@ -6,22 +6,23 @@ package com.johnpritchard.cpi;
 /**
  * 
  */
-public final class CPIPostCompleted
+public final class CPIPostCompletedPrev
     extends ObjectLog
     implements Runnable
 {
 
 
-    public CPIPostCompleted(){
+    public CPIPostCompletedPrev(){
         super();
     }
 
 
     public void run(){
         try {
-            CPIDatabase.Completed();
+            if (CPIDatabase.CompletedPrev()){
 
-            ViewAnimation.Script(Page.view);
+                CPIPageView.View();
+            }
         }
         catch (Exception exc){
             error("post",exc);

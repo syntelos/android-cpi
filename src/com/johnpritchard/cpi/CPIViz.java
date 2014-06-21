@@ -42,6 +42,9 @@ public final class CPIViz
     private final static float IMG_WH2 = (IMG_WH/2.0f);
 
 
+    public final static CPIViz Instance = new CPIViz();
+
+
     protected final RectF clipY = new RectF();
     protected final RectF clipB = new RectF();
     protected final RectF clipG = new RectF();

@@ -17,30 +17,34 @@ public final class CPIPageView
 
     public static void View(){
 
-        //(page change process)
+        CPIViz.Instance.update();
+
+        CPIOutputTitle.Instance.update();
+
+        ViewAnimation.Script();
     }
 
 
 
     private CPIPageView(){
         super(new ViewPage2DComponent[]{
-                new CPIViz()
+                CPIViz.Instance,
+                CPIOutputTitle.Instance
             });
     }
 
 
     @Override
+    protected void init(){
+
+        vertical();
+    }
+    @Override
     protected void layout(){
 
-        image();
+        CPIViz.Instance.update();
 
         scale();
-    }
-    protected void image(){
-
-        final CPIViz image = (CPIViz)components[0];
-
-        image.update();
     }
     @Override
     public String name(){
@@ -55,6 +59,14 @@ public final class CPIPageView
 
         switch(in.type()){
 
+        case Left:
+            CPI.Post2D(new CPIPostCompletedPrev());
+            return;
+
+        case Right:
+            CPI.Post2D(new CPIPostCompletedNext());
+            return;
+
         case Enter:
             view.script(Page.start);
             return;
@@ -62,5 +74,9 @@ public final class CPIPageView
         default:
             return;
         }
+    }
+    @Override
+    protected boolean navigationInclude(int index, ViewPage2DComponent c){
+        return false;
     }
 }

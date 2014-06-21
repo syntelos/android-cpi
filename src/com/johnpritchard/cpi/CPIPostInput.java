@@ -10,9 +10,12 @@ public final class CPIPostInput
     extends ObjectLog
     implements Runnable
 {
+    private final static int Term = (CPIInventory.Size-1);
+
 
     private final int index;
     private final CPIInventory input;
+    private final boolean completion;
 
 
     public CPIPostInput(int index, CPIInventory input){
@@ -20,6 +23,7 @@ public final class CPIPostInput
         if (-1 < index && null != input){
             this.index = index;
             this.input = input;
+            this.completion = (Term == index);
         }
         else {
             throw new IllegalArgumentException();
@@ -34,16 +38,24 @@ public final class CPIPostInput
 
                 ViewAnimation.Script(Page.start);
             }
+            else if (this.completion){
+
+                CPIDatabase.Completion(this.index,this.input);
+
+                ViewAnimation.Script(Page.view);
+            }
             else if (CPIDatabase.Input(this.index,this.input)){
 
                 CPIPageInventory.Input();
             }
             else {
-                ViewAnimation.Script(Page.start);
+                throw new IllegalStateException();
             }
         }
         catch (Exception exc){
             error("post",exc);
+
+            ViewAnimation.Script(Page.start);
         }
     }
 }

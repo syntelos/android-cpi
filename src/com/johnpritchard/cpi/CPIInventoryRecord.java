@@ -238,6 +238,10 @@ public final class CPIInventoryRecord
         this.title = title;
         return this;
     }
+    public CPIInventoryRecord setTitle(){
+        this.title = this.created.toString();
+        return this;
+    }
     // public boolean hasSf(){
     //     return (null != sf);
     // }

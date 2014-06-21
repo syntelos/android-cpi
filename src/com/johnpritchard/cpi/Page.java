@@ -4,7 +4,8 @@
 package com.johnpritchard.cpi;
 
 /**
- * 
+ * Buttons can't use "simple input" (gestures).  Non button pages use
+ * simple input.
  */
 public enum Page {
     intro    (CPIPageIntro.Instance,     true),
