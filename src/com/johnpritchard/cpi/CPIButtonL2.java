@@ -10,7 +10,7 @@ import path.Operand;
  * 
  */
 public class CPIButtonL2
-    extends ViewPage2DButtonPlain
+    extends CPIButtonInventoryAbstract
 {
 
 
