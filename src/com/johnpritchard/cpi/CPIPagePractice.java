@@ -9,19 +9,24 @@ import android.graphics.RectF;
 /**
  * 
  */
-public final class CPIPageExamples
+public final class CPIPagePractice
     extends CPIPageInventory
 {
 
-    public final static CPIPageExamples Instance = new CPIPageExamples();
+    public final static CPIPagePractice Instance = new CPIPagePractice();
 
     protected final static String[] CatalogExample = {
         "Vanilla",
         "Chocolate"
     };
 
+    public static void View(){
 
-    private CPIPageExamples(){
+        //(page change process)
+    }
+
+
+    private CPIPagePractice(){
         super();
     }
 
@@ -37,19 +42,11 @@ public final class CPIPageExamples
         refocus();
     }
     @Override
-    protected void input(CPIInventory response){
-
-        if (-1 < enter()){
-
-            view.script(Page.start);
-        }
-    }
-    @Override
     public String name(){
-        return Page.examples.name();
+        return Page.practice.name();
     }
     @Override
     public Page value(){
-        return Page.examples;
+        return Page.practice;
     }
 }

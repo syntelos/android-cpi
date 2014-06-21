@@ -20,11 +20,8 @@ import java.util.StringTokenizer;
 public abstract class CPICode {
 
     public interface Data {
+
         public boolean hasCPICodeData();
-        public Float getSf();
-        public Float getSt();
-        public Float getNf();
-        public Float getNt();
     }
 
     /**
@@ -172,13 +169,14 @@ public abstract class CPICode {
         public final float nt, nf, st, sf;
         public final String code;
 
-        public Encode(CPICode.Data data){
+        public Encode(CPIInventoryRecord data){
             super();
             if (null != data && data.hasCPICodeData()){
-                this.nt = data.getNt();
-                this.nf = data.getNf();
-                this.st = data.getSt();
-                this.sf = data.getSf();
+
+                this.nt = data.nt;
+                this.nf = data.nf;
+                this.st = data.st;
+                this.sf = data.sf;
 
                 this.code = Encode(this.nt,this.nf,this.st,this.sf);
             }

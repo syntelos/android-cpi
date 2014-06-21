@@ -62,13 +62,13 @@ public final class CPIPageStart
                 view.script(Page.intro);
                 break;
             case PRACTICE:
-                view.script(Page.examples);
+                CPI.Post2D(new CPIPostPractice());
                 break;
             case INVENTORY:
-                view.script(Page.inventory);
+                CPI.Post2D(new CPIPostInventory());
                 break;
             case COMPLETED:
-                view.script(Page.view);
+                CPI.Post2D(new CPIPostCompleted());
                 break;
             case ABOUT:
                 view.script(Page.about);

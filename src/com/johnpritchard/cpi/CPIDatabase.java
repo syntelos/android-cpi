@@ -3,13 +3,16 @@
  */
 package com.johnpritchard.cpi;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * The CPI database has two tables: results and session.  The results
@@ -91,7 +94,375 @@ public final class CPIDatabase
 
         return qb;
     }
+    /**
+     * Prepare for practice
+     */
+    public static void Practice(){
 
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        {
+            inventory.practice();
+        }
+    }
+    /**
+     * Open a new or existing session
+     */
+    public static void Inventory(){
+
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        {
+            SQLiteDatabase db = CPIDatabase.Readable();
+            try {
+                SQLiteQueryBuilder rQ = null;
+
+                if (0L > inventory.cursor){
+
+                    rQ = CPIDatabase.QueryResultsInternal();
+                }
+                else {
+                    rQ = CPIDatabase.QueryResultsInternal(inventory.cursor);
+                }
+                /*
+                 * Read the most recently created record
+                 */
+                final String[] projection = CPIDatabaseTables.Results.ProjectionInternal();
+
+                final String where = null;
+
+                final String[] whereargs = null;
+
+                final String groupby = null;
+
+                final String having = null;
+
+                final String orderby = CPIDatabaseTables.Results.CREATED+" desc";
+
+                final String limit = "1";
+
+                Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
+                if (cursor.moveToFirst()){
+                    try {
+                        inventory.readResults(cursor);
+                    }
+                    finally {
+                        cursor.close();
+                    }
+                }
+                /*
+                 * Load the session table when the referenced results
+                 * record is incomplete
+                 */
+                if (null == inventory.completed){
+
+                    inventory.setSession();
+
+                    SQLiteQueryBuilder sQ = CPIDatabase.QuerySessionInternal();
+
+                    cursor = sQ.query(db,null,null,null,null,null,CPIDatabaseTables.Session.INDEX+" asc",null);
+                    try {
+
+                        while (cursor.moveToNext()){
+
+                            inventory.readSession(cursor);
+                        }
+                    }
+                    finally {
+                        cursor.close();
+                    }
+                }
+                /*
+                 * Initialize a new session when the record is complete
+                 */
+                else {
+                    /*
+                     * Ensure that the session table is clear
+                     */
+                    db.delete(CPIDatabase.SESSION,null,null);
+
+                    inventory.inventory();
+
+                    inventory.setIdentifier();
+                    inventory.setCreated();
+                    inventory.setSession();
+                }
+            }
+            finally {
+                db.close();
+            }
+        }
+    }
+    public static boolean Input(int index, CPIInventory input){
+
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        {
+            if (-1 < index && index < CPIInventory.Size){
+
+                SQLiteDatabase db = CPIDatabase.Writable();
+                try {
+                    ContentValues values = new ContentValues();
+                    {
+                        values.put(CPIDatabaseTables.Session.INDEX,index);
+                        values.put(CPIDatabaseTables.Session.CHOICE,input.name());
+                    }
+
+                    long id = db.insert(CPIDatabase.SESSION,null,values);
+                    if (0L > id){
+
+                        if (1 != db.update(CPIDatabase.SESSION,values,CPIDatabaseTables.Session.INDEX+" = "+index,null))
+                            {
+                                return false;
+                            }
+                    }
+
+                    final List<CPIInventory> session = inventory.getCreateSession();
+
+                    final int session_size = session.size();
+
+                    if (index < session_size){
+
+                        session.set(index,input);
+
+                        return true;
+                    }
+                    else if (index == session_size){
+
+                        session.add(input);
+
+                        return true;
+                    }
+                    else {
+                        throw new IllegalStateException(String.valueOf(index));
+                    }
+                }
+                finally {
+                    db.close();
+                }
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    /**
+     * View the most recently closed session
+     */
+    public static void Completed(){
+
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        {
+            inventory.completed();
+
+            SQLiteDatabase db = Readable();
+            try {
+                SQLiteQueryBuilder rQ = QueryResultsInternal();
+
+                final String[] projection = CPIDatabaseTables.Results.ProjectionInternal();
+
+                final String where = CPIDatabaseTables.Results.COMPLETED+" != NULL";
+
+                final String[] whereargs = null;
+
+                final String groupby = null;
+
+                final String having = null;
+
+                final String orderby = CPIDatabaseTables.Results.CREATED+" desc";
+
+                final String limit = "1";
+
+                Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
+                if (cursor.moveToFirst()){
+                    /*
+                     * Have history
+                     */
+                    try {
+                        inventory.readResults(cursor);
+
+                        return;
+                    }
+                    finally {
+                        cursor.close();
+                    }
+                }
+                else {
+                    /*
+                     * No history
+                     */
+                    return;
+                }
+            }
+            finally {
+                db.close();
+            }
+        }
+    }
+    /**
+     * Close an open session
+     */
+    public static void Completion(){
+
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        {
+            SQLiteDatabase db = Writable();
+            try {
+                CPIInventory.Complete(inventory);
+                /*
+                 * State
+                 */
+                ContentValues state = inventory.writeResults();
+
+                if (0L > inventory.cursor){
+
+                    inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
+                    if (0L > inventory.cursor){
+
+                        db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null);
+                    }
+                }
+                else {
+
+                    if (1 > db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null)){
+
+                        inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
+                    }
+                }
+                /*
+                 * Session
+                 */
+                if (inventory.hasCompleted()){
+                    /*
+                     * Clear the session table
+                     */
+                    db.delete(CPIDatabase.SESSION,null,null);
+                }
+            }
+            finally {
+                db.close();
+            }
+        }
+    }
+    /**
+     * Called from poster to setup the {@link CPIInventoryRecord}
+     */
+    public static boolean CompletedPrev(){
+
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        final long id = inventory.cursor;
+
+        if (0L < id){
+
+            SQLiteDatabase db = Readable();
+            try {
+                SQLiteQueryBuilder rQ = QueryResultsInternal(id-1);
+
+                final String[] projection = CPIDatabaseTables.Results.ProjectionInternal();
+
+                final String where = CPIDatabaseTables.Results.COMPLETED+" != NULL";
+
+                final String[] whereargs = null;
+
+                final String groupby = null;
+
+                final String having = null;
+
+                final String orderby = null;
+
+                final String limit = null;
+
+                Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
+
+                if (cursor.moveToFirst()){
+
+                    try {
+                        inventory.readResults(cursor);
+
+                        //Info("history prev: ok");
+
+                        return true;
+                    }
+                    finally {
+                        cursor.close();
+                    }
+                }
+                else {
+                    //Info("history prev: <end>");
+
+                    return false;
+                }
+            }
+            finally {
+                db.close();
+            }
+        }
+        else if (0L > id){
+            //Info("history prev: <missing cursor>");
+
+            return false;
+        }
+        else {
+            //Info("history prev: <end>");
+
+            return false;
+        }
+    }
+    /**
+     * Called from poster to setup the {@link CPIInventoryRecord}
+     */
+    public static boolean CompletedNext(){
+
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        final long id = inventory.cursor;
+
+        if (-1 < id){
+
+            SQLiteDatabase db = Readable();
+            try {
+                SQLiteQueryBuilder rQ = QueryResultsInternal(id+1);
+
+                final String[] projection = CPIDatabaseTables.Results.ProjectionInternal();
+
+                final String where = CPIDatabaseTables.Results.COMPLETED+" != NULL";
+
+                final String[] whereargs = null;
+
+                final String groupby = null;
+
+                final String having = null;
+
+                final String orderby = null;
+
+                final String limit = null;
+
+                Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
+                if (cursor.moveToFirst()){
+                    try {
+                        CPIInventoryRecord.Instance.readResults(cursor);
+
+                        //Info("history next: ok");
+
+                        return true;
+                    }
+                    finally {
+                        cursor.close();
+                    }
+                }
+                else {
+
+                    //Info("history next: <end>");
+
+                    return false;
+                }
+            }
+            finally {
+                db.close();
+            }
+        }
+        else {
+            //Info("history next: <missing cursor>");
+
+            return false;
+        }
+    }
     private static HashMap<String, String> RESULTS_MAP_INTERNAL = CPIDatabaseTables.Results.Internal();
 
     private static HashMap<String, String> RESULTS_MAP_EXPORT = CPIDatabaseTables.Results.Export();

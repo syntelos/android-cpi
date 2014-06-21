@@ -15,7 +15,10 @@ public final class CPIPageView
 
     public final static CPIPageView Instance = new CPIPageView();
 
+    public static void View(){
 
+        //(page change process)
+    }
 
 
 
@@ -52,9 +55,6 @@ public final class CPIPageView
 
         switch(in.type()){
 
-        case Back:
-        case Up:
-        case Down:
         case Enter:
             view.script(Page.start);
             return;

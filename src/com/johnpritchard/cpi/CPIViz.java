@@ -119,31 +119,31 @@ public final class CPIViz
 
         inside.reset();
 
-        if (CPIInventoryRecord.Instance.view()){
+        final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
+        if (inventory.hasCPICodeData()){
             /*
              * actual record data
              */
-            st = CPIInventoryRecord.Instance.getSt();
-            sf = CPIInventoryRecord.Instance.getSf();
-            nt = CPIInventoryRecord.Instance.getNt();
-            nf = CPIInventoryRecord.Instance.getNf();
+            st = inventory.st;
+            sf = inventory.sf;
+            nt = inventory.nt;
+            nf = inventory.nf;
 
 
-            float s_st = IMG_WH2*st;
-            float s_sf = IMG_WH2*sf;
-            float s_nt = IMG_WH2*nt;
-            float s_nf = IMG_WH2*nf;
+            final float s_st = IMG_WH2*st;
+            final float s_sf = IMG_WH2*sf;
+            final float s_nt = IMG_WH2*nt;
+            final float s_nf = IMG_WH2*nf;
 
-            float x0 = (IMG_WH2 - s_st);
-            float y0 = (IMG_WH2 - s_st);
-            float x1 = (IMG_WH2 + s_sf);
-            float y1 = (IMG_WH2 - s_sf);
-            float x2 = (IMG_WH2 + s_nf);
-            float y2 = (IMG_WH2 + s_nf);
-            float x3 = (IMG_WH2 - s_nt);
-            float y3 = (IMG_WH2 + s_nt);
+            final float x0 = (IMG_WH2 - s_st);
+            final float y0 = (IMG_WH2 - s_st);
+            final float x1 = (IMG_WH2 + s_sf);
+            final float y1 = (IMG_WH2 - s_sf);
+            final float x2 = (IMG_WH2 + s_nf);
+            final float y2 = (IMG_WH2 + s_nf);
+            final float x3 = (IMG_WH2 - s_nt);
+            final float y3 = (IMG_WH2 + s_nt);
 
-            inside.reset();
 
             inside.moveTo(x0,y0);
             inside.lineTo(x1,y1);

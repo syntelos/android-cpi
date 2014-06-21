@@ -37,7 +37,6 @@ public final class CPIPageAbout
 
         switch(in.type()){
 
-        case Back:
         case Up:
         case Down:
         case Enter:

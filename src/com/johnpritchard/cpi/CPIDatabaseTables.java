@@ -58,6 +58,10 @@ public final class CPIDatabaseTables {
             CREATED,
             COMPLETED
         };
+        protected final static String[] ProjectionInternal(){
+
+            return InternalList.clone();
+        }
         public final static HashMap<String,String> Internal(){
             HashMap<String, String> internal = new HashMap();
 
@@ -75,6 +79,10 @@ public final class CPIDatabaseTables {
             CREATED,
             COMPLETED
         };
+        protected final static String[] ProjectionExport(){
+
+            return ExportList.clone();
+        }
         public final static HashMap<String,String> Export(){
             HashMap<String, String> export = new HashMap();
 
@@ -132,6 +140,10 @@ public final class CPIDatabaseTables {
             INDEX,
             CHOICE
         };
+        protected final static String[] ProjectionInternal(){
+
+            return InternalList.clone();
+        }
         public final static HashMap<String,String> Internal(){
             HashMap<String, String> internal = new HashMap();
 

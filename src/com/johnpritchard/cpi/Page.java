@@ -10,7 +10,7 @@ public enum Page {
     intro    (CPIPageIntro.Instance,     true),
     start    (CPIPageStart.Instance,     false),
     view     (CPIPageView.Instance,      true),
-    examples (CPIPageExamples.Instance,  false),
+    practice (CPIPagePractice.Instance,  false),
     inventory(CPIPageInventory.Instance, false),
     about    (CPIPageAbout.Instance,     true);
 

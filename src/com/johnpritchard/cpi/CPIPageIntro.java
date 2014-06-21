@@ -39,9 +39,10 @@ public final class CPIPageIntro
 
         switch(in.type()){
 
-        case Back:
         case Up:
         case Down:
+        case Left:
+        case Right:
         case Enter:
             view.script(Page.start);
             return;

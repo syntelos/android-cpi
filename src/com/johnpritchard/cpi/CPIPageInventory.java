@@ -13,8 +13,6 @@ public class CPIPageInventory
     extends ViewPage2D
 {
 
-    public final static CPIPageInventory Instance = new CPIPageInventory();
-
     private final static int NONE = -1;
     /*
      * First row
@@ -44,7 +42,16 @@ public class CPIPageInventory
     private final static int BO = BUTTON_L4;
     private final static int BC = (BUTTON_R4-LABEL_RIGHT);
 
+    public final static CPIPageInventory Instance = new CPIPageInventory();
 
+    public final static void Input(){
+
+        Instance.input();
+
+        ViewAnimation.Script();
+    }
+    public static void View(){
+    }
 
     private volatile int inventoryIndex;
 
@@ -93,20 +100,19 @@ public class CPIPageInventory
     @Override
     protected void layout(){
 
-        if (CPIInventoryRecord.Instance.view()){
+        words();
 
-            view.script(Page.view);
-        }
-        else {
+        scale();
+    }
+    protected void input(){
 
-            words();
+        words();
 
-            scale();
-        }
+        refocus();
     }
     protected String[] catalog(){
 
-        this.inventoryIndex = CPIInventoryRecord.Instance.read();
+        this.inventoryIndex = CPIInventoryRecord.Instance.getSessionIndex();
 
         return CPIInventoryCatalog.Item(this.inventoryIndex);
     }
@@ -170,21 +176,7 @@ public class CPIPageInventory
             }
         }
         else {
-            CPIInventoryRecord.Instance.write();
-
-            view.script(Page.view);
-        }
-    }
-    protected void input(CPIInventory response){
-
-        if (CPIInventoryRecord.Instance.updateSession(this.inventoryIndex,response)){
-
-            words();
-
-            refocus();
-        }
-        else {
-            view.script(Page.start);
+            throw new IllegalStateException();
         }
     }
     /**
@@ -206,13 +198,7 @@ public class CPIPageInventory
     @Override
     protected void focus(){
 
-        if (CPIInventoryRecord.Instance.view()){
-
-            view.script(Page.view);
-        }
-        else {
-            refocus();
-        }
+        refocus();
     }
     @Override
     protected int first(){
@@ -252,34 +238,33 @@ public class CPIPageInventory
             this.back = false;
             switch(enter()){
             case BUTTON_L4:
-                input(CPIInventory.L4);
+                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.L4));
                 return;
             case BUTTON_L3:
-                input(CPIInventory.L3);
+                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.L3));
                 return;
             case BUTTON_L2:
-                input(CPIInventory.L2);
+                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.L2));
                 return;
             case BUTTON_L1:
-                input(CPIInventory.L1);
+                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.L1));
                 return;
             case BUTTON_R1:
-                input(CPIInventory.R1);
+                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.R1));
                 return;
             case BUTTON_R2:
-                input(CPIInventory.R2);
+                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.R2));
                 return;
             case BUTTON_R3:
-                input(CPIInventory.R3);
+                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.R3));
                 return;
             case BUTTON_R4:
-                input(CPIInventory.R4);
+                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.R4));
                 return;
             default:
                 return;
             }
 
-        case Back:
         case Up:
         case Down:
             if (this.back){

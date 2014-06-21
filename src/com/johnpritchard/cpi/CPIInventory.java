@@ -61,10 +61,10 @@ public enum CPIInventory
 
                     final CPIInventory.Product product = new CPIInventory.Product(session);
 
-                    record.setNf( product.normalized_nf);
-                    record.setSf( product.normalized_sf);
-                    record.setNt( product.normalized_nt);
-                    record.setSt( product.normalized_st);
+                    record.nf = product.normalized_nf;
+                    record.sf = product.normalized_sf;
+                    record.nt = product.normalized_nt;
+                    record.st = product.normalized_st;
 
                     record.setCompleted();
 
@@ -76,11 +76,7 @@ public enum CPIInventory
     }
     public final static CPICode.Encode Encode(CPIInventoryRecord record){
 
-        return new CPICode.Encode(record.getNt(),
-                               record.getNf(),
-                               record.getSt(),
-                               record.getSf());
-
+        return new CPICode.Encode(record.nt,record.nf,record.st,record.sf);
     }
     public final static int ValueOf(CPIInventory ri){
         switch (ri){
