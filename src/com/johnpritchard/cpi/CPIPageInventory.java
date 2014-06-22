@@ -110,7 +110,7 @@ public class CPIPageInventory
 
         refocus();
     }
-    protected String[] catalog(){
+    protected CPITextInventory[] catalog(){
 
         this.inventoryIndex = CPIInventoryRecord.Instance.getSessionIndex();
 
@@ -118,28 +118,25 @@ public class CPIPageInventory
     }
     protected void words(){
 
-        String[] catalog = catalog();
+        CPITextInventory[] catalog = catalog();
 
         if (null != catalog){
 
-            final CPITextInventory word_left = (CPITextInventory)components[LABEL_LEFT];
+            final CPITextInventory word_left = (CPITextInventory)(components[LABEL_LEFT] = catalog[0]);
 
-            final CPITextInventory word_right = (CPITextInventory)components[LABEL_RIGHT];
+            final CPITextInventory word_right = (CPITextInventory)(components[LABEL_RIGHT] = catalog[1]);
 
             /*
              * Define objective bounding boxes for each word
              */
+
+            RectF dstL = new RectF(), dstR = new RectF();
             {
-                RectF dstL = new RectF();
-                {
-                    dstL.union(components[BUTTON_L1].bounds());
-                    dstL.union(components[BUTTON_L4].bounds());
-                }
-                RectF dstR = new RectF();
-                {
-                    dstR.union(components[BUTTON_R1].bounds());
-                    dstR.union(components[BUTTON_R4].bounds());
-                }
+                dstL.union(components[BUTTON_L1].bounds());
+                dstL.union(components[BUTTON_L4].bounds());
+
+                dstR.union(components[BUTTON_R1].bounds());
+                dstR.union(components[BUTTON_R4].bounds());
 
                 final float dst_h = (dstL.bottom - dstL.top);
                 final float pv = (dst_h * 0.5f);
@@ -151,28 +148,14 @@ public class CPIPageInventory
 
                 dstR.top = dst_top;
                 dstR.bottom = dst_bottom;
-
-                word_left.dst(dstL);
-
-                word_right.dst(dstR);
             }
-
-            /*
-             * Define word vertex sets from logical strings
-             */
-            {
-                word_left.setText(catalog[0]);
-
-                word_right.setText(catalog[1]);
-            }
-
             /*
              * Center vertex sets within their respective objectives
              */
             {
-                word_left.center(this.src);
+                word_left.center(dstL);
 
-                word_right.center(this.src);
+                word_right.center(dstR);
             }
         }
         else {

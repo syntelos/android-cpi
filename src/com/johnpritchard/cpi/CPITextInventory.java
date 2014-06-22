@@ -14,8 +14,6 @@ public final class CPITextInventory
     extends ViewPage2DComponentPath
 {
 
-    protected final RectF dst = new RectF();
-
     protected final RectF src = new RectF();
 
     protected final Matrix center = new Matrix();
@@ -27,44 +25,47 @@ public final class CPITextInventory
          * not calling setText
          */
         this.fill.getTextPath(text,0,text.length(),0.0f,TextSize,this.path);
+        this.path.computeBounds(this.src,true);
+
         this.appendName(text);
     }
 
 
     /**
-     * Used by {@link CPIPageInventory} 
-     */
-    protected void dst(RectF dst){
-
-        this.dst.set(dst);
-    }
-    /**
-     * Used by {@link CPIPageInventory} 
      */
     @Override
     public ViewPage2DComponentPath setText(String text){
 
-        this.reset();
+        return this;
+    }
+    /**
+     * Used by {@link CPIInventoryCatalog} 
+     */
+    protected CPITextInventory group(RectF group){
 
-        this.fill.getTextPath(text,0,text.length(),0.0f,TextSize,this.path);
+        this.src.top = group.top;
+        this.src.bottom = group.bottom;
 
-        this.path.computeBounds(this.src,true);
+        this.center.setRectToRect(this.src,group,Matrix.ScaleToFit.CENTER);
+
+        this.path.transform(this.center);
+
+        this.bounds.set(group);
 
         return this;
     }
     /**
      * Used by {@link CPIPageInventory} 
      */
-    protected void center(RectF src){
+    protected CPITextInventory center(RectF dst){
 
-        this.src.top = src.top;
-        this.src.bottom = src.bottom;
-
-        this.center.setRectToRect(this.src,this.dst,Matrix.ScaleToFit.CENTER);
+        this.center.setRectToRect(this.bounds,dst,Matrix.ScaleToFit.CENTER);
 
         this.path.transform(this.center);
 
-        this.path.computeBounds(this.bounds,true);
+        this.bounds.set(dst);
+
+        return this;
     }
     @Override
     public void draw(Canvas c){

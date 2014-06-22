@@ -12,12 +12,12 @@ import android.graphics.RectF;
 public final class CPIPagePractice
     extends CPIPageInventory
 {
-
-    public final static CPIPagePractice Instance = new CPIPagePractice();
-
-    protected final static String[] CatalogExample = {
-        "Vanilla",
-        "Chocolate"
+    static {
+        CPIInventoryCatalog.Init();
+    }
+    protected final static CPITextInventory[] CatalogExample = {
+        (new CPITextInventory("Vanilla").group(CPIInventoryCatalog.GROUP)),
+        (new CPITextInventory("Chocolate").group(CPIInventoryCatalog.GROUP))
     };
 
     public static void View(){
@@ -26,13 +26,16 @@ public final class CPIPagePractice
     }
 
 
+    public final static CPIPagePractice Instance = new CPIPagePractice();
+
+
     private CPIPagePractice(){
         super();
     }
 
 
     @Override
-    protected String[] catalog(){
+    protected CPITextInventory[] catalog(){
 
         return CatalogExample;
     }
