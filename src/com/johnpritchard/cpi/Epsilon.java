@@ -54,6 +54,22 @@ public abstract class Epsilon
         else
             return constant;
     }
+    public void Transform(android.graphics.RectF src, android.graphics.Matrix m){
+
+        float[] fv_src = {
+            src.left, src.top,
+            src.right, src.bottom
+        };
+
+        float[] fv_dst = new float[4];
+
+        m.mapPoints(fv_dst,0,fv_src,0,2);
+
+        src.left = fv_dst[0];
+        src.top = fv_dst[1];
+        src.right = fv_dst[2];
+        src.bottom = fv_dst[3];
+    }
 
     protected final static float Seconds(double ms){
 

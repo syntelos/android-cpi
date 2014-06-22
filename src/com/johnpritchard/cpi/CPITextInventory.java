@@ -32,13 +32,6 @@ public final class CPITextInventory
 
 
     /**
-     */
-    @Override
-    public ViewPage2DComponentPath setText(String text){
-
-        return this;
-    }
-    /**
      * Used by {@link CPIInventoryCatalog} 
      */
     protected CPITextInventory group(RectF group){
@@ -75,5 +68,26 @@ public final class CPITextInventory
 
         c.restore();
     }
+    @Override
+    public RectF bounds(){
 
+        return this.bounds;
+    }
+    @Override
+    public void transform(Matrix m){
+
+        path.transform(m);
+
+        Transform(bounds,m);
+    }
+    @Override
+    public void reset(){
+    }
+    @Override
+    public ViewPage2DComponentPath setText(String text){
+        return this;
+    }
+    @Override
+    public void group(final RectF dim, final float pad){
+    }
 }

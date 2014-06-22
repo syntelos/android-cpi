@@ -53,11 +53,10 @@ public class CPIPageInventory
     public static void View(){
     }
 
+
     private volatile int inventoryIndex;
 
     private volatile boolean back;
-
-    private RectF src;
 
 
     protected CPIPageInventory(){
@@ -82,7 +81,7 @@ public class CPIPageInventory
         /*
          * Abstract words and buttons geometry
          */
-        this.src = center(WO,WC);
+        RectF src = center(WO,WC);
 
         RectF buttons = center(BO,BC);
 
@@ -125,11 +124,9 @@ public class CPIPageInventory
             final CPITextInventory word_left = (CPITextInventory)(components[LABEL_LEFT] = catalog[0]);
 
             final CPITextInventory word_right = (CPITextInventory)(components[LABEL_RIGHT] = catalog[1]);
-
             /*
              * Define objective bounding boxes for each word
              */
-
             RectF dstL = new RectF(), dstR = new RectF();
             {
                 dstL.union(components[BUTTON_L1].bounds());
