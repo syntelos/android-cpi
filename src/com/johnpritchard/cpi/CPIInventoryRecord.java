@@ -256,7 +256,7 @@ public final class CPIInventoryRecord
     }
     public boolean hasCPICodeData(){
 
-        return (0.0f != sf && 0.0f != st && 0.0f != nf && 0.0f != nt);
+        return (0.0f != sf || 0.0f != st || 0.0f != nf || 0.0f != nt);
     }
     public boolean hasNotCPICodeData(){
 
