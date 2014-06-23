@@ -36,27 +36,27 @@ public final class CPIPostInput
         try {
             if (CPIProcess.Practice == inventory.process){
 
-                info("practice");
+                //info("practice");
 
                 ViewAnimation.Script(Page.start);
             }
             else if (this.completion){
 
-                info("completion");
+                //info("completion");
 
                 CPIDatabase.Completion(this.index,this.input);
+
+                CPIPageView.View();
 
                 ViewAnimation.Script(Page.view);
             }
             else if (CPIDatabase.Input(this.index,this.input)){
 
-                info("input");
+                //info("input");
 
                 CPIPageInventory.Input();
             }
             else {
-                info("not input");
-
                 throw new IllegalStateException();
             }
         }

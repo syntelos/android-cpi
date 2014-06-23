@@ -44,6 +44,11 @@ public final class CPIViz
 
     public final static CPIViz Instance = new CPIViz();
 
+    public final static void Update(){
+
+        Instance.update();
+    }
+
 
     protected final RectF clipY = new RectF();
     protected final RectF clipB = new RectF();
@@ -124,6 +129,8 @@ public final class CPIViz
 
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
         if (inventory.hasCPICodeData()){
+
+            info("update OK");
             /*
              * actual record data
              */
@@ -153,6 +160,9 @@ public final class CPIViz
             inside.lineTo(x2,y2);
             inside.lineTo(x3,y3);
             inside.close();
+        }
+        else {
+            info("update NG");
         }
     }
     public final RectF bounds(){

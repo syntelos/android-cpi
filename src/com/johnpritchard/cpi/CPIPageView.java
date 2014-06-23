@@ -17,9 +17,9 @@ public final class CPIPageView
 
     public static void View(){
 
-        CPIViz.Instance.update();
+        CPIViz.Update();
 
-        CPIOutputTitle.Instance.update();
+        CPIOutputTitle.Update();
 
         ViewAnimation.Script();
     }
@@ -41,8 +41,6 @@ public final class CPIPageView
     }
     @Override
     protected void layout(){
-
-        CPIViz.Instance.update();
 
         scale();
     }

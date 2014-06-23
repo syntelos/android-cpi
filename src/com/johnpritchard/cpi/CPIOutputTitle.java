@@ -12,6 +12,11 @@ public final class CPIOutputTitle
 
     public final static CPIOutputTitle Instance = new CPIOutputTitle();
 
+    public final static void Update(){
+
+        Instance.update();
+    }
+
 
     public CPIOutputTitle(){
         super();

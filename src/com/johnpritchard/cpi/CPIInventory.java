@@ -3,6 +3,8 @@
  */
 package com.johnpritchard.cpi;
 
+import android.util.Log;
+
 import java.util.Date;
 import java.util.List;
 
@@ -39,25 +41,23 @@ public enum CPIInventory
     public final static boolean IsComplete(CPIInventoryRecord record){
         if (null != record){
 
-            if (record.hasCompleted()){
-
-                return true;
-            }
-            else if (record.hasSession()){
-
-                return (Size == record.getSession().size());
-            }
+            return (Size == record.getSessionIndex());
         }
-        return false;
+        else {
+
+            return false;
+        }
     }
     public final static boolean Complete(CPIInventoryRecord record){
         if (null != record){
 
-            if (record.hasSession() && record.hasNotCPICodeData()){
+            if (record.hasSession()){
 
                 final List<CPIInventory> session = record.getSession();
 
                 if (Size == session.size()){
+
+                    //Log.i(ObjectLog.TAG,"CPIInventory Complete Product");
 
                     final CPIInventory.Product product = new CPIInventory.Product(session);
 
@@ -70,7 +70,16 @@ public enum CPIInventory
 
                     return true;
                 }
+                else {
+                    Log.e(ObjectLog.TAG,"CPIInventory Complete <session size>");
+                }
             }
+            else {
+                Log.e(ObjectLog.TAG,"CPIInventory Complete <session>");
+            }
+        }
+        else {
+            Log.e(ObjectLog.TAG,"CPIInventory Complete <record>");
         }
         return false;
     }
