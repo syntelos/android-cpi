@@ -14,6 +14,7 @@ import android.graphics.Region;
  */
 public final class CPIViz
     extends ViewPage2DComponentAbstract
+    implements ViewPageComponentGroup
 {
     /**
      * 
@@ -213,6 +214,19 @@ public final class CPIViz
         this.axes.transform(m);
 
         this.bounds(); // define-clips
+    }
+    public void group(RectF dim, float pad){
+
+        final float square = Math.max((dim.bottom-dim.top), (dim.right-dim.left));
+        final float x0 = dim.left, y0 = dim.top, x1 = (x0 + square), y1 = (y0 + square);
+
+        final Matrix m = new Matrix();
+        final RectF src = bounds();
+        final RectF tgt = new RectF(x0,y0,x1,y1);
+        {
+            m.setRectToRect(src,tgt,Matrix.ScaleToFit.CENTER);
+        }
+        this.transform(m);
     }
     public void draw(Canvas c){
         c.save();

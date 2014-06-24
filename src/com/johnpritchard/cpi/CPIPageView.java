@@ -37,7 +37,7 @@ public final class CPIPageView
     @Override
     protected void init(){
 
-        vertical();
+        group_vertical();
     }
     @Override
     protected void layout(){
