@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
@@ -231,13 +232,12 @@ public final class CPIDatabase
             values.put(CPIDatabaseTables.Session.CHOICE,input.name());
         }
 
-        long id = db.insert(CPIDatabase.SESSION,null,values);
-        if (0L > id){
+        try {
+            db.update(CPIDatabase.SESSION,values,CPIDatabaseTables.Session.INDEX+" = "+index,null);
+        }
+        catch (SQLiteException exc){
 
-            if (1 != db.update(CPIDatabase.SESSION,values,CPIDatabaseTables.Session.INDEX+" = "+index,null)){
-
-                throw new IllegalStateException();
-            }
+            db.insert(CPIDatabase.SESSION,null,values);
         }
 
         return inventory.setSession(index,input);
@@ -286,7 +286,10 @@ public final class CPIDatabase
                     }
                     else {
 
-                        if (1 > db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null)){
+                        try {
+                            db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null);
+                        }
+                        catch (SQLiteException exc){
 
                             inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
                         }
