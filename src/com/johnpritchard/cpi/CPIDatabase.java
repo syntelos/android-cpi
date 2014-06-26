@@ -271,37 +271,35 @@ public final class CPIDatabase
             SQLiteDatabase db = Writable();
             try {
                 if (Session(db,index,input) && CPIInventory.Complete(inventory)){
-                    /*
-                     * State
-                     */
-                    ContentValues state = inventory.writeResults();
+                    try {
+                        /*
+                         * State
+                         */
+                        ContentValues state = inventory.writeResults();
 
-                    if (0L > inventory.cursor){
-
-                        inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
                         if (0L > inventory.cursor){
-
-                            db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null);
-                        }
-                    }
-                    else {
-
-                        try {
-                            db.update(CPIDatabase.RESULTS,state,CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier,null);
-                        }
-                        catch (SQLiteException exc){
 
                             inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
                         }
+                        else {
+
+                            final String where = CPIDatabaseTables.Results._ID+" = "+inventory.cursor;
+
+                            final String[] whereArgs = null;
+
+                            db.update(CPIDatabase.RESULTS,state,where,whereArgs);
+                        }
                     }
-                    /*
-                     * Session
-                     */
-                    if (inventory.hasCompleted()){
+                    finally {
                         /*
-                         * Clear the session table
+                         * Session
                          */
-                        db.delete(CPIDatabase.SESSION,null,null);
+                        if (inventory.hasCompleted()){
+                            /*
+                             * Clear the session table
+                             */
+                            db.delete(CPIDatabase.SESSION,null,null);
+                        }
                     }
                 }
                 else {

@@ -39,9 +39,6 @@ public final class CPIViz
 
     }
 
-    private final static float IMG_WH = 4.0f;
-    private final static float IMG_WH2 = (IMG_WH/2.0f);
-
 
     public final static CPIViz Instance = new CPIViz();
 
@@ -73,6 +70,8 @@ public final class CPIViz
     protected float st;
     protected float nf;
     protected float nt;
+
+    private volatile boolean debug;
 
 
     public CPIViz(){
@@ -121,6 +120,8 @@ public final class CPIViz
         pA.setStyle(Paint.Style.STROKE);
 
         clip.margin(2.0f);
+
+        bounds();
     }
 
 
@@ -140,27 +141,47 @@ public final class CPIViz
             nt = inventory.nt;
             nf = inventory.nf;
 
+            //info("st "+st+", sf "+sf+", nt "+nt+", nf "+nf);
 
-            final float s_st = IMG_WH2*st;
-            final float s_sf = IMG_WH2*sf;
-            final float s_nt = IMG_WH2*nt;
-            final float s_nf = IMG_WH2*nf;
+            final RectF img = bounds();
+            final float img_x = img.left;
+            final float img_y = img.top;
+            final float img_w = (img.right-img_x);
+            final float img_h = (img.bottom-img_y);
+            final float img_s = Math.max(img_h,img_w);
+            final float img_s_d2 = (img_s/2.0f);
 
-            final float x0 = (IMG_WH2 - s_st);
-            final float y0 = (IMG_WH2 - s_st);
-            final float x1 = (IMG_WH2 + s_sf);
-            final float y1 = (IMG_WH2 - s_sf);
-            final float x2 = (IMG_WH2 + s_nf);
-            final float y2 = (IMG_WH2 + s_nf);
-            final float x3 = (IMG_WH2 - s_nt);
-            final float y3 = (IMG_WH2 + s_nt);
+            //info("img_w "+img_w+", img_h "+img_h+", img_s_d2 "+img_s_d2);
+
+            final float s_st = img_s_d2*st;
+            final float s_sf = img_s_d2*sf;
+            final float s_nt = img_s_d2*nt;
+            final float s_nf = img_s_d2*nf;
+
+
+            final float x0 = (img_s_d2 - s_st)+img_x;
+            final float y0 = (img_s_d2 - s_st)+img_y;
+
+            final float x1 = (img_s_d2 + s_sf)+img_x;
+            final float y1 = (img_s_d2 - s_sf)+img_y;
+
+            final float x2 = (img_s_d2 + s_nf)+img_x;
+            final float y2 = (img_s_d2 + s_nf)+img_y;
+
+            final float x3 = (img_s_d2 - s_nt)+img_x;
+            final float y3 = (img_s_d2 + s_nt)+img_y;
 
 
             inside.moveTo(x0,y0);
+            //info("inside.moveTo( "+x0+", "+y0+")");
             inside.lineTo(x1,y1);
+            //info("inside.lineTo( "+x1+", "+y1+")");
             inside.lineTo(x2,y2);
+            //info("inside.lineTo( "+x2+", "+y2+")");
             inside.lineTo(x3,y3);
+            //info("inside.lineTo( "+x3+", "+y3+")");
             inside.close();
+            //info("inside.close()");
         }
         else {
             info("update NG");
@@ -201,11 +222,17 @@ public final class CPIViz
 
             this.clip.set(this.bounds);
 
-            //info("bounds left: "+bounds.left+", right: "+bounds.right+", top: "+bounds.top+", bottom: "+bounds.bottom);
+            info("bounds left: "+bounds.left+", right: "+bounds.right+", top: "+bounds.top+", bottom: "+bounds.bottom);
+            info("clipY left: "+clipY.left+", right: "+clipY.right+", top: "+clipY.top+", bottom: "+clipY.bottom);
+            info("clipB left: "+clipB.left+", right: "+clipB.right+", top: "+clipB.top+", bottom: "+clipB.bottom);
+            info("clipG left: "+clipG.left+", right: "+clipG.right+", top: "+clipG.top+", bottom: "+clipG.bottom);
+            info("clipR left: "+clipR.left+", right: "+clipR.right+", top: "+clipR.top+", bottom: "+clipR.bottom);
         }
         return this.bounds;
     }
     public final void transform(Matrix m){
+
+        info("transform "+m);
 
         this.clear();
 
@@ -216,6 +243,8 @@ public final class CPIViz
         this.bounds(); // define-clips
     }
     public void group(RectF dim, float pad){
+
+        info("group "+dim);
 
         final float square = Math.max((dim.bottom-dim.top), (dim.right-dim.left));
         final float x0 = dim.left, y0 = dim.top, x1 = (x0 + square), y1 = (y0 + square);
@@ -228,12 +257,17 @@ public final class CPIViz
         }
         this.transform(m);
     }
+    protected void toggleDebug(){
+        debug = (!debug);
+
+        info("debug "+debug);
+    }
     public void draw(Canvas c){
         c.save();
 
-        c.clipPath(this.clip,Region.Op.REPLACE);
-
         {
+            c.clipPath(clip,Region.Op.REPLACE);
+
             c.drawPath(outside,pW);
         }
         {
@@ -256,8 +290,9 @@ public final class CPIViz
 
             c.drawPath(inside,pR);
         }
-        c.clipPath(this.clip,Region.Op.REPLACE);
         {
+            c.clipPath(clip,Region.Op.REPLACE);
+
             c.drawPath(axes,pA);
             c.drawPath(outside,pA);
         }
