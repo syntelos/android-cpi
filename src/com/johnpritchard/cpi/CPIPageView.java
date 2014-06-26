@@ -37,12 +37,21 @@ public final class CPIPageView
     @Override
     protected void init(){
 
+        //info("init/group_vertical");
+
         group_vertical();
+
+        //info("CPIViz "+CPIViz.Instance.bounds());
+        //info("CPIOutputTitle "+CPIOutputTitle.Instance.bounds());
     }
     @Override
     protected void layout(){
 
+        //info("layout/scale");
         scale();
+
+        //info("CPIViz "+CPIViz.Instance.bounds());
+        //info("CPIOutputTitle "+CPIOutputTitle.Instance.bounds());
     }
     @Override
     public String name(){

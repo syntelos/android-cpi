@@ -3,6 +3,8 @@
  */
 package com.johnpritchard.cpi;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 
@@ -30,13 +32,30 @@ public final class CPIOutputTitle
 
 
     protected void update(){
-        String text = CPIInventoryRecord.Instance.getTitle();
+
+        final RectF tgt = new RectF(bounds());
+
+        final String text = CPIInventoryRecord.Instance.getTitle();
         if (null != text){
 
             setText(text);
         }
         else {
             setText(new java.util.Date().toString());
+        }
+
+        if (!tgt.isEmpty()){
+
+            final RectF src = new RectF(bounds());
+
+            if (!src.isEmpty()){
+
+                final Matrix m = new Matrix();
+                {
+                    m.setRectToRect(src,tgt,Matrix.ScaleToFit.CENTER);
+                }
+                this.transform(m);
+            }
         }
     }
     public void group(RectF dim, float pad){
@@ -51,5 +70,11 @@ public final class CPIOutputTitle
         m.setTranslate(x0,(y1+pad));
 
         this.transform(m);
+    }
+    public void draw(Canvas c){
+
+        //info("draw "+bounds());
+
+        super.draw(c);
     }
 }

@@ -132,7 +132,7 @@ public final class CPIViz
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
         if (inventory.hasCPICodeData()){
 
-            info("update OK");
+            //info("update OK");
             /*
              * actual record data
              */
@@ -184,7 +184,7 @@ public final class CPIViz
             //info("inside.close()");
         }
         else {
-            info("update NG");
+            //info("update NG");
         }
     }
     public final RectF bounds(){
@@ -222,17 +222,17 @@ public final class CPIViz
 
             this.clip.set(this.bounds);
 
-            info("bounds left: "+bounds.left+", right: "+bounds.right+", top: "+bounds.top+", bottom: "+bounds.bottom);
-            info("clipY left: "+clipY.left+", right: "+clipY.right+", top: "+clipY.top+", bottom: "+clipY.bottom);
-            info("clipB left: "+clipB.left+", right: "+clipB.right+", top: "+clipB.top+", bottom: "+clipB.bottom);
-            info("clipG left: "+clipG.left+", right: "+clipG.right+", top: "+clipG.top+", bottom: "+clipG.bottom);
-            info("clipR left: "+clipR.left+", right: "+clipR.right+", top: "+clipR.top+", bottom: "+clipR.bottom);
+            //info("bounds left: "+bounds.left+", right: "+bounds.right+", top: "+bounds.top+", bottom: "+bounds.bottom);
+            //info("clipY left: "+clipY.left+", right: "+clipY.right+", top: "+clipY.top+", bottom: "+clipY.bottom);
+            //info("clipB left: "+clipB.left+", right: "+clipB.right+", top: "+clipB.top+", bottom: "+clipB.bottom);
+            //info("clipG left: "+clipG.left+", right: "+clipG.right+", top: "+clipG.top+", bottom: "+clipG.bottom);
+            //info("clipR left: "+clipR.left+", right: "+clipR.right+", top: "+clipR.top+", bottom: "+clipR.bottom);
         }
         return this.bounds;
     }
     public final void transform(Matrix m){
 
-        info("transform "+m);
+        //info("transform "+m);
 
         this.clear();
 
@@ -244,7 +244,7 @@ public final class CPIViz
     }
     public void group(RectF dim, float pad){
 
-        info("group "+dim);
+        //info("group "+dim);
 
         final float square = Math.max((dim.bottom-dim.top), (dim.right-dim.left));
         final float x0 = dim.left, y0 = dim.top, x1 = (x0 + square), y1 = (y0 + square);
@@ -260,9 +260,12 @@ public final class CPIViz
     protected void toggleDebug(){
         debug = (!debug);
 
-        info("debug "+debug);
+        //info("debug "+debug);
     }
     public void draw(Canvas c){
+
+        //info("draw "+bounds());
+
         c.save();
 
         {
