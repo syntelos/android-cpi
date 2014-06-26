@@ -13,7 +13,7 @@ import android.view.WindowManager;
  * Drawables, so that the current user "state of activity" is
  * preserved on startup.  
  */
-public final class CPIActivity
+public final class CPIPageViewActivity
     extends ObjectActivity
 {
 
