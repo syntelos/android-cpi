@@ -1,0 +1,16 @@
+06-21 04:24:53.656  3910  3910 E CPI     : CPIPostInventory post
+06-21 04:24:53.656  3910  3910 E CPI     : java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0
+06-21 04:24:53.656  3910  3910 E CPI     :      at java.util.ArrayList.throwIndexOutOfBoundsException(ArrayList.java:257)
+06-21 04:24:53.656  3910  3910 E CPI     :      at java.util.ArrayList.set(ArrayList.java:484)
+06-21 04:24:53.656  3910  3910 E CPI     :      at com.johnpritchard.cpi.CPIInventoryRecord.readSession(CPIInventoryRecord.java:523)
+06-21 04:24:53.656  3910  3910 E CPI     :      at com.johnpritchard.cpi.CPIDatabase.Inventory(CPIDatabase.java:166)
+06-21 04:24:53.656  3910  3910 E CPI     :      at com.johnpritchard.cpi.CPIPostInventory.run(CPIPostInventory.java:22)
+06-21 04:24:53.656  3910  3910 E CPI     :      at android.os.Handler.handleCallback(Handler.java:587)
+06-21 04:24:53.656  3910  3910 E CPI     :      at android.os.Handler.dispatchMessage(Handler.java:92)
+06-21 04:24:53.656  3910  3910 E CPI     :      at android.os.Looper.loop(Looper.java:130)
+06-21 04:24:53.656  3910  3910 E CPI     :      at android.app.ActivityThread.main(ActivityThread.java:3806)
+06-21 04:24:53.656  3910  3910 E CPI     :      at java.lang.reflect.Method.invokeNative(Native Method)
+06-21 04:24:53.656  3910  3910 E CPI     :      at java.lang.reflect.Method.invoke(Method.java:507)
+06-21 04:24:53.656  3910  3910 E CPI     :      at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:839)
+06-21 04:24:53.656  3910  3910 E CPI     :      at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:597)
+06-21 04:24:53.656  3910  3910 E CPI     :      at dalvik.system.NativeStart.main(Native Method)

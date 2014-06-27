@@ -1,0 +1,24 @@
+06-27 18:15:12.088  1622  2208 I ActivityManager: Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.johnpritchard.cpi/.CPIPageStartActivity } from pid 2059
+06-27 18:15:12.088  1622  2208 W ActivityManager: Permission denied: checkComponentPermission() reqUid=10047
+06-27 18:15:12.088  1622  2208 W ActivityManager: Permission Denial: starting Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.johnpritchard.cpi/.CPIPageStartActivity } from ProcessRecord{40b91e18 2059:com.motorola.blur.home/10004} (pid=2059, uid=10004) requires null
+06-27 18:15:12.119  2059  2059 E Launcher: Launcher does not have the permission to launch Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.johnpritchard.cpi/.CPIPageStartActivity }. Make sure to create a MAIN intent-filter for the corresponding activity or use the exported attribute for this activity. tag=ApplicationInfo(title=CPI) intent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.johnpritchard.cpi/.CPIPageStartActivity }
+06-27 18:15:12.119  2059  2059 E Launcher: java.lang.SecurityException: Permission Denial: starting Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.johnpritchard.cpi/.CPIPageStartActivity } from ProcessRecord{40b91e18 2059:com.motorola.blur.home/10004} (pid=2059, uid=10004) requires null
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.os.Parcel.readException(Parcel.java:1322)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.os.Parcel.readException(Parcel.java:1276)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.app.ActivityManagerProxy.startActivity(ActivityManagerNative.java:1351)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.app.Instrumentation.execStartActivity(Instrumentation.java:1374)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.app.Activity.startActivityForResult(Activity.java:2893)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.app.Activity.startActivity(Activity.java:3003)
+06-27 18:15:12.119  2059  2059 E Launcher:      at com.motorola.blur.apps.AppsActivity.startActivitySafely(AppsActivity.java:226)
+06-27 18:15:12.119  2059  2059 E Launcher:      at com.motorola.blur.apps.AppsView.onItemClick(AppsView.java:1457)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.widget.AdapterView.performItemClick(AdapterView.java:290)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.widget.AbsListView$PerformClick.run(AbsListView.java:1838)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.os.Handler.handleCallback(Handler.java:587)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.os.Handler.dispatchMessage(Handler.java:92)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.os.Looper.loop(Looper.java:130)
+06-27 18:15:12.119  2059  2059 E Launcher:      at android.app.ActivityThread.main(ActivityThread.java:3806)
+06-27 18:15:12.119  2059  2059 E Launcher:      at java.lang.reflect.Method.invokeNative(Native Method)
+06-27 18:15:12.119  2059  2059 E Launcher:      at java.lang.reflect.Method.invoke(Method.java:507)
+06-27 18:15:12.119  2059  2059 E Launcher:      at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:839)
+06-27 18:15:12.119  2059  2059 E Launcher:      at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:597)
+06-27 18:15:12.119  2059  2059 E Launcher:      at dalvik.system.NativeStart.main(Native Method)

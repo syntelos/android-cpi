@@ -8,6 +8,10 @@ package com.johnpritchard.cpi;
  * simple input.
  */
 public enum Page {
+    /*
+     * Changes to the membership of this list need to be reflected in
+     * CPI StartActivity(Page)
+     */
     intro    (CPIPageIntro.Instance,     true),
     start    (CPIPageStart.Instance,     false),
     view     (CPIPageView.Instance,      true),

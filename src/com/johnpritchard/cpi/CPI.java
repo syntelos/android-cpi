@@ -24,22 +24,43 @@ public final class CPI
     protected final static int FileModePublic = (Context.MODE_WORLD_READABLE|Context.MODE_WORLD_WRITEABLE);
 
 
-    private static CPIActivity Activity2D;
+    private static ObjectActivity Activity2D;
 
     /**
-     * Called from activity2D to start activity3D.
+     * Called from {@link View2D#pageTo(com.johnpritchard.cpi.Page)} 
      */
-    public final static void StartActivity3D(){
-    }
-    /**
-     * Called from activity3D to start activity2D.
-     */
-    public final static void StartActivity2D(){
+    public final static void StartActivity(Page page){
+
+        Intent intent;
+
+        switch(page){
+        case intro:
+            intent = new Intent(Activity2D, CPIPageIntroActivity.class);
+            break;
+        case start:
+            intent = new Intent(Activity2D, CPIPageStartActivity.class);
+            break;
+        case view:
+            intent = new Intent(Activity2D, CPIPageViewActivity.class);
+            break;
+        case practice:
+            intent = new Intent(Activity2D, CPIPagePracticeActivity.class);
+            break;
+        case inventory:
+            intent = new Intent(Activity2D, CPIPageInventoryActivity.class);
+            break;
+        case about:
+            intent = new Intent(Activity2D, CPIPageAboutActivity.class);
+            break;
+        default:
+            return;
+        }
+        Activity2D.startActivity(intent);
     }
     /**
      * Called from activity2D
      */
-    protected final static void Activate2D(CPIActivity instance){
+    protected final static void Activate2D(ObjectActivity instance){
 
         Activity2D = instance;
     }

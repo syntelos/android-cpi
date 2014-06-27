@@ -453,7 +453,11 @@ public final class View2D
      * @see #script
      */
     public void pageTo(Page page){
-
+        /*
+         * This version of this function employs a one to one
+         * relationship between pages and activities for a
+         * conventional back button navigation.
+         */
         //info("pageTo "+page);
 
         if (null == page){
@@ -465,44 +469,25 @@ public final class View2D
             if (page.page != this.page){
 
                 this.page.down();
-                try {
-                    this.pageId = page;
 
-                    this.page = (ViewPage2D)page.page;
-
-                    if (this.plumb){
-
-                        this.page.up(this,width,height);
-                    }
-                }
-                catch (ClassCastException exc){
-
-                    this.page = null;
-
-                    //warn("switching to 3D for page: "+page);
-
-                    CPI.StartActivity3D();
-                }
-            }
-        }
-        else {
-            try {
                 this.pageId = page;
-
-                this.page = (ViewPage2D)page.page;
-
-                if (this.plumb){
-
-                    this.page.up(this,width,height);
-                }
-            }
-            catch (ClassCastException exc){
 
                 this.page = null;
 
-                //warn("switching to 3D for page: "+page);
+                //warn("switching to activity for page: "+page);
 
-                CPI.StartActivity3D();
+                CPI.StartActivity(page);
+            }
+        }
+        else {
+
+            this.pageId = page;
+
+            this.page = (ViewPage2D)page.page;
+
+            if (this.plumb){
+
+                this.page.up(this,width,height);
             }
         }
     }
