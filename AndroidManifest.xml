@@ -47,10 +47,6 @@
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:label="@string/app_name"/>
 
-    <activity android:name="CPIPageStartActivity"
-              android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:label="@string/app_name"/>
-
     <activity android:name="CPIPageViewActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:label="@string/app_name"/>
