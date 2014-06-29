@@ -249,7 +249,7 @@ public class CPIPageInventory
         case Down:
             if (this.back){
                 this.back = false;
-                view.script(Page.start);
+                CPI.StartActivity(Page.start);
             }
             else {
                 this.back = true;

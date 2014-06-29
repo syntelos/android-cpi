@@ -44,7 +44,7 @@ public final class CPIPageIntro
         case Left:
         case Right:
         case Enter:
-            view.script(Page.start);
+            CPI.StartActivity(Page.start);
             return;
 
         default:

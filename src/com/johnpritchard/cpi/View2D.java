@@ -119,7 +119,11 @@ public final class View2D
 
         ViewAnimation.Start(this);
 
-        pageTo(Page.valueOf(preferences.getString("page","start")));
+        // final String pageName = preferences.getString("page","start");
+
+        // info("page <= "+pageName);
+
+        // pageTo(Page.valueOf(pageName));
     }
     public void onPause(SharedPreferences.Editor state){
         info("onPause");
@@ -127,6 +131,8 @@ public final class View2D
         if (null != this.pageId){
 
             state.putString("page",this.pageId.name());
+
+            info("page => "+pageId);
 
             if (null != this.page){
 

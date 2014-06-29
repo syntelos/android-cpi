@@ -75,7 +75,7 @@ public final class CPIPageView
             return;
 
         case Enter:
-            view.script(Page.start);
+            CPI.StartActivity(Page.start);
             return;
 
         default:

@@ -21,6 +21,10 @@ public final class CPIPageInventoryActivity
 
 
     @Override
+    public Page currentPage(){
+        return view.pageId;
+    }
+    @Override
     public void onCreate(Bundle state)
     {
         CPI.Activate2D(this);
@@ -54,6 +58,8 @@ public final class CPIPageInventoryActivity
     @Override
     protected void onResume(){
         super.onResume();
+
+        view.pageTo(Page.inventory);
 
         this.view.onResume();
     }

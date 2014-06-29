@@ -20,7 +20,7 @@ import android.util.DisplayMetrics;
 /**
  * 
  */
-public class ObjectActivity
+public abstract class ObjectActivity
     extends android.app.Activity
     implements SurfaceHolder.Callback
 {
@@ -43,43 +43,47 @@ public class ObjectActivity
     }
 
 
+    public abstract Page currentPage();
     /** 
      */
     public void surfaceCreated(SurfaceHolder holder){
+        info("surfaceCreated");
     }
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
+        info("surfaceChanged");
     }
     public void surfaceDestroyed(SurfaceHolder holder){
+        info("surfaceDestroyed");
     }
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        //info("onCreate");
+        info("onCreate");
         super.onCreate(savedInstanceState);
     }
     @Override
     protected void onPause() {
-        //info("onPause");
+        info("onPause");
         super.onPause();
     }
     @Override
     protected void onResume() {
-        //info("onResume");
+        info("onResume");
         super.onResume();
     }
     @Override
     protected void onStart() {
-        //info("onStart");
+        info("onStart");
         super.onStart();
     }
     @Override
     protected void onStop() {
-        //info("onStop");
+        info("onStop");
         super.onStop();
     }
     @Override
     protected void onDestroy() {
-        //info("onDestroy");
+        info("onDestroy");
         super.onDestroy();
     }
     protected void attach(Camera c)

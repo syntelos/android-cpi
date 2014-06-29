@@ -59,7 +59,7 @@ public final class CPIPageStart
 
             switch(enter()){
             case INTRO:
-                view.script(Page.intro);
+                CPI.StartActivity(Page.intro);
                 break;
             case PRACTICE:
                 CPI.Post2D(new CPIPostPractice());
@@ -71,7 +71,7 @@ public final class CPIPageStart
                 CPI.Post2D(new CPIPostCompleted());
                 break;
             case ABOUT:
-                view.script(Page.about);
+                CPI.StartActivity(Page.about);
                 break;
             }
         }

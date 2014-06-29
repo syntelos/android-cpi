@@ -5,6 +5,7 @@ package com.johnpritchard.cpi;
 
 import android.content.Context;
 import android.content.Intent;
+import static android.content.Intent.*;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,32 +31,114 @@ public final class CPI
      * Called from {@link View2D#pageTo(com.johnpritchard.cpi.Page)} 
      */
     public final static void StartActivity(Page page){
-
-        Intent intent;
-
+        /*
+         * 
+         */
+        if (null != Activity2D){
+            switch(Activity2D.currentPage()){
+            case intro:
+                Info("StartActivity finish intro");
+                Activity2D.finish();
+                break;
+            case start:
+                Info("StartActivity finish start");
+                //Activity2D.finish();
+                break;
+            case view:
+                Info("StartActivity finish view");
+                Activity2D.finish();
+                break;
+            case practice:
+                Info("StartActivity finish practice");
+                Activity2D.finish();
+                break;
+            case inventory:
+                Info("StartActivity finish inventory");
+                Activity2D.finish();
+                break;
+            case about:
+                Info("StartActivity finish about");
+                Activity2D.finish();
+                break;
+            default:
+                return;
+            }
+        }
+        /*
+         * 
+         */
         switch(page){
         case intro:
-            intent = new Intent(Activity2D, CPIPageIntroActivity.class);
+            {
+                final Intent intent = new Intent(Activity2D, CPIPageIntroActivity.class);
+                {
+                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                }
+                Info("StartActivity start intro");
+
+                Activity2D.startActivity(intent);
+            }
             break;
         case start:
-            intent = new Intent(Activity2D, CPIPageStartActivity.class);
+            {
+                final Intent intent = new Intent(Activity2D, CPIPageStartActivity.class);
+                {
+                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                }
+                Info("StartActivity start start");
+
+                Activity2D.startActivity(intent);
+            }
             break;
         case view:
-            intent = new Intent(Activity2D, CPIPageViewActivity.class);
+            {
+                final Intent intent = new Intent(Activity2D, CPIPageViewActivity.class);
+                {
+                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                }
+                Info("StartActivity start view");
+
+                Activity2D.startActivity(intent);
+            }
             break;
         case practice:
-            intent = new Intent(Activity2D, CPIPagePracticeActivity.class);
+            {
+                final Intent intent = new Intent(Activity2D, CPIPagePracticeActivity.class);
+                {
+                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                }
+                Info("StartActivity start practice");
+
+                Activity2D.startActivity(intent);
+            }
             break;
         case inventory:
-            intent = new Intent(Activity2D, CPIPageInventoryActivity.class);
+            {
+                final Intent intent = new Intent(Activity2D, CPIPageInventoryActivity.class);
+                {
+                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                }
+                Info("StartActivity start inventory");
+
+                Activity2D.startActivity(intent);
+            }
             break;
         case about:
-            intent = new Intent(Activity2D, CPIPageAboutActivity.class);
+            {
+                final Intent intent = new Intent(Activity2D, CPIPageAboutActivity.class);
+                {
+                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                }
+                Info("StartActivity start about");
+
+                Activity2D.startActivity(intent);
+            }
             break;
         default:
             return;
         }
-        Activity2D.startActivity(intent);
+
+
     }
     /**
      * Called from activity2D

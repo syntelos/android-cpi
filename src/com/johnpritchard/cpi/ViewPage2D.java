@@ -637,22 +637,13 @@ public abstract class ViewPage2D
 
         Input in = event.type();
 
-        if (Input.Back == in){
-            /*
-             * Special case: the "view.script(page)" would return here
-             * without preserving the back button requirement.
-             */
-            view.pageTo(Page.start);
-        }
-        else if (in.geometric){
+        if (in.geometric){
 
             final ViewPageComponentInteractive interactive = this.interactive;
 
             if (null != interactive && 
                 (Input.Enter == in || interactive.interactive()))
             {
-                //info("interactive "+event);
-
                 interactive.input(event);
             }
             else {
@@ -661,16 +652,12 @@ public abstract class ViewPage2D
 
                 if (null != current){
 
-                    //info("navigation "+event);
-
                     current(current.getCardinal(in));
                 }
                 else {
                     current = this.current(in);
 
                     if (null != current){
-
-                        //info("navigation "+event);
 
                         current(current);
                     }

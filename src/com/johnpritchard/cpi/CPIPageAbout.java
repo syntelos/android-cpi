@@ -40,7 +40,7 @@ public final class CPIPageAbout
         case Up:
         case Down:
         case Enter:
-            view.script(Page.start);
+            CPI.StartActivity(Page.start);
             return;
 
         default:

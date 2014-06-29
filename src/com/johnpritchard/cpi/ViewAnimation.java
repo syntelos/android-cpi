@@ -322,7 +322,7 @@ public final class ViewAnimation
     }
     public void run(){
         try {
-            //info("running");
+            info("running");
 
             long touchInputFilter = 0L;
 
@@ -342,7 +342,7 @@ public final class ViewAnimation
 
                     if (null == sequence){
 
-                        //info("waiting");
+                        info("waiting");
 
                         synchronized(this.monitor){
 
@@ -356,7 +356,7 @@ public final class ViewAnimation
 
                             if (null != sequence.pageTo){
 
-                                //info("pageTo");
+                                info("pageTo");
                                 /*
                                  * pageTo
                                  */
@@ -374,7 +374,7 @@ public final class ViewAnimation
                                      */
                                     if (touchInputFilter < SystemClock.uptimeMillis()){
 
-                                        //info("include motion");
+                                        info("include motion");
 
                                         script = sequence.page.script(sequence.motion);
                                     }
@@ -388,7 +388,7 @@ public final class ViewAnimation
                                      */
                                     if (touchInputFilter < SystemClock.uptimeMillis()){
 
-                                        //info("include input");
+                                        info("include input");
 
                                         script = sequence.input;
                                     }
@@ -404,7 +404,7 @@ public final class ViewAnimation
 
                                     final int count = script.length;
 
-                                    //info("exec script "+count);
+                                    info("exec script "+count);
 
                                     for (int cc = 0; cc < count; cc++){
 
@@ -429,7 +429,7 @@ public final class ViewAnimation
 
                                         in = script[cc];
 
-                                        //info("input "+in.name()+" to "+page.name());
+                                        info("input "+in.name()+" to "+page.name());
 
                                         page.input(in);
 
@@ -465,7 +465,7 @@ public final class ViewAnimation
             return;
         }
         finally {
-            //info("returning"); 
+            info("returning"); 
 
             Exit(this);
         }

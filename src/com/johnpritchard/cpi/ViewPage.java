@@ -172,6 +172,14 @@ public abstract class ViewPage
      */
     public abstract InputScript[] script(MotionEvent event);
 
+    /*
+     * Back button programming that preserves semantics across
+     * platforms (and versions) is typically the null case (no back
+     * button programming).
+     */
+    protected void input_back(){
+        throw new UnsupportedOperationException();
+    }
     protected void input_emphasis(){
     }
     protected void input_deemphasis(){
@@ -187,6 +195,10 @@ public abstract class ViewPage
     public void input(InputScript in){
 
         switch(in.type()){
+
+        case Back:
+            input_back();
+            break;
 
         case Emphasis:
             input_emphasis();
