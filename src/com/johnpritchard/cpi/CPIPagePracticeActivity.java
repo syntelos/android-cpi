@@ -35,7 +35,7 @@ public final class CPIPagePracticeActivity
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        CPIDatabase.Init(this);
+        //CPIDatabase.Init(this);
 
         this.preferences = this.getSharedPreferences("cpi.properties",MODE_PRIVATE);
 
@@ -58,9 +58,13 @@ public final class CPIPagePracticeActivity
     @Override
     protected void onResume(){
         super.onResume();
+        {
+            CPIDatabase.Practice();
 
-        view.pageTo(Page.practice);
+            CPIPagePractice.View();
 
+            view.pageTo(Page.practice);
+        }
         this.view.onResume();
     }
 }

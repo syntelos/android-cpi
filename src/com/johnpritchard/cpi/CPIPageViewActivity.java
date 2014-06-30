@@ -58,9 +58,13 @@ public final class CPIPageViewActivity
     @Override
     protected void onResume(){
         super.onResume();
+        {
+            CPIDatabase.Completed();
 
-        view.pageTo(Page.view);
+            CPIPageView.View();
 
+            view.pageTo(Page.view);
+        }
         this.view.onResume();
     }
 }

@@ -21,7 +21,7 @@ public final class CPIPostCompleted
         try {
             CPIDatabase.Completed();
 
-            ViewAnimation.Script(Page.view);
+            CPI.StartActivity(Page.view);
         }
         catch (Exception exc){
             error("post",exc);

@@ -35,7 +35,7 @@ public final class CPIPageAboutActivity
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        CPIDatabase.Init(this);
+
 
         this.preferences = this.getSharedPreferences("cpi.properties",MODE_PRIVATE);
 
@@ -58,9 +58,9 @@ public final class CPIPageAboutActivity
     @Override
     protected void onResume(){
         super.onResume();
-
-        view.pageTo(Page.about);
-
+        {
+            view.pageTo(Page.about);
+        }
         this.view.onResume();
     }
 }

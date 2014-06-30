@@ -58,9 +58,13 @@ public final class CPIPageInventoryActivity
     @Override
     protected void onResume(){
         super.onResume();
+        {
+            CPIDatabase.Inventory();
 
-        view.pageTo(Page.inventory);
+            CPIPageInventory.View();
 
+            view.pageTo(Page.inventory);
+        }
         this.view.onResume();
     }
 }

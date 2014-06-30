@@ -62,13 +62,13 @@ public final class CPIPageStart
                 CPI.StartActivity(Page.intro);
                 break;
             case PRACTICE:
-                CPI.Post2D(new CPIPostPractice());
+                CPI.StartActivity(Page.practice);
                 break;
             case INVENTORY:
-                CPI.Post2D(new CPIPostInventory());
+                CPI.StartActivity(Page.inventory);
                 break;
             case COMPLETED:
-                CPI.Post2D(new CPIPostCompleted());
+                CPI.StartActivity(Page.view);
                 break;
             case ABOUT:
                 CPI.StartActivity(Page.about);

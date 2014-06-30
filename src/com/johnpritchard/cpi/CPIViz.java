@@ -131,8 +131,6 @@ public final class CPIViz
 
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
         if (inventory.hasCPICodeData()){
-
-            //info("update OK");
             /*
              * actual record data
              */
@@ -182,9 +180,6 @@ public final class CPIViz
             //info("inside.lineTo( "+x3+", "+y3+")");
             inside.close();
             //info("inside.close()");
-        }
-        else {
-            //info("update NG");
         }
     }
     public final RectF bounds(){

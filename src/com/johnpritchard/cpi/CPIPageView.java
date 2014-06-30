@@ -20,8 +20,6 @@ public final class CPIPageView
         CPIViz.Update();
 
         CPIOutputTitle.Update();
-
-        ViewAnimation.Script();
     }
 
 

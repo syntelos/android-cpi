@@ -38,7 +38,7 @@ public final class CPIPostInput
 
                 //info("practice");
 
-                ViewAnimation.Script(Page.start);
+                CPI.StartActivity(Page.start);
             }
             else if (this.completion){
 
@@ -46,12 +46,12 @@ public final class CPIPostInput
 
                 CPIDatabase.Completion(this.index,this.input);
 
-                CPIPageView.View();
-
-                ViewAnimation.Script(Page.view);
+                CPI.StartActivity(Page.view);
             }
-            else if (CPIDatabase.Input(this.index,this.input)){
+            else
 
+            if (CPIDatabase.Input(this.index,this.input))
+            {
                 //info("input");
 
                 CPIPageInventory.Input();
@@ -63,7 +63,7 @@ public final class CPIPostInput
         catch (Exception exc){
             error("post",exc);
 
-            ViewAnimation.Script(Page.start);
+            CPI.StartActivity(Page.start);
         }
     }
 }
