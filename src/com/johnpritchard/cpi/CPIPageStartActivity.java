@@ -35,8 +35,6 @@ public final class CPIPageStartActivity
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-
-
         this.preferences = this.getSharedPreferences("cpi.properties",MODE_PRIVATE);
 
         this.view = new View2D(this);

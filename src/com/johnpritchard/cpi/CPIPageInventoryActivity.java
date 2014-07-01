@@ -5,6 +5,7 @@ package com.johnpritchard.cpi;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.SurfaceHolder;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -35,8 +36,6 @@ public final class CPIPageInventoryActivity
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        CPIDatabase.Init(this);
-
         this.preferences = this.getSharedPreferences("cpi.properties",MODE_PRIVATE);
 
         this.view = new View2D(this);
@@ -59,12 +58,19 @@ public final class CPIPageInventoryActivity
     protected void onResume(){
         super.onResume();
         {
-            CPIDatabase.Inventory();
-
-            CPIPageInventory.View();
-
             view.pageTo(Page.inventory);
         }
         this.view.onResume();
+
     }
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
+        info("surfaceChanged");
+
+        view.script(new InputScript[]{
+                new InputScript.Database(InputScript.Database.Op.Init,this),
+                new InputScript.Database(InputScript.Database.Op.Inventory)
+            });
+    }
+
 }

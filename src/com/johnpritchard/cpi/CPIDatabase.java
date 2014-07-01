@@ -221,6 +221,8 @@ public final class CPIDatabase
                 db.close();
             }
         }
+
+        CPIPageInventory.View();
     }
     private static boolean Session(SQLiteDatabase db, int index, CPIInventory input){
 
@@ -345,14 +347,11 @@ public final class CPIDatabase
                          * Have history
                          */
                         inventory.readResults(cursor);
-
-                        return;
                     }
                     else {
                         /*
                          * No history
                          */
-                        return;
                     }
                 }
                 finally {
@@ -363,6 +362,8 @@ public final class CPIDatabase
                 db.close();
             }
         }
+
+        CPIPageView.View();
     }
     /**
      * Called from poster to setup the {@link CPIInventoryRecord}

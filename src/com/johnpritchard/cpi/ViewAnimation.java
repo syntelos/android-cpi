@@ -170,6 +170,8 @@ public final class ViewAnimation
 
         private InputScript[] input;
 
+        private boolean input_filtered = true;
+
         private Script next;
 
 
@@ -205,6 +207,20 @@ public final class ViewAnimation
 
             this.page = page;
             this.input = input;
+
+            boolean input_filtered = true;
+            {
+                for (InputScript in : input){
+
+                    if (!in.isFiltered()){
+
+                        input_filtered = false;
+
+                        break;
+                    }
+                }
+            }
+            this.input_filtered = input_filtered;
         }
 
 
@@ -386,14 +402,20 @@ public final class ViewAnimation
                                     /*
                                      * touch input filtering
                                      */
-                                    if (touchInputFilter < SystemClock.uptimeMillis()){
+                                    if (!sequence.input_filtered){
+
+                                        info("include unfiltered input");
+
+                                        script = sequence.input;
+                                    }
+                                    else if (touchInputFilter < SystemClock.uptimeMillis()){
 
                                         info("include input");
 
                                         script = sequence.input;
                                     }
                                     else {
-                                        //warn("exclude input");
+                                        warn("exclude input");
                                     }
                                 }
 
@@ -433,12 +455,14 @@ public final class ViewAnimation
 
                                         page.input(in);
 
-                                        if (Input.Skip == in){
+                                        if (in.isSkipping()){
                                             skip = SKIP_SKIP;
                                         }
                                     }
 
-                                    touchInputFilter = SystemClock.uptimeMillis()+TouchInputFilter;
+                                    if (sequence.input_filtered){
+                                        touchInputFilter = SystemClock.uptimeMillis()+TouchInputFilter;
+                                    }
                                 }
                                 else {
                                     //warn("ignore script <null>");

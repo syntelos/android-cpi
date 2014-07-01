@@ -3,7 +3,6 @@
  */
 package com.johnpritchard.cpi;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ConfigurationInfo;
@@ -74,13 +73,14 @@ public final class View2D
 
 
 
-    public View2D(Activity context){
+    public View2D(ObjectActivity context){
         super(context);
 
         touch = new GestureDetector(context,this);
 
         holder = getHolder();
         holder.addCallback(this);
+        holder.addCallback(context);
 
         this.setFocusable(true);// enable key events
     }
@@ -161,7 +161,7 @@ public final class View2D
 
             this.page.up(this,width,height);
         }
-        this.repaint();
+        this.repaint();// occuring before activity surfaceChanged for a (white) bg
     }
     public void surfaceDestroyed(SurfaceHolder holder){
         info("surfaceDestroyed");
@@ -541,6 +541,8 @@ public final class View2D
 
         if (null != g){
 
+            info("draw BG");
+
             g.drawColor(bg);
 
             ViewPage2D page = this.page;
@@ -548,6 +550,9 @@ public final class View2D
 
                 page.draw(g);
             }
+        }
+        else {
+            info("draw <*>");
         }
     }
 

@@ -200,6 +200,10 @@ public abstract class ViewPage
             input_back();
             break;
 
+        case Database:
+            ((InputScript.Database)in).eval();
+            break;
+
         case Emphasis:
             input_emphasis();
             break;
