@@ -56,18 +56,27 @@ public final class ViewAnimation
                 Instance = new ViewAnimation(view);
                 Instance.start();
             }
+            else if (null != Instance && view != Instance.view){
+                try {
+                    Instance.shutdown();
+                }
+                finally {
+                    Instance = new ViewAnimation(view);
+                    Instance.start();
+                }
+            }
             else {
-                //Warn("start: not running");
+                //Warn("<Start>");
             }
         }
     }
     /**
      * Used by {@link View}
      */
-    protected static void Stop(){
+    protected static void Stop(View view){
 
         synchronized(StaticMonitor){
-            if (null != Instance){
+            if (null != Instance && view == Instance.view){
                 try {
                     Instance.shutdown();
                 }
@@ -76,7 +85,7 @@ public final class ViewAnimation
                 }
             }
             else {
-                //Warn("stop: not shutdown");
+                //Warn("<Stop>");
             }
         }
     }
@@ -516,72 +525,95 @@ public final class ViewAnimation
         }
     }
     protected void verbose(String m){
-        Log.i(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.i(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.i(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void debug(String m){
-        Log.d(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.d(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.d(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void info(String m){
-        Log.i(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.i(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.i(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void warn(String m){
-        Log.w(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.w(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.w(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void error(String m){
-        Log.e(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.e(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.e(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.wtf(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.wtf(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected static void Verbose(String m){
+
         Log.i(TAG,"View/Animation "+m);
     }
     protected static void Verbose(String m, Throwable t){
+
         Log.i(TAG,"View/Animation "+m,t);
     }
     protected static void Debug(String m){
+
         Log.d(TAG,"View/Animation "+m);
     }
     protected static void Debug(String m, Throwable t){
+
         Log.d(TAG,"View/Animation "+m,t);
     }
     protected static void Info(String m){
+
         Log.i(TAG,"View/Animation "+m);
     }
     protected static void Info(String m, Throwable t){
+
         Log.i(TAG,"View/Animation "+m,t);
     }
     protected static void Warn(String m){
+
         Log.w(TAG,"View/Animation "+m);
     }
     protected static void Warn(String m, Throwable t){
+
         Log.w(TAG,"View/Animation "+m,t);
     }
     protected static void Error(String m){
+
         Log.e(TAG,"View/Animation "+m);
     }
     protected static void Error(String m, Throwable t){
+
         Log.e(TAG,"View/Animation "+m,t);
     }
     protected static void WTF(String m){
+
         Log.wtf(TAG,"View/Animation "+m);
     }
     protected static void WTF(String m, Throwable t){

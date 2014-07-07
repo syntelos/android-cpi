@@ -22,7 +22,7 @@ public final class CPIPageAboutActivity
 
     @Override
     public Page currentPage(){
-        return view.pageId;
+        return Page.about;
     }
     @Override
     public void onCreate(Bundle state)
@@ -34,7 +34,6 @@ public final class CPIPageAboutActivity
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-
 
 
         this.preferences = this.getSharedPreferences("cpi.properties",MODE_PRIVATE);

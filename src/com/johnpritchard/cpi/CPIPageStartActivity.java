@@ -22,7 +22,7 @@ public final class CPIPageStartActivity
 
     @Override
     public Page currentPage(){
-        return view.pageId;
+        return Page.start;
     }
     @Override
     public void onCreate(Bundle state)

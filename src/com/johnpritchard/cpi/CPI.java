@@ -24,6 +24,9 @@ public final class CPI
 
     protected final static int FileModePublic = (Context.MODE_WORLD_READABLE|Context.MODE_WORLD_WRITEABLE);
 
+    //private final static int IntentFlags = (FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+    private final static int IntentFlags = (FLAG_DEBUG_LOG_RESOLUTION);
+
 
     private static ObjectActivity Activity2D;
 
@@ -34,35 +37,69 @@ public final class CPI
         /*
          * 
          */
-        if (null != Activity2D){
-            switch(Activity2D.currentPage()){
-            case intro:
-                Info("StartActivity finish intro");
-                Activity2D.finish();
-                break;
-            case start:
-                Info("StartActivity finish start");
-                //Activity2D.finish();
-                break;
-            case view:
-                Info("StartActivity finish view");
-                Activity2D.finish();
-                break;
-            case practice:
-                Info("StartActivity finish practice");
-                Activity2D.finish();
-                break;
-            case inventory:
-                Info("StartActivity finish inventory");
-                Activity2D.finish();
-                break;
-            case about:
-                Info("StartActivity finish about");
-                Activity2D.finish();
-                break;
-            default:
+        switch(Activity2D.currentPage()){
+        case intro:
+            if (Page.intro == page){
+                Error("StartActivity intro->intro",new Exception());
                 return;
             }
+            else {
+                Info("StartActivity finish intro");
+                Activity2D.finish();
+            }
+            break;
+        case start:
+            if (Page.start == page){
+                Error("StartActivity start->start",new Exception());
+                return;
+            }
+            else {
+                Info("StartActivity finish start");
+                Activity2D.finish();
+            }
+            break;
+        case view:
+            if (Page.view == page){
+                Error("StartActivity view->view",new Exception());
+                return;
+            }
+            else {
+                Info("StartActivity finish view");
+                Activity2D.finish();
+            }
+            break;
+        case practice:
+            if (Page.practice == page){
+                Error("StartActivity practice->practice",new Exception());
+                return;
+            }
+            else {
+                Info("StartActivity finish practice");
+                Activity2D.finish();
+            }
+            break;
+        case inventory:
+            if (Page.inventory == page){
+                Error("StartActivity inventory->inventory",new Exception());
+                return;
+            }
+            else {
+                Info("StartActivity finish inventory");
+                Activity2D.finish();
+            }
+            break;
+        case about:
+            if (Page.about == page){
+                Error("StartActivity about->about",new Exception());
+                return;
+            }
+            else {
+                Info("StartActivity finish about");
+                Activity2D.finish();
+            }
+            break;
+        default:
+            return;
         }
         /*
          * 
@@ -72,7 +109,7 @@ public final class CPI
             {
                 final Intent intent = new Intent(Activity2D, CPIPageIntroActivity.class);
                 {
-                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                    intent.setFlags(IntentFlags);
                 }
                 Info("StartActivity start intro");
 
@@ -83,7 +120,7 @@ public final class CPI
             {
                 final Intent intent = new Intent(Activity2D, CPIPageStartActivity.class);
                 {
-                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                    intent.setFlags(IntentFlags);
                 }
                 Info("StartActivity start start");
 
@@ -94,7 +131,7 @@ public final class CPI
             {
                 final Intent intent = new Intent(Activity2D, CPIPageViewActivity.class);
                 {
-                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                    intent.setFlags(IntentFlags);
                 }
                 Info("StartActivity start view");
 
@@ -105,7 +142,7 @@ public final class CPI
             {
                 final Intent intent = new Intent(Activity2D, CPIPagePracticeActivity.class);
                 {
-                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                    intent.setFlags(IntentFlags);
                 }
                 Info("StartActivity start practice");
 
@@ -116,7 +153,7 @@ public final class CPI
             {
                 final Intent intent = new Intent(Activity2D, CPIPageInventoryActivity.class);
                 {
-                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                    intent.setFlags(IntentFlags);
                 }
                 Info("StartActivity start inventory");
 
@@ -127,7 +164,7 @@ public final class CPI
             {
                 final Intent intent = new Intent(Activity2D, CPIPageAboutActivity.class);
                 {
-                    intent.setFlags(FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+                    intent.setFlags(IntentFlags);
                 }
                 Info("StartActivity start about");
 
@@ -137,8 +174,6 @@ public final class CPI
         default:
             return;
         }
-
-
     }
     /**
      * Called from activity2D

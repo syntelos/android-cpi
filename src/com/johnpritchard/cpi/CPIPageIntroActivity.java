@@ -22,7 +22,7 @@ public final class CPIPageIntroActivity
 
     @Override
     public Page currentPage(){
-        return view.pageId;
+        return Page.intro;
     }
     @Override
     public void onCreate(Bundle state)

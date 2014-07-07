@@ -23,7 +23,7 @@ public final class CPIPageInventoryActivity
 
     @Override
     public Page currentPage(){
-        return view.pageId;
+        return Page.inventory;
     }
     @Override
     public void onCreate(Bundle state)
@@ -61,7 +61,6 @@ public final class CPIPageInventoryActivity
             view.pageTo(Page.inventory);
         }
         this.view.onResume();
-
     }
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){

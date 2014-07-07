@@ -92,6 +92,13 @@ public final class View2D
     public final boolean is3D(){
         return false;
     }
+    public final Page currentPage(){
+        ViewPage2D page = this.page;
+        if (null != page)
+            return page.value();
+        else
+            return null;
+    }
     public SharedPreferences preferences(){
 
         return this.preferences;
@@ -100,49 +107,24 @@ public final class View2D
      * Occurs before surface created
      */
     public void onCreate(SharedPreferences state){
-        info("onCreate");
+        //info("onCreate");
 
         this.preferences = state;
-        /*
-         * Prevent continuations across app state boundaries while
-         * onPause(N) can follow onCreate(N+1) [in actual time]
-         * 
-         * onCreate(N)
-         * // ? onPause(N)
-         * onCreate(N+1)
-         * // ? onPause(N)
-         */
-        ViewAnimation.Stop();
     }
     public void onResume(){
-        info("onResume");
+        //info("onResume");
 
-        ViewAnimation.Start(this);
-
-        // final String pageName = preferences.getString("page","start");
-
-        // info("page <= "+pageName);
-
-        // pageTo(Page.valueOf(pageName));
     }
     public void onPause(SharedPreferences.Editor state){
-        info("onPause");
+        //info("onPause");
 
-        if (null != this.pageId){
+        ViewAnimation.Stop(this);
 
-            state.putString("page",this.pageId.name());
+        if (null != this.page){
 
-            info("page => "+pageId);
-
-            if (null != this.page){
-
-                this.page.down(state);
-            }
+            this.page.down(state);
         }
-
         this.plumb = false;
-
-        ViewAnimation.Stop();
     }
     public void surfaceCreated(SurfaceHolder holder){
         info("surfaceCreated");
@@ -161,10 +143,15 @@ public final class View2D
 
             this.page.up(this,width,height);
         }
+
+        ViewAnimation.Start(this);
+
         this.repaint();// occuring before activity surfaceChanged for a (white) bg
     }
     public void surfaceDestroyed(SurfaceHolder holder){
         info("surfaceDestroyed");
+
+        ViewAnimation.Stop(this);
 
         this.plumb = false;
     }
@@ -464,28 +451,31 @@ public final class View2D
          * relationship between pages and activities for a
          * conventional back button navigation.
          */
-        //info("pageTo "+page);
-
         if (null == page){
 
-            return;
+            throw new IllegalArgumentException();
         }
         else if (null != this.page){
 
-            if (page.page != this.page){
+            if (page != this.page.value()){
 
-                this.page.down();
+                throw new IllegalStateException();
+            }
+            else {
+                info("resume pageTo: "+page);
 
                 this.pageId = page;
 
-                this.page = null;
+                this.page = (ViewPage2D)page.page;
 
-                //warn("switching to activity for page: "+page);
+                if (this.plumb){
 
-                CPI.StartActivity(page);
+                    this.page.up(this,width,height);
+                }
             }
         }
         else {
+            info("initial pageTo: "+page);
 
             this.pageId = page;
 
@@ -541,7 +531,7 @@ public final class View2D
 
         if (null != g){
 
-            info("draw BG");
+            info("draw <X> "+Thread.currentThread().getName());
 
             g.drawColor(bg);
 
@@ -552,44 +542,44 @@ public final class View2D
             }
         }
         else {
-            info("draw <*>");
+            info("draw <*> "+Thread.currentThread().getName());
         }
     }
 
     protected void verbose(String m){
-        Log.i(TAG,("View2D "+m));
+        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,("View2D "+m),t);
+        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,("View2D "+m));
+        Log.d(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,("View2D "+m),t);
+        Log.d(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,("View2D "+m));
+        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,("View2D "+m),t);
+        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,("View2D "+m));
+        Log.w(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,("View2D "+m),t);
+        Log.w(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,("View2D "+m));
+        Log.e(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,("View2D "+m),t);
+        Log.e(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,("View2D "+m));
+        Log.wtf(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,("View2D "+m),t);
+        Log.wtf(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
 }

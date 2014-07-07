@@ -23,7 +23,7 @@ public final class CPIPageViewActivity
 
     @Override
     public Page currentPage(){
-        return view.pageId;
+        return Page.view;
     }
     @Override
     public void onCreate(Bundle state)

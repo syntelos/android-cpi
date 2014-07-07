@@ -23,7 +23,7 @@ public final class CPIPagePracticeActivity
 
     @Override
     public Page currentPage(){
-        return view.pageId;
+        return Page.practice;
     }
     @Override
     public void onCreate(Bundle state)
