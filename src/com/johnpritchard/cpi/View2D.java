@@ -131,12 +131,12 @@ public final class View2D
         this.plumb = false;
     }
     public void surfaceCreated(SurfaceHolder holder){
-        info("surfaceCreated");
+        //info("surfaceCreated");
 
         this.plumb = false;
     }
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
-        info("surfaceChanged");
+        //info("surfaceChanged");
 
         this.width = w;
         this.height = h;
@@ -153,7 +153,7 @@ public final class View2D
         this.repaint();// occuring before activity surfaceChanged for a (white) bg
     }
     public void surfaceDestroyed(SurfaceHolder holder){
-        info("surfaceDestroyed");
+        //info("surfaceDestroyed");
 
         ViewAnimation.Stop(this);
 
@@ -466,7 +466,7 @@ public final class View2D
                 throw new IllegalStateException();
             }
             else {
-                info("resume pageTo: "+page);
+                //info("resume pageTo: "+page);
 
                 this.pageId = page;
 
@@ -479,7 +479,7 @@ public final class View2D
             }
         }
         else {
-            info("initial pageTo: "+page);
+            //info("initial pageTo: "+page);
 
             this.pageId = page;
 
@@ -535,7 +535,7 @@ public final class View2D
 
         if (null != g){
 
-            info("draw <X> "+Thread.currentThread().getName());
+            //info("draw <X> "+Thread.currentThread().getName());
 
             g.drawColor(bg);
 
@@ -546,7 +546,7 @@ public final class View2D
             }
         }
         else {
-            info("draw <*> "+Thread.currentThread().getName());
+            //info("draw <*> "+Thread.currentThread().getName());
         }
     }
 

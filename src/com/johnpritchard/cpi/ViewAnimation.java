@@ -29,7 +29,6 @@ public final class ViewAnimation
 {
     public final static String TAG = ObjectLog.TAG;
 
-
     protected final static long TouchInputFilter = 300L;
 
     protected final static long OutputFilter = 20L;
@@ -38,8 +37,18 @@ public final class ViewAnimation
     private final static int SKIP_SKIP = 1;
     private final static int SKIP_OP = 2;
 
-
     private final static Object StaticMonitor = ViewAnimation.class;
+
+    /**
+     * 
+     */
+    public final static class Shutdown
+        extends RuntimeException
+    {
+        public Shutdown(){
+            super();
+        }
+    }
 
 
     private volatile static ViewAnimation Instance;
@@ -389,7 +398,7 @@ public final class ViewAnimation
                                  */
                                 view.pageTo(sequence.pageTo);
                             }
-                            else if (null != sequence.page){
+                            else if (null != sequence.page && view.currentPage() == sequence.page.value()){
                                 /*
                                  * motion and input
                                  */
@@ -406,7 +415,7 @@ public final class ViewAnimation
                                         script = sequence.page.script(sequence.motion);
                                     }
                                     else {
-                                        //warn("exclude motion");
+                                        warn("exclude motion");
                                     }
                                 }
                                 else if (null != sequence.input){
@@ -476,7 +485,7 @@ public final class ViewAnimation
                                     }
                                 }
                                 else {
-                                    //warn("ignore script <null>");
+                                    warn("ignore script <null>");
                                 }
                             }
 
@@ -497,6 +506,9 @@ public final class ViewAnimation
             }
         }
         catch (InterruptedException inx){
+            return;
+        }
+        catch (Shutdown inx){
             return;
         }
         finally {
@@ -522,7 +534,7 @@ public final class ViewAnimation
 
                 recover2D = true;
 
-                //warn("paint",exc);
+                warn("paint",exc);
             }
         }
     }
