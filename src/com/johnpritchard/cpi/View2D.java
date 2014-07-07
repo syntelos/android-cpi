@@ -114,6 +114,10 @@ public final class View2D
     public void onResume(){
         //info("onResume");
 
+        if (plumb){
+
+            ViewAnimation.Start(this);
+        }
     }
     public void onPause(SharedPreferences.Editor state){
         //info("onPause");

@@ -42,6 +42,8 @@ public final class CPIViz
 
     public final static CPIViz Instance = new CPIViz();
 
+    public final static void Init(){
+    }
     public final static void Update(){
 
         Instance.update();

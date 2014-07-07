@@ -24,8 +24,8 @@ public final class CPI
 
     protected final static int FileModePublic = (Context.MODE_WORLD_READABLE|Context.MODE_WORLD_WRITEABLE);
 
-    //private final static int IntentFlags = (FLAG_ACTIVITY_SINGLE_TOP|FLAG_DEBUG_LOG_RESOLUTION);
-    private final static int IntentFlags = (FLAG_DEBUG_LOG_RESOLUTION);
+    private final static int IntentFlags = (FLAG_ACTIVITY_CLEAR_TOP|FLAG_DEBUG_LOG_RESOLUTION);
+    //private final static int IntentFlags = (FLAG_DEBUG_LOG_RESOLUTION);
 
 
     private static ObjectActivity Activity2D;
@@ -55,7 +55,7 @@ public final class CPI
             }
             else {
                 Info("StartActivity finish start");
-                Activity2D.finish();
+                //Activity2D.finish();
             }
             break;
         case view:

@@ -43,6 +43,9 @@ public final class CPIPageViewActivity
         this.setContentView(this.view);
 
         this.view.onCreate(this.preferences);
+
+        CPIViz.Init();
+        CPIOutputTitle.Init();
     }
     @Override
     protected void onPause(){

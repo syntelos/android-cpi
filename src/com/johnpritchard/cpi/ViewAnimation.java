@@ -353,6 +353,8 @@ public final class ViewAnimation
 
             int skip = 0;
 
+            this.paint();
+
             while (running){
 
                 if (recover2D){
