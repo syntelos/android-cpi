@@ -65,11 +65,11 @@ public final class CPIPageView
         switch(in.type()){
 
         case Left:
-            CPI.Post2D(new CPIPostCompletedPrev());
+            view.script(new InputScript.Database(InputScript.Database.Op.CompletedPrev));
             return;
 
         case Right:
-            CPI.Post2D(new CPIPostCompletedNext());
+            view.script(new InputScript.Database(InputScript.Database.Op.CompletedNext));
             return;
 
         case Enter:
@@ -77,6 +77,7 @@ public final class CPIPageView
             return;
 
         default:
+            super.input(in);
             return;
         }
     }

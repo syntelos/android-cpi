@@ -66,10 +66,13 @@ public final class CPIPageInventoryActivity
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
         info("surfaceChanged");
 
-        view.script(new InputScript[]{
-                new InputScript.Database(InputScript.Database.Op.Init,this),
-                new InputScript.Database(InputScript.Database.Op.Inventory)
-            });
+        if (CPIDatabase.IsDown()){
+
+            view.script(new InputScript[]{
+                    new InputScript.Database(InputScript.Database.Op.Init,this),
+                    new InputScript.Database(InputScript.Database.Op.Inventory)
+                });
+        }
     }
 
 }

@@ -218,28 +218,28 @@ public class CPIPageInventory
             this.back = false;
             switch(enter()){
             case BUTTON_L4:
-                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.L4));
+                view.script(new InputScript.Database(InputScript.Database.Op.Input,this.inventoryIndex,CPIInventory.L4));
                 return;
             case BUTTON_L3:
-                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.L3));
+                view.script(new InputScript.Database(InputScript.Database.Op.Input,this.inventoryIndex,CPIInventory.L3));
                 return;
             case BUTTON_L2:
-                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.L2));
+                view.script(new InputScript.Database(InputScript.Database.Op.Input,this.inventoryIndex,CPIInventory.L2));
                 return;
             case BUTTON_L1:
-                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.L1));
+                view.script(new InputScript.Database(InputScript.Database.Op.Input,this.inventoryIndex,CPIInventory.L1));
                 return;
             case BUTTON_R1:
-                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.R1));
+                view.script(new InputScript.Database(InputScript.Database.Op.Input,this.inventoryIndex,CPIInventory.R1));
                 return;
             case BUTTON_R2:
-                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.R2));
+                view.script(new InputScript.Database(InputScript.Database.Op.Input,this.inventoryIndex,CPIInventory.R2));
                 return;
             case BUTTON_R3:
-                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.R3));
+                view.script(new InputScript.Database(InputScript.Database.Op.Input,this.inventoryIndex,CPIInventory.R3));
                 return;
             case BUTTON_R4:
-                CPI.Post2D(new CPIPostInput(this.inventoryIndex,CPIInventory.R4));
+                view.script(new InputScript.Database(InputScript.Database.Op.Input,this.inventoryIndex,CPIInventory.R4));
                 return;
             default:
                 return;

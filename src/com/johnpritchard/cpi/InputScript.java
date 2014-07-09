@@ -26,7 +26,7 @@ public interface InputScript {
      * 
      */
     public final class Key
-        extends Object
+        extends ObjectLog
         implements InputScript
     {
 
@@ -67,7 +67,7 @@ public interface InputScript {
      * 
      */
     public final class Database
-        extends Object
+        extends ObjectLog
         implements InputScript
     {
         /**
@@ -78,7 +78,6 @@ public interface InputScript {
             Practice,
             Inventory,
             Input,
-            Completion,
             Completed,
             CompletedPrev,
             CompletedNext;
@@ -110,7 +109,7 @@ public interface InputScript {
             if (null != op){
                 this.op = op;
 
-                if (Op.Input == op || Op.Completion == op){
+                if (Op.Input == op){
 
                     if (-1 < index && CPIInventory.Size > index && null != input){
                         this.context = null;
@@ -148,7 +147,7 @@ public interface InputScript {
             return false;
         }
         public boolean isFiltered(){
-            return true;
+            return false;
         }
         public boolean isSkipping(){
             return (Op.Init == op);
@@ -169,41 +168,44 @@ public interface InputScript {
             switch(this.op){
             case Init:
                 {
+                    info("CPIDatabase.Init");
                     CPIDatabase.Init(context);
                 }
                 break;
             case Practice:
                 {
+                    info("CPIDatabase.Practice");
                     CPIDatabase.Practice();
                 }
                 break;
             case Inventory:
                 {
+                    info("CPIDatabase.Inventory");
                     CPIDatabase.Inventory();
                 }
                 break;
             case Input:
                 {
+                    info("CPIDatabase.Input");
+
                     CPIDatabase.Input(index,input);
-                }
-                break;
-            case Completion:
-                {
-                    CPIDatabase.Completion(index,input);
                 }
                 break;
             case Completed:
                 {
+                    info("CPIDatabase.Completed");
                     CPIDatabase.Completed();
                 }
                 break;
             case CompletedPrev:
                 {
+                    info("CPIDatabase.CompletedPrev");
                     CPIDatabase.CompletedPrev();
                 }
                 break;
             case CompletedNext:
                 {
+                    info("CPIDatabase.CompletedNext");
                     CPIDatabase.CompletedNext();
                 }
                 break;

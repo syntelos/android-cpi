@@ -194,7 +194,7 @@ public final class CPIInventoryRecord
             return this.session.size();
         }
     }
-    public boolean setSession(int index, CPIInventory input){
+    public void setSession(int index, CPIInventory input){
 
         final List<CPIInventory> session = this.getCreateSession();
 
@@ -203,17 +203,10 @@ public final class CPIInventoryRecord
         if (index < session_size){
 
             session.set(index,input);
-
-            return ((index+1) == CPIInventory.Size);
-        }
-        else if (index == session_size){
-
-            session.add(input);
-
-            return ((index+1) == CPIInventory.Size);
         }
         else {
-            throw new IllegalStateException(String.valueOf(index));
+
+            session.add(input);
         }
     }
     public boolean hasCreated(){
@@ -337,13 +330,15 @@ public final class CPIInventoryRecord
         }
         return values;
     }
-    public boolean readSession(Cursor cursor){
+    public CPIInventoryRecord readSession(Cursor cursor){
 
         final int index = cursor.getInt(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Session.INDEX));
 
         final String choice = cursor.getString(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Session.CHOICE));
 
-        return setSession(index,CPIInventory.valueOf(choice));
+        setSession(index,CPIInventory.valueOf(choice));
+
+        return this;
     }
     public ContentValues writeSession(int index){
 

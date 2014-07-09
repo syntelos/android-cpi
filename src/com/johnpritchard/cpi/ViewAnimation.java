@@ -278,9 +278,9 @@ public final class ViewAnimation
 
     private volatile Script queue;
 
-    private volatile boolean running = true;
+    private volatile boolean running;
 
-    private boolean recover2D = false;
+    private boolean recover2D;
 
 
     private ViewAnimation(View view){
@@ -290,6 +290,9 @@ public final class ViewAnimation
             this.holder = view.getHolder();
             this.is2D = view.is2D();
             this.is3D = view.is3D();
+            this.queue = null;
+            this.running = true;
+            this.recover2D = false;
         }
         else {
             throw new IllegalArgumentException();

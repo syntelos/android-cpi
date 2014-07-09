@@ -201,6 +201,7 @@ public abstract class ViewPage
             break;
 
         case Database:
+            info("database eval");
             ((InputScript.Database)in).eval();
             break;
 

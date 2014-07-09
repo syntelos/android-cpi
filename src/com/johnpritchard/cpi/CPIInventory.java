@@ -55,7 +55,9 @@ public enum CPIInventory
 
                 final List<CPIInventory> session = record.getSession();
 
-                if (Size == session.size()){
+                final int session_size = session.size();
+
+                if (Size == session_size){
 
                     //Log.i(ObjectLog.TAG,"CPIInventory Complete Product");
 
@@ -71,15 +73,15 @@ public enum CPIInventory
                     return true;
                 }
                 else {
-                    Log.e(ObjectLog.TAG,"CPIInventory Complete <session size>");
+                    Log.e(ObjectLog.TAG,"CPIInventory Complete <session size "+session_size+">");
                 }
             }
             else {
-                Log.e(ObjectLog.TAG,"CPIInventory Complete <session>");
+                Log.e(ObjectLog.TAG,"CPIInventory Complete <missing session>");
             }
         }
         else {
-            Log.e(ObjectLog.TAG,"CPIInventory Complete <record>");
+            throw new IllegalArgumentException();
         }
         return false;
     }
@@ -111,6 +113,8 @@ public enum CPIInventory
     }
 
     public final static int Size = 60;
+
+    public final static int Term = (Size-1);
     /**
      * 
      */

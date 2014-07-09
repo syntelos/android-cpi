@@ -26,12 +26,23 @@ import java.util.List;
 public final class CPIDatabase 
     extends android.database.sqlite.SQLiteOpenHelper
 {
-    private static CPIDatabase Instance;
+    private final static Object StaticMonitor = new Object();
 
+    private volatile static CPIDatabase Instance;
+
+    public static boolean IsUp(){
+
+        return (null != Instance);
+    }
+    public static boolean IsDown(){
+
+        return (null == Instance);
+    }
     public static void Init(Context cx){
-
-        if (null == Instance){
-            Instance = new CPIDatabase(cx);
+        synchronized(StaticMonitor){
+            if (null == Instance){
+                Instance = new CPIDatabase(cx);
+            }
         }
     }
     public static SQLiteDatabase Readable(){
@@ -124,15 +135,7 @@ public final class CPIDatabase
 
             SQLiteDatabase db = CPIDatabase.Readable();
             try {
-                SQLiteQueryBuilder rQ = null;
-
-                if (0L > inventory.cursor){
-
-                    rQ = CPIDatabase.QueryResultsInternal();
-                }
-                else {
-                    rQ = CPIDatabase.QueryResultsInternal(inventory.cursor);
-                }
+                SQLiteQueryBuilder rQ = CPIDatabase.QueryResultsInternal();
                 /*
                  * Look at the most recent session
                  */
@@ -224,7 +227,7 @@ public final class CPIDatabase
 
         CPIPageInventory.View();
     }
-    private static boolean Session(SQLiteDatabase db, int index, CPIInventory input){
+    private static void Session(SQLiteDatabase db, int index, CPIInventory input){
 
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
 
@@ -235,57 +238,73 @@ public final class CPIDatabase
         }
 
         try {
-            db.update(CPIDatabase.SESSION,values,CPIDatabaseTables.Session.INDEX+" = "+index,null);
+            final String where = CPIDatabaseTables.Session.INDEX+" = "+index;
+
+            final String[] whereArgs = null;
+
+            db.update(CPIDatabase.SESSION,values,where,whereArgs);
         }
         catch (SQLiteException exc){
 
             db.insert(CPIDatabase.SESSION,null,values);
         }
 
-        return inventory.setSession(index,input);
+        inventory.setSession(index,input);
     }
-    public static boolean Input(int index, CPIInventory input){
+    public static void Input(int index, CPIInventory input){
 
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
         {
-            if (-1 < index && index < CPIInventory.Size){
+            if (CPIProcess.Practice == inventory.process){
+
+                CPI.StartActivity(Page.start);
+            }
+            else if (-1 < index && index < CPIInventory.Term){
 
                 SQLiteDatabase db = CPIDatabase.Writable();
                 try {
-                    return (!Session(db,index,input));
+                    Session(db,index,input);
+
+                    CPIPageInventory.Input();
                 }
                 finally {
                     db.close();
                 }
             }
             else {
-                return false;
+                Completion(index,input);
             }
         }
     }
     /**
      * Close an open session
      */
-    public static void Completion(int index, CPIInventory input){
+    private static void Completion(int index, CPIInventory input){
 
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
         {
             SQLiteDatabase db = Writable();
             try {
-                if (Session(db,index,input) && CPIInventory.Complete(inventory)){
+                Session(db,index,input);
+
+                if (CPIInventory.Complete(inventory)){
                     try {
                         /*
                          * State
                          */
                         ContentValues state = inventory.writeResults();
 
-                        if (0L > inventory.cursor){
+                        if (-1L < inventory.cursor){
 
-                            inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,state);
+                            final String where = CPIDatabaseTables.Results._ID+" = "+inventory.cursor;
+
+                            final String[] whereArgs = null;
+
+                            db.update(CPIDatabase.RESULTS,state,where,whereArgs);
                         }
                         else {
 
-                            final String where = CPIDatabaseTables.Results._ID+" = "+inventory.cursor;
+                            final String where = CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier;
 
                             final String[] whereArgs = null;
 
@@ -303,6 +322,8 @@ public final class CPIDatabase
                             db.delete(CPIDatabase.SESSION,null,null);
                         }
                     }
+
+                    CPI.StartActivity(Page.view);
                 }
                 else {
                     throw new IllegalStateException();
