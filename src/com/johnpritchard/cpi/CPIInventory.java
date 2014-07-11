@@ -61,14 +61,7 @@ public enum CPIInventory
 
                     //Log.i(ObjectLog.TAG,"CPIInventory Complete Product");
 
-                    final CPIInventory.Product product = new CPIInventory.Product(session);
-
-                    record.nf = product.normalized_nf;
-                    record.sf = product.normalized_sf;
-                    record.nt = product.normalized_nt;
-                    record.st = product.normalized_st;
-
-                    record.setCompleted();
+                    record.setCompleted(new CPIInventory.Product(session));
 
                     return true;
                 }

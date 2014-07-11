@@ -1,0 +1,25 @@
+07-11 19:25:55.398  8759  8783 I CPI     : CPIDatabase Input <55>
+07-11 19:25:55.458  8759  8783 I CPI     : CPIDatabase Session <insert> 56
+07-11 19:25:56.408  8759  8783 I CPI     : CPIDatabase Input <56>
+07-11 19:25:56.508  8759  8783 I CPI     : CPIDatabase Session <insert> 57
+07-11 19:25:57.408  8759  8783 I CPI     : CPIDatabase Input <57>
+07-11 19:25:57.469  8759  8783 I CPI     : CPIDatabase Session <insert> 58
+07-11 19:25:58.378  8759  8783 I CPI     : CPIDatabase Input <58>
+07-11 19:25:58.478  8759  8783 I CPI     : CPIDatabase Session <insert> 59
+07-11 19:25:59.478  8759  8783 I CPI     : CPIDatabase Input <completion>
+07-11 19:25:59.540  8759  8783 I CPI     : CPIDatabase Session <insert> 60
+07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults cursor <1>
+07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults identifier <9UUoy_n4j8GZqdVW>
+07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults title <Fri Jul 11 19:24:37 EDT 2014>
+07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults created <Fri Jul 11 19:24:37 EDT 2014>
+07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults completed <Fri Jul 11 19:25:59 EDT 2014>
+07-11 19:25:59.598  8759  8783 I CPI     : CPIDatabase Completion CPIInventory.Complete <update:ID> 1
+07-11 19:25:59.638  8759  8783 I CPI     : CPIDatabase Completion CPIInventory.Complete clear-session <delete>
+07-11 19:25:59.638  8759  8783 I CPI     : CPI StartActivity finish inventory
+07-11 19:25:59.648  8759  8783 I CPI     : CPI StartActivity start view
+07-11 19:25:59.648  1655  2444 I ActivityManager: Starting: Intent { flg=0x4000008 cmp=com.johnpritchard.cpi/.CPIPageViewActivity } from pid 8759
+07-11 19:25:59.718  8759  8783 I CPI     : View/Animation inventory returning
+07-11 19:25:59.788  1655  1807 I ActivityManager: Displayed com.johnpritchard.cpi/.CPIPageViewActivity: +79ms
+07-11 19:25:59.788  8759  9191 I CPI     : CPIDatabase Completed readResults (0)
+07-11 19:25:59.798  8759  9191 I CPI     : CPIViz update NG
+07-11 19:26:36.418  8759  9191 I CPI     : View/Animation view returning

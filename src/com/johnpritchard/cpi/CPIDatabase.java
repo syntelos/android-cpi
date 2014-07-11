@@ -26,6 +26,8 @@ import java.util.List;
 public final class CPIDatabase 
     extends android.database.sqlite.SQLiteOpenHelper
 {
+    private final static String TAG = ObjectLog.TAG;
+
     private final static Object StaticMonitor = new Object();
 
     private volatile static CPIDatabase Instance;
@@ -40,7 +42,9 @@ public final class CPIDatabase
     }
     public static void Init(Context cx){
         synchronized(StaticMonitor){
-            if (null == Instance){
+
+            if (null == Instance || cx != Instance.context){
+
                 Instance = new CPIDatabase(cx);
             }
         }
@@ -157,18 +161,22 @@ public final class CPIDatabase
                 try {
                     if (cursor.moveToFirst()){
 
+                        Info("Inventory readResults (1)");
+
                         inventory.readResults(cursor);
+                    }
+                    else {
+                        Info("Inventory readResults (0)");
                     }
                 }
                 finally {
                     cursor.close();
                 }
                 /*
-                 * Look at the session table: delete when the most
-                 * recent session has completed (redundant to
-                 * completion operation)
                  */
-                if (null == inventory.completed){
+                if (inventory.isOpen()){
+
+                    Info("Inventory <not completed>");
 
                     SQLiteQueryBuilder sQ = CPIDatabase.QuerySessionInternal();
 
@@ -182,28 +190,9 @@ public final class CPIDatabase
                     finally {
                         cursor.close();
                     }
-                    /*
-                     * The most recent session doesn't exist
-                     */
-                    final int six = inventory.getSessionIndex();
-
-                    if (0 >= six || CPIInventory.Size <= six){
-                        /*
-                         * Create a new session
-                         */
-                        inventory.inventory();
-
-                        inventory.setIdentifier();
-                        inventory.setCreated();
-                        inventory.setSession();
-                        inventory.setTitle();
-                        /*
-                         * Ensure that the session table is clear
-                         */
-                        db.delete(CPIDatabase.SESSION,null,null);
-                    }
                 }
                 else {
+                    Info("Inventory <new>");
                     /*
                      * The most recent session has completed,
                      * therefore create a new session
@@ -218,6 +207,14 @@ public final class CPIDatabase
                      * Ensure that the session table is clear
                      */
                     db.delete(CPIDatabase.SESSION,null,null);
+                    /*
+                     * New record
+                     */
+                    ContentValues values = inventory.writeResults();
+
+                    inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,values);
+
+                    Info("Inventory <new record> "+inventory.cursor);
                 }
             }
             finally {
@@ -238,15 +235,19 @@ public final class CPIDatabase
         }
 
         try {
+            long cursor = db.insert(CPIDatabase.SESSION,null,values);
+
+            Info("Session <insert> "+cursor);
+        }
+        catch (SQLiteException exc){
+
             final String where = CPIDatabaseTables.Session.INDEX+" = "+index;
 
             final String[] whereArgs = null;
 
-            db.update(CPIDatabase.SESSION,values,where,whereArgs);
-        }
-        catch (SQLiteException exc){
+            int rows = db.update(CPIDatabase.SESSION,values,where,whereArgs);
 
-            db.insert(CPIDatabase.SESSION,null,values);
+            Info("Session <update> "+rows);
         }
 
         inventory.setSession(index,input);
@@ -257,9 +258,13 @@ public final class CPIDatabase
         {
             if (CPIProcess.Practice == inventory.process){
 
+                Info("Input <practice>");
+
                 CPI.StartActivity(Page.start);
             }
             else if (-1 < index && index < CPIInventory.Term){
+
+                Info("Input <"+index+">");
 
                 SQLiteDatabase db = CPIDatabase.Writable();
                 try {
@@ -272,6 +277,8 @@ public final class CPIDatabase
                 }
             }
             else {
+                Info("Input <completion>");
+
                 Completion(index,input);
             }
         }
@@ -300,7 +307,9 @@ public final class CPIDatabase
 
                             final String[] whereArgs = null;
 
-                            db.update(CPIDatabase.RESULTS,state,where,whereArgs);
+                            int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
+
+                            Info("Completion CPIInventory.Complete <update:ID> "+rows);
                         }
                         else {
 
@@ -308,7 +317,9 @@ public final class CPIDatabase
 
                             final String[] whereArgs = null;
 
-                            db.update(CPIDatabase.RESULTS,state,where,whereArgs);
+                            int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
+
+                            Info("Completion CPIInventory.Complete <update:IDENTIFIER> "+rows);
                         }
                     }
                     finally {
@@ -320,6 +331,11 @@ public final class CPIDatabase
                              * Clear the session table
                              */
                             db.delete(CPIDatabase.SESSION,null,null);
+
+                            Info("Completion CPIInventory.Complete clear-session <delete>");
+                        }
+                        else {
+                            Info("Completion CPIInventory.Complete clear-session <*>");
                         }
                     }
 
@@ -364,6 +380,8 @@ public final class CPIDatabase
                 Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
                 try {
                     if (cursor.moveToFirst()){
+
+                        Info("Completed readResults (1)");
                         /*
                          * Have history
                          */
@@ -373,6 +391,7 @@ public final class CPIDatabase
                         /*
                          * No history
                          */
+                        Info("Completed readResults (0)");
                     }
                 }
                 finally {
@@ -521,8 +540,12 @@ public final class CPIDatabase
     protected final static String SESSION = "session";
 
 
+    protected final Context context;
+
+
     private CPIDatabase(Context context) {
         super(context, NAME, null, VERSION);
+        this.context = context;
     }
 
     @Override
@@ -546,5 +569,42 @@ public final class CPIDatabase
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+    }
+
+    protected static void Verbose(String m){
+        Log.i(TAG,"CPIDatabase "+m);
+    }
+    protected static void Verbose(String m, Throwable t){
+        Log.i(TAG,"CPIDatabase "+m,t);
+    }
+    protected static void Debug(String m){
+        Log.d(TAG,"CPIDatabase "+m);
+    }
+    protected static void Debug(String m, Throwable t){
+        Log.d(TAG,"CPIDatabase "+m,t);
+    }
+    protected static void Info(String m){
+        Log.i(TAG,"CPIDatabase "+m);
+    }
+    protected static void Info(String m, Throwable t){
+        Log.i(TAG,"CPIDatabase "+m,t);
+    }
+    protected static void Warn(String m){
+        Log.w(TAG,"CPIDatabase "+m);
+    }
+    protected static void Warn(String m, Throwable t){
+        Log.w(TAG,"CPIDatabase "+m,t);
+    }
+    protected static void Error(String m){
+        Log.e(TAG,"CPIDatabase "+m);
+    }
+    protected static void Error(String m, Throwable t){
+        Log.e(TAG,"CPIDatabase "+m,t);
+    }
+    protected static void WTF(String m){
+        Log.wtf(TAG,"CPIDatabase "+m);
+    }
+    protected static void WTF(String m, Throwable t){
+        Log.wtf(TAG,"CPIDatabase "+m,t);
     }
 }

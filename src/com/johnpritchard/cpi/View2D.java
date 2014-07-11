@@ -150,7 +150,6 @@ public final class View2D
 
         ViewAnimation.Start(this);
 
-        this.repaint();// occuring before activity surfaceChanged for a (white) bg
     }
     public void surfaceDestroyed(SurfaceHolder holder){
         //info("surfaceDestroyed");

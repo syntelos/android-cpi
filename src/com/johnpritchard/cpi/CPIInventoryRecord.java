@@ -18,7 +18,7 @@ import java.util.Random;
  * @see CPIDatabase
  */
 public final class CPIInventoryRecord
-    extends Object
+    extends ObjectLog
     implements CPICode.Data
 {
     /**
@@ -30,7 +30,7 @@ public final class CPIInventoryRecord
 
     protected volatile CPIProcess process;
 
-    protected long cursor = -1;
+    protected long cursor = -1L;
 
     protected String identifier, title;
 
@@ -77,16 +77,16 @@ public final class CPIInventoryRecord
         }
     }
     /**
-     * Used by {@link #write()}
+     * Has cursor and created but not completed
      */
     public boolean isOpen(){
-        return (null != created && null == completed);
+        return (-1L < cursor && null != created && null == completed);
     }
     /**
-     * Used by {@link #read()}
+     * Has cursor and created and completed
      */
     public boolean isClosed(){
-        return (null == created);
+        return (-1L < cursor && null != created && null != completed);
     }
     /**
      * Reinitialize record to init state
@@ -108,7 +108,7 @@ public final class CPIInventoryRecord
         return (-1L < cursor);
     }
     public boolean hasNotCursor(){
-        return (0 > cursor);
+        return (0L > cursor);
     }
     public long getCursor(){
         return cursor;
@@ -239,6 +239,14 @@ public final class CPIInventoryRecord
         this.completed = new Date();
         return this;
     }
+    public CPIInventoryRecord setCompleted(CPIInventory.Product product){
+        this.nf = product.normalized_nf;
+        this.sf = product.normalized_sf;
+        this.nt = product.normalized_nt;
+        this.st = product.normalized_st;
+
+        return this.setCompleted();
+    }
     public CPIInventoryRecord setCompleted(Date completed){
         this.completed = completed;
         return this;
@@ -274,8 +282,15 @@ public final class CPIInventoryRecord
     public CPIInventoryRecord readResults(Cursor cursor){
 
         this.cursor = cursor.getLong(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results._ID));
+
+        info("readResults cursor <"+this.cursor+">");
+
         this.identifier = cursor.getString(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.IDENTIFIER));
+        info("readResults identifier <"+this.identifier+">");
+
         this.title = cursor.getString(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.TITLE));
+        info("readResults title <"+this.title+">");
+
         this.sf = cursor.getFloat(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.SF));
         this.st = cursor.getFloat(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.ST));
         this.nf = cursor.getFloat(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.NF));
@@ -284,9 +299,11 @@ public final class CPIInventoryRecord
         final long created = cursor.getLong(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.CREATED));
         if (0 < created){
             this.created = new Date(created);
+            info("readResults created <"+this.created+">");
         }
         else {
             this.created = null;
+            info("readResults created <*>");
         }
 
         final long completed = cursor.getLong(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.COMPLETED));
@@ -294,24 +311,39 @@ public final class CPIInventoryRecord
             this.completed = new Date(completed);
 
             this.process = CPIProcess.Completed;
+            info("readResults completed <"+this.completed+">");
         }
         else {
             this.completed = null;
 
             this.process = CPIProcess.Inventory;
+            info("readResults completed <*>");
         }
         return this;
     }
     public ContentValues writeResults(){
         ContentValues values = new ContentValues();
         if (hasCursor()){
+
+            info("writeResults cursor <"+this.cursor+">");
             values.put(CPIDatabaseTables.Results._ID,this.cursor);
         }
+        else {
+            info("writeResults cursor <*>");
+        }
         if (hasIdentifier()){
+            info("writeResults identifier <"+this.identifier+">");
             values.put(CPIDatabaseTables.Results.IDENTIFIER,this.identifier);
         }
+        else {
+            info("writeResults identifier <*>");
+        }
         if (hasTitle()){
+            info("writeResults title <"+this.title+">");
             values.put(CPIDatabaseTables.Results.TITLE,this.title);
+        }
+        else {
+            info("writeResults title <*>");
         }
 
         values.put(CPIDatabaseTables.Results.SF,this.sf);
@@ -323,10 +355,19 @@ public final class CPIInventoryRecord
         values.put(CPIDatabaseTables.Results.NT,this.nt);
 
         if (hasCreated()){
+            info("writeResults created <"+this.created+">");
             values.put(CPIDatabaseTables.Results.CREATED,this.created.getTime());
         }
+        else {
+            info("writeResults created <*>");
+        }
+
         if (hasCompleted()){
+            info("writeResults completed <"+this.completed+">");
             values.put(CPIDatabaseTables.Results.COMPLETED,this.completed.getTime());
+        }
+        else {
+            info("writeResults completed <*>");
         }
         return values;
     }
@@ -336,19 +377,13 @@ public final class CPIInventoryRecord
 
         final String choice = cursor.getString(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Session.CHOICE));
 
+        info("readSession <"+index+">");
+
         setSession(index,CPIInventory.valueOf(choice));
 
         return this;
     }
-    public ContentValues writeSession(int index){
 
-        final ContentValues values = new ContentValues();
-        {
-            values.put(CPIDatabaseTables.Session.INDEX,index);
-            values.put(CPIDatabaseTables.Session.CHOICE,session.get(index).name());
-        }
-        return values;
-    }
     private final static int RandomIdentifierOctets = 12;
 
     public final static String RandomIdentifier(){

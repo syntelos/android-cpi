@@ -55,6 +55,9 @@ public class ObjectLog
     }
     public void surfaceDestroyed(SurfaceHolder holder){
     }
+    public String toString(){
+        return baseName;
+    }
     protected void attach(Camera c)
         throws java.io.IOException
     {

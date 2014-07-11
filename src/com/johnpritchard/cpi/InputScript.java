@@ -168,44 +168,44 @@ public interface InputScript {
             switch(this.op){
             case Init:
                 {
-                    info("CPIDatabase.Init");
+                    //info("CPIDatabase.Init");
                     CPIDatabase.Init(context);
                 }
                 break;
             case Practice:
                 {
-                    info("CPIDatabase.Practice");
+                    //info("CPIDatabase.Practice");
                     CPIDatabase.Practice();
                 }
                 break;
             case Inventory:
                 {
-                    info("CPIDatabase.Inventory");
+                    //info("CPIDatabase.Inventory");
                     CPIDatabase.Inventory();
                 }
                 break;
             case Input:
                 {
-                    info("CPIDatabase.Input");
+                    //info("CPIDatabase.Input");
 
                     CPIDatabase.Input(index,input);
                 }
                 break;
             case Completed:
                 {
-                    info("CPIDatabase.Completed");
+                    //info("CPIDatabase.Completed");
                     CPIDatabase.Completed();
                 }
                 break;
             case CompletedPrev:
                 {
-                    info("CPIDatabase.CompletedPrev");
+                    //info("CPIDatabase.CompletedPrev");
                     CPIDatabase.CompletedPrev();
                 }
                 break;
             case CompletedNext:
                 {
-                    info("CPIDatabase.CompletedNext");
+                    //info("CPIDatabase.CompletedNext");
                     CPIDatabase.CompletedNext();
                 }
                 break;

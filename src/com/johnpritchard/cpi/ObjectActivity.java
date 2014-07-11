@@ -55,6 +55,9 @@ public abstract class ObjectActivity
     public void surfaceDestroyed(SurfaceHolder holder){
         //info("surfaceDestroyed");
     }
+    public String toString(){
+        return baseName;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState)
     {

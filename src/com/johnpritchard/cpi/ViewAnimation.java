@@ -359,7 +359,7 @@ public final class ViewAnimation
     }
     public void run(){
         try {
-            info("running");
+            //info("running");
 
             long touchInputFilter = 0L;
 
@@ -381,7 +381,7 @@ public final class ViewAnimation
 
                     if (null == sequence){
 
-                        info("waiting");
+                        //info("waiting");
 
                         synchronized(this.monitor){
 
@@ -395,7 +395,7 @@ public final class ViewAnimation
 
                             if (null != sequence.pageTo){
 
-                                info("pageTo");
+                                //info("pageTo");
                                 /*
                                  * pageTo
                                  */
@@ -413,12 +413,12 @@ public final class ViewAnimation
                                      */
                                     if (touchInputFilter < SystemClock.uptimeMillis()){
 
-                                        info("include motion");
+                                        //info("include motion");
 
                                         script = sequence.page.script(sequence.motion);
                                     }
                                     else {
-                                        warn("exclude motion");
+                                        //warn("exclude motion");
                                     }
                                 }
                                 else if (null != sequence.input){
@@ -427,18 +427,18 @@ public final class ViewAnimation
                                      */
                                     if (!sequence.input_filtered){
 
-                                        info("include unfiltered input");
+                                        //info("include unfiltered input");
 
                                         script = sequence.input;
                                     }
                                     else if (touchInputFilter < SystemClock.uptimeMillis()){
 
-                                        info("include input");
+                                        //info("include input");
 
                                         script = sequence.input;
                                     }
                                     else {
-                                        warn("exclude input");
+                                        //warn("exclude input");
                                     }
                                 }
 
@@ -449,7 +449,7 @@ public final class ViewAnimation
 
                                     final int count = script.length;
 
-                                    info("exec script "+count);
+                                    //info("exec script "+count);
 
                                     for (int cc = 0; cc < count; cc++){
 
@@ -474,7 +474,7 @@ public final class ViewAnimation
 
                                         in = script[cc];
 
-                                        info("input "+in.name()+" to "+page.name());
+                                        //info("input "+in+" to "+page);
 
                                         page.input(in);
 
@@ -488,7 +488,7 @@ public final class ViewAnimation
                                     }
                                 }
                                 else {
-                                    warn("ignore script <null>");
+                                    //warn("ignore script <null>");
                                 }
                             }
 
