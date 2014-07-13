@@ -365,7 +365,7 @@ public final class CPIDatabase
 
                 final String[] projection = CPIDatabaseTables.Results.ProjectionInternal();
 
-                final String where = CPIDatabaseTables.Results.COMPLETED+" != NULL";
+                final String where = CPIDatabaseTables.Results.COMPLETED+" != 0";
 
                 final String[] whereargs = null;
 
@@ -421,7 +421,7 @@ public final class CPIDatabase
 
                 final String[] projection = CPIDatabaseTables.Results.ProjectionInternal();
 
-                final String where = CPIDatabaseTables.Results.COMPLETED+" != NULL";
+                final String where = CPIDatabaseTables.Results.COMPLETED+" != 0";
 
                 final String[] whereargs = null;
 
@@ -485,7 +485,7 @@ public final class CPIDatabase
 
                 final String[] projection = CPIDatabaseTables.Results.ProjectionInternal();
 
-                final String where = CPIDatabaseTables.Results.COMPLETED+" != NULL";
+                final String where = CPIDatabaseTables.Results.COMPLETED+" != 0";
 
                 final String[] whereargs = null;
 
