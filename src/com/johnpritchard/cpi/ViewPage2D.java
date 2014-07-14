@@ -148,6 +148,30 @@ public abstract class ViewPage2D
             throw new IllegalStateException();
         }
     }
+    protected void scale(int offset, int count){
+        final ViewPage2DComponent[] components = this.components;
+        if (0 < width && 0 < height && null != components){
+
+            final Matrix m = new Matrix();
+            {
+                final RectF src = measure(offset,count);
+
+                final RectF dst = new RectF(pad,pad,(width-pad),(height-pad));
+
+                m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
+            }
+
+            for (int cc = offset, cz = (offset+count); cc < cz; cc++){
+
+                ViewPage2DComponent c = components[cc];
+
+                c.transform(m);
+            }
+        }
+        else {
+            throw new IllegalStateException();
+        }
+    }
     protected static float pad(RectF a, RectF b){
         return Math.max(pad(a),pad(b));
     }
@@ -285,6 +309,23 @@ public abstract class ViewPage2D
             group = group(0,components.length,group,pad);
 
             col(0,components.length,pad,pad,(group.right-group.left),pad);
+        }
+        else {
+            throw new IllegalStateException();
+        }
+    }
+    protected void group_vertical(int offset, int count){
+
+        final ViewPage2DComponent[] components = this.components;
+        if (null != components){
+
+            RectF group = center(offset,count);
+
+            float pad = pad(group);
+
+            group = group(offset,count,group,pad);
+
+            col(offset,count,pad,pad,(group.right-group.left),pad);
         }
         else {
             throw new IllegalStateException();
@@ -716,15 +757,26 @@ public abstract class ViewPage2D
             final int count = this.components.length;
             if (0 < count){
                 if (Input.Down == in){
-                    return this.components[0];
+
+                    for (int cc = 0; cc < count; cc++){
+                        final ViewPage2DComponent c = this.components[cc];
+                        if (navigationInclude(cc,c)){
+                            return c;
+                        }
+                    }
                 }
                 else {
-                    return this.components[count-1];
+
+                    for (int cc = (count-1); -1 < cc; cc--){
+                        final ViewPage2DComponent c = this.components[cc];
+                        if (navigationInclude(cc,c)){
+                            return c;
+                        }
+                    }
                 }
             }
-            else {
-                return null;
-            }
+
+            return null;
         }
     }
     protected void current(ViewPage2DComponent next){

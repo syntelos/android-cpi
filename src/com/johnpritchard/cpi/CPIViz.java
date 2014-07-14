@@ -42,6 +42,12 @@ public final class CPIViz
 
     public final static CPIViz Instance = new CPIViz();
 
+    protected final static ViewPage2DComponentRect Clip_ST = Instance.clip_ST;
+    protected final static ViewPage2DComponentRect Clip_NT = Instance.clip_NT;
+    protected final static ViewPage2DComponentRect Clip_NF = Instance.clip_NF;
+    protected final static ViewPage2DComponentRect Clip_SF = Instance.clip_SF;
+
+
     public final static void Init(){
     }
     public final static void Update(){
@@ -50,10 +56,10 @@ public final class CPIViz
     }
 
 
-    protected final RectF clipY = new RectF();
-    protected final RectF clipB = new RectF();
-    protected final RectF clipG = new RectF();
-    protected final RectF clipR = new RectF();
+    protected final ViewPage2DComponentRect clip_ST = new ViewPage2DComponentRect();
+    protected final ViewPage2DComponentRect clip_NT = new ViewPage2DComponentRect();
+    protected final ViewPage2DComponentRect clip_NF = new ViewPage2DComponentRect();
+    protected final ViewPage2DComponentRect clip_SF = new ViewPage2DComponentRect();
 
     protected final ViewPage2DPath outside = new ViewPage2DPath();
 
@@ -61,12 +67,12 @@ public final class CPIViz
 
     protected final ViewPage2DPath axes = new ViewPage2DPath();
 
-    protected final Paint pW = new Paint(Paint.ANTI_ALIAS_FLAG);
-    protected final Paint pR = new Paint(Paint.ANTI_ALIAS_FLAG);
-    protected final Paint pG = new Paint(Paint.ANTI_ALIAS_FLAG);
-    protected final Paint pB = new Paint(Paint.ANTI_ALIAS_FLAG);
-    protected final Paint pY = new Paint(Paint.ANTI_ALIAS_FLAG);
-    protected final Paint pA = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint p_BG = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint p_SF = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint p_NF = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint p_NT = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint p_ST = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint p_GRID = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     protected float sf;
     protected float st;
@@ -103,23 +109,23 @@ public final class CPIViz
         axes.moveTo(0,2);
         axes.lineTo(4,2);
 
-        pW.setColor(Color.WHITE);
-        pW.setStyle(Paint.Style.FILL);
+        p_BG.setColor(Color.WHITE);
+        p_BG.setStyle(Paint.Style.FILL);
 
-        pR.setColor(Color.RED);
-        pR.setStyle(Paint.Style.FILL);
+        p_SF.setColor(Color.RED);
+        p_SF.setStyle(Paint.Style.FILL);
 
-        pG.setColor(Color.GREEN);
-        pG.setStyle(Paint.Style.FILL);
+        p_NF.setColor(Color.GREEN);
+        p_NF.setStyle(Paint.Style.FILL);
 
-        pB.setColor(Color.BLUE);
-        pB.setStyle(Paint.Style.FILL);
+        p_NT.setColor(Color.BLUE);
+        p_NT.setStyle(Paint.Style.FILL);
 
-        pY.setColor(Color.YELLOW);
-        pY.setStyle(Paint.Style.FILL);
+        p_ST.setColor(Color.YELLOW);
+        p_ST.setStyle(Paint.Style.FILL);
 
-        pA.setColor(Color.GRAY);
-        pA.setStyle(Paint.Style.STROKE);
+        p_GRID.setColor(Color.GRAY);
+        p_GRID.setStyle(Paint.Style.STROKE);
 
         clip.margin(2.0f);
 
@@ -127,6 +133,49 @@ public final class CPIViz
     }
 
 
+    public void select(CPIQuadrant q){
+        if (null == q){
+            info("select <*>");
+            p_SF.setStyle(Paint.Style.FILL);
+            p_NF.setStyle(Paint.Style.FILL);
+            p_NT.setStyle(Paint.Style.FILL);
+            p_ST.setStyle(Paint.Style.FILL);
+        }
+        else {
+            switch(q){
+            case ST:
+                info("select <ST>");
+                p_SF.setStyle(Paint.Style.STROKE);
+                p_NF.setStyle(Paint.Style.STROKE);
+                p_NT.setStyle(Paint.Style.STROKE);
+                p_ST.setStyle(Paint.Style.FILL);
+                break;
+            case SF:
+                info("select <SF>");
+                p_SF.setStyle(Paint.Style.FILL);
+                p_NF.setStyle(Paint.Style.STROKE);
+                p_NT.setStyle(Paint.Style.STROKE);
+                p_ST.setStyle(Paint.Style.STROKE);
+                break;
+            case NT:
+                info("select <NT>");
+                p_SF.setStyle(Paint.Style.STROKE);
+                p_NF.setStyle(Paint.Style.STROKE);
+                p_NT.setStyle(Paint.Style.FILL);
+                p_ST.setStyle(Paint.Style.STROKE);
+                break;
+            case NF:
+                info("select <NF>");
+                p_SF.setStyle(Paint.Style.STROKE);
+                p_NF.setStyle(Paint.Style.FILL);
+                p_NT.setStyle(Paint.Style.STROKE);
+                p_ST.setStyle(Paint.Style.STROKE);
+                break;
+            default:
+                break;
+            }
+        }
+    }
     protected void update(){
 
         inside.reset();
@@ -194,33 +243,27 @@ public final class CPIViz
             final float xm = ((x0+x1)/2.0f)+1.0f;
             final float ym = ((y0+y1)/2.0f)+1.0f;
 
-            clipY.left = x0;
-            clipY.top = y0;
-            clipY.right = xm;
-            clipY.bottom = ym;
+            clip_ST.left = x0;
+            clip_ST.top = y0;
+            clip_ST.right = xm;
+            clip_ST.bottom = ym;
 
-            clipB.left = x0;
-            clipB.top = ym;
-            clipB.right = xm;
-            clipB.bottom = y1;
+            clip_NT.left = x0;
+            clip_NT.top = ym;
+            clip_NT.right = xm;
+            clip_NT.bottom = y1;
 
-            clipG.left = xm;
-            clipG.top = ym;
-            clipG.right = x1;
-            clipG.bottom = y1;
+            clip_NF.left = xm;
+            clip_NF.top = ym;
+            clip_NF.right = x1;
+            clip_NF.bottom = y1;
 
-            clipR.left = xm;
-            clipR.top = y0;
-            clipR.right = x1;
-            clipR.bottom = ym;
+            clip_SF.left = xm;
+            clip_SF.top = y0;
+            clip_SF.right = x1;
+            clip_SF.bottom = ym;
 
             this.clip.set(this.bounds);
-
-            //info("bounds left: "+bounds.left+", right: "+bounds.right+", top: "+bounds.top+", bottom: "+bounds.bottom);
-            //info("clipY left: "+clipY.left+", right: "+clipY.right+", top: "+clipY.top+", bottom: "+clipY.bottom);
-            //info("clipB left: "+clipB.left+", right: "+clipB.right+", top: "+clipB.top+", bottom: "+clipB.bottom);
-            //info("clipG left: "+clipG.left+", right: "+clipG.right+", top: "+clipG.top+", bottom: "+clipG.bottom);
-            //info("clipR left: "+clipR.left+", right: "+clipR.right+", top: "+clipR.top+", bottom: "+clipR.bottom);
         }
         return this.bounds;
     }
@@ -265,33 +308,33 @@ public final class CPIViz
         {
             c.clipPath(clip,Region.Op.REPLACE);
 
-            c.drawPath(outside,pW);
+            c.drawPath(outside,p_BG);
         }
         {
-            c.clipRect(clipY,Region.Op.REPLACE);
+            c.clipRect(clip_ST,Region.Op.REPLACE);
 
-            c.drawPath(inside,pY);
+            c.drawPath(inside,p_ST);
         }
         {
-            c.clipRect(clipB,Region.Op.REPLACE);
+            c.clipRect(clip_NT,Region.Op.REPLACE);
 
-            c.drawPath(inside,pB);
+            c.drawPath(inside,p_NT);
         }
         {
-            c.clipRect(clipG,Region.Op.REPLACE);
+            c.clipRect(clip_NF,Region.Op.REPLACE);
 
-            c.drawPath(inside,pG);
+            c.drawPath(inside,p_NF);
         }
         {
-            c.clipRect(clipR,Region.Op.REPLACE);
+            c.clipRect(clip_SF,Region.Op.REPLACE);
 
-            c.drawPath(inside,pR);
+            c.drawPath(inside,p_SF);
         }
         {
             c.clipPath(clip,Region.Op.REPLACE);
 
-            c.drawPath(axes,pA);
-            c.drawPath(outside,pA);
+            c.drawPath(axes,p_GRID);
+            c.drawPath(outside,p_GRID);
         }
         c.restore();
     }
