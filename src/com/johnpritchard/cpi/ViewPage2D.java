@@ -65,7 +65,7 @@ public abstract class ViewPage2D
 
         final RectF g = new RectF();
 
-        RectF selection_group = null;
+        // RectF selection_group = null;
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
             ViewPage2DComponent c = components[cc];

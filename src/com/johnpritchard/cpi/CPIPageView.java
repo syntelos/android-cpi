@@ -20,12 +20,6 @@ public final class CPIPageView
     protected final static ViewPage2DComponentRect Clip_NF = CPIViz.Instance.clip_NF;
     protected final static ViewPage2DComponentRect Clip_SF = CPIViz.Instance.clip_SF;
 
-    public static void View(){
-
-        CPIViz.Update();
-
-        CPIOutputTitle.Update();
-    }
 
 
     protected final static int VZ = 0;
@@ -34,6 +28,13 @@ public final class CPIPageView
     protected final static int NT = 3;
     protected final static int NF = 4;
     protected final static int SF = 5;
+
+
+    private final CPIViz viz;
+
+    private final CPIOutputTitle title;
+
+    private volatile boolean interior;
 
 
     private CPIPageView(){
@@ -45,6 +46,9 @@ public final class CPIPageView
                 CPIViz.Instance.Clip_NF,
                 CPIViz.Instance.Clip_SF
             });
+
+        viz = CPIViz.Instance;
+        title = CPIOutputTitle.Instance;
     }
 
 
@@ -60,6 +64,11 @@ public final class CPIPageView
     }
     @Override
     protected void focus(){
+
+        if (viz.update()){
+
+            title.update();
+        }
     }
     @Override
     public String name(){
@@ -72,70 +81,92 @@ public final class CPIPageView
     @Override
     public void input(InputScript in){
 
-        // switch(in.type()){
+        if (interior){
+            /*
+             * nav within viz
+             */
+            switch (in.type()){
 
-        // case Left:
-        //     view.script(new InputScript.Database(InputScript.Database.Op.CompletedPrev));
-        //     return;
-
-        // case Right:
-        //     view.script(new InputScript.Database(InputScript.Database.Op.CompletedNext));
-        //     return;
-
-        // case Enter:
-        //     CPI.StartActivity(Page.start);
-        //     return;
-
-        // default:
-        //     super.input(in);
-        //     return;
-        // }
-
-        switch (in.type()){
-
-        case Enter:
-
-            switch(enter()){
-            case ST:
-
+            case Enter:
+                interior = false;
+                current(ViewPage2DComponentAbstract.Nil);
                 return;
-            case NT:
 
+            default:
+                super.input(in);
                 return;
-            case NF:
+            }
+        }
+        else {
+            /*
+             * nav over viz
+             */
+            switch(in.type()){
 
+            case Up:
+            case Left:
+                view.script(new InputScript.Database(InputScript.Database.Op.CompletedPrev));
                 return;
-            case SF:
 
+            case Down:
+            case Right:
+                view.script(new InputScript.Database(InputScript.Database.Op.CompletedNext));
                 return;
+
+            case Enter:
+                interior = true;
+                current(viz.primary);
+                return;
+
             default:
                 return;
             }
-
-        default:
-            info("input "+in);
-            super.input(in);
-            return;
+        }
+    }
+    protected void current(CPIQuadrant q){
+        if (null == q){
+            super.current(ViewPage2DComponentAbstract.Nil);
+            viz.select(null);
+        }
+        else {
+            switch(q){
+            case ST:
+                super.current(Clip_ST);
+                viz.select(CPIQuadrant.ST);
+                break;
+            case NT:
+                super.current(Clip_NT);
+                viz.select(CPIQuadrant.NT);
+                break;
+            case NF:
+                super.current(Clip_NF);
+                viz.select(CPIQuadrant.NF);
+                break;
+            default:
+                super.current(Clip_SF);
+                viz.select(CPIQuadrant.SF);
+                break;
+            }
         }
     }
     @Override
     protected void current(ViewPage2DComponent next){
         super.current(next);
 
-        if (next == Clip_ST){
-            CPIViz.Instance.select(CPIQuadrant.ST);
+        if (null == next){
+            viz.select(null);
+        }
+        else if (next == Clip_ST){
+            viz.select(CPIQuadrant.ST);
         }
         else if (next == Clip_NT){
-            CPIViz.Instance.select(CPIQuadrant.NT);
+            viz.select(CPIQuadrant.NT);
         }
         else if (next == Clip_NF){
-            CPIViz.Instance.select(CPIQuadrant.NF);
-        }
-        else if (next == Clip_SF){
-            CPIViz.Instance.select(CPIQuadrant.SF);
+            viz.select(CPIQuadrant.NF);
         }
         else {
-            CPIViz.Instance.select(null);
+            viz.select(CPIQuadrant.SF);
         }
     }
     @Override

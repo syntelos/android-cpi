@@ -515,7 +515,7 @@ public final class ViewAnimation
             return;
         }
         finally {
-            info("returning"); 
+            //info("returning"); 
 
             Exit(this);
         }

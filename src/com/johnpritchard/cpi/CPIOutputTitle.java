@@ -20,10 +20,6 @@ public final class CPIOutputTitle
 
     public final static void Init(){
     }
-    public final static void Update(){
-
-        Instance.update();
-    }
 
 
     public CPIOutputTitle(){

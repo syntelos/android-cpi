@@ -161,12 +161,12 @@ public final class CPIDatabase
                 try {
                     if (cursor.moveToFirst()){
 
-                        Info("Inventory readResults (1)");
+                        //Info("Inventory readResults (1)");
 
                         inventory.readResults(cursor);
                     }
                     else {
-                        Info("Inventory readResults (0)");
+                        //Info("Inventory readResults (0)");
                     }
                 }
                 finally {
@@ -176,7 +176,7 @@ public final class CPIDatabase
                  */
                 if (inventory.isOpen()){
 
-                    Info("Inventory <not completed>");
+                    //Info("Inventory <not completed>");
 
                     SQLiteQueryBuilder sQ = CPIDatabase.QuerySessionInternal();
 
@@ -192,7 +192,7 @@ public final class CPIDatabase
                     }
                 }
                 else {
-                    Info("Inventory <new>");
+                    //Info("Inventory <new>");
                     /*
                      * The most recent session has completed,
                      * therefore create a new session
@@ -214,7 +214,7 @@ public final class CPIDatabase
 
                     inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,values);
 
-                    Info("Inventory <new record> "+inventory.cursor);
+                    //Info("Inventory <new record> "+inventory.cursor);
                 }
             }
             finally {
@@ -237,7 +237,7 @@ public final class CPIDatabase
         try {
             long cursor = db.insert(CPIDatabase.SESSION,null,values);
 
-            Info("Session <insert> "+cursor);
+            //Info("Session <insert> "+cursor);
         }
         catch (SQLiteException exc){
 
@@ -247,7 +247,7 @@ public final class CPIDatabase
 
             int rows = db.update(CPIDatabase.SESSION,values,where,whereArgs);
 
-            Info("Session <update> "+rows);
+            //Info("Session <update> "+rows);
         }
 
         inventory.setSession(index,input);
@@ -258,13 +258,13 @@ public final class CPIDatabase
         {
             if (CPIProcess.Practice == inventory.process){
 
-                Info("Input <practice>");
+                //Info("Input <practice>");
 
                 CPI.StartActivity(Page.start);
             }
             else if (-1 < index && index < CPIInventory.Term){
 
-                Info("Input <"+index+">");
+                //Info("Input <"+index+">");
 
                 SQLiteDatabase db = CPIDatabase.Writable();
                 try {
@@ -277,7 +277,7 @@ public final class CPIDatabase
                 }
             }
             else {
-                Info("Input <completion>");
+                //Info("Input <completion>");
 
                 Completion(index,input);
             }
@@ -309,7 +309,7 @@ public final class CPIDatabase
 
                             int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
 
-                            Info("Completion CPIInventory.Complete <update:ID> "+rows);
+                            //Info("Completion CPIInventory.Complete <update:ID> "+rows);
                         }
                         else {
 
@@ -319,7 +319,7 @@ public final class CPIDatabase
 
                             int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
 
-                            Info("Completion CPIInventory.Complete <update:IDENTIFIER> "+rows);
+                            //Info("Completion CPIInventory.Complete <update:IDENTIFIER> "+rows);
                         }
                     }
                     finally {
@@ -332,10 +332,10 @@ public final class CPIDatabase
                              */
                             db.delete(CPIDatabase.SESSION,null,null);
 
-                            Info("Completion CPIInventory.Complete clear-session <delete>");
+                            //Info("Completion CPIInventory.Complete clear-session <delete>");
                         }
                         else {
-                            Info("Completion CPIInventory.Complete clear-session <*>");
+                            //Info("Completion CPIInventory.Complete clear-session <*>");
                         }
                     }
 
@@ -381,7 +381,7 @@ public final class CPIDatabase
                 try {
                     if (cursor.moveToFirst()){
 
-                        Info("Completed readResults (1)");
+                        //Info("Completed readResults (1)");
                         /*
                          * Have history
                          */
@@ -391,7 +391,7 @@ public final class CPIDatabase
                         /*
                          * No history
                          */
-                        Info("Completed readResults (0)");
+                        //Info("Completed readResults (0)");
                     }
                 }
                 finally {
@@ -402,8 +402,6 @@ public final class CPIDatabase
                 db.close();
             }
         }
-
-        CPIPageView.View();
     }
     /**
      * Called from poster to setup the {@link CPIInventoryRecord}

@@ -357,7 +357,7 @@ public final class View2D
          */
         if (Math.abs(dx) > Math.abs(dy)){
 
-            if (0.0f > dx){
+            if (0.0f < dx){
 
                 script(Input.Left);
             }
@@ -384,7 +384,7 @@ public final class View2D
          */
         if (Math.abs(dx) > Math.abs(dy)){
 
-            if (0.0f > dx){
+            if (0.0f < dx){
 
                 script(Input.Left);
             }

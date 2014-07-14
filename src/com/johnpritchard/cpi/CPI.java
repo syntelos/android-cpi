@@ -40,61 +40,61 @@ public final class CPI
         switch(Activity2D.currentPage()){
         case intro:
             if (Page.intro == page){
-                Info("StartActivity (intro,intro) => shutdown");
+                //Info("StartActivity (intro,intro) => shutdown");
                 throw new ViewAnimation.Shutdown();
             }
             else {
-                Info("StartActivity finish intro");
+                //Info("StartActivity finish intro");
                 Activity2D.finish();
             }
             break;
         case start:
             if (Page.start == page){
-                Info("StartActivity (start,start) => shutdown");
+                //Info("StartActivity (start,start) => shutdown");
                 throw new ViewAnimation.Shutdown();
             }
             else {
-                Info("StartActivity finish start");
+                //Info("StartActivity finish start");
                 Activity2D.finish();
             }
             break;
         case view:
             if (Page.view == page){
-                Info("StartActivity (view,view) => shutdown");
+                //Info("StartActivity (view,view) => shutdown");
                 throw new ViewAnimation.Shutdown();
             }
             else {
-                Info("StartActivity finish view");
+                //Info("StartActivity finish view");
                 Activity2D.finish();
             }
             break;
         case practice:
             if (Page.practice == page){
-                Info("StartActivity (practice,practice) => shutdown");
+                //Info("StartActivity (practice,practice) => shutdown");
                 throw new ViewAnimation.Shutdown();
             }
             else {
-                Info("StartActivity finish practice");
+                //Info("StartActivity finish practice");
                 Activity2D.finish();
             }
             break;
         case inventory:
             if (Page.inventory == page){
-                Info("StartActivity (inventory,inventory) => shutdown");
+                //Info("StartActivity (inventory,inventory) => shutdown");
                 throw new ViewAnimation.Shutdown();
             }
             else {
-                Info("StartActivity finish inventory");
+                //Info("StartActivity finish inventory");
                 Activity2D.finish();
             }
             break;
         case about:
             if (Page.about == page){
-                Info("StartActivity (about,about) => shutdown");
+                //Info("StartActivity (about,about) => shutdown");
                 throw new ViewAnimation.Shutdown();
             }
             else {
-                Info("StartActivity finish about");
+                //Info("StartActivity finish about");
                 Activity2D.finish();
             }
             break;
@@ -111,7 +111,7 @@ public final class CPI
                 {
                     intent.setFlags(IntentFlags);
                 }
-                Info("StartActivity start intro");
+                //Info("StartActivity start intro");
 
                 Activity2D.startActivity(intent);
             }
@@ -122,7 +122,7 @@ public final class CPI
                 {
                     intent.setFlags(IntentFlags);
                 }
-                Info("StartActivity start start");
+                //Info("StartActivity start start");
 
                 Activity2D.startActivity(intent);
             }
@@ -133,7 +133,7 @@ public final class CPI
                 {
                     intent.setFlags(IntentFlags);
                 }
-                Info("StartActivity start view");
+                //Info("StartActivity start view");
 
                 Activity2D.startActivity(intent);
             }
@@ -144,7 +144,7 @@ public final class CPI
                 {
                     intent.setFlags(IntentFlags);
                 }
-                Info("StartActivity start practice");
+                //Info("StartActivity start practice");
 
                 Activity2D.startActivity(intent);
             }
@@ -155,7 +155,7 @@ public final class CPI
                 {
                     intent.setFlags(IntentFlags);
                 }
-                Info("StartActivity start inventory");
+                //Info("StartActivity start inventory");
 
                 Activity2D.startActivity(intent);
             }
@@ -166,7 +166,7 @@ public final class CPI
                 {
                     intent.setFlags(IntentFlags);
                 }
-                Info("StartActivity start about");
+                //Info("StartActivity start about");
 
                 Activity2D.startActivity(intent);
             }

@@ -8,9 +8,6 @@ package com.johnpritchard.cpi;
  * 
  * @see CPIDatabase
  * @see CPIInventoryRecord
- * @see CPIPostInventory
- * @see CPIPostPractice
- * @see CPIPostCompleted
  */
 public enum CPIProcess {
     Practice,

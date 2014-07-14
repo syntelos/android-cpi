@@ -74,12 +74,20 @@ public final class CPIViz
     protected final Paint p_ST = new Paint(Paint.ANTI_ALIAS_FLAG);
     protected final Paint p_GRID = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+    protected final Paint s_SF = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint s_NF = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint s_NT = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected final Paint s_ST = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+
     protected float sf;
     protected float st;
     protected float nf;
     protected float nt;
 
-    private volatile boolean debug;
+    protected volatile CPIQuadrant selection;
+
+    protected volatile CPIQuadrant primary;
 
 
     public CPIViz(){
@@ -127,6 +135,24 @@ public final class CPIViz
         p_GRID.setColor(Color.GRAY);
         p_GRID.setStyle(Paint.Style.STROKE);
 
+
+        s_SF.setColor(Color.RED);
+        s_SF.setStyle(Paint.Style.STROKE);
+        s_SF.setStrokeWidth(2.0f);
+
+        s_NF.setColor(Color.GREEN);
+        s_NF.setStyle(Paint.Style.STROKE);
+        s_NF.setStrokeWidth(2.0f);
+
+        s_NT.setColor(Color.BLUE);
+        s_NT.setStyle(Paint.Style.STROKE);
+        s_NT.setStrokeWidth(2.0f);
+
+        s_ST.setColor(Color.YELLOW);
+        s_ST.setStyle(Paint.Style.STROKE);
+        s_ST.setStrokeWidth(2.0f);
+
+
         clip.margin(2.0f);
 
         bounds();
@@ -134,8 +160,12 @@ public final class CPIViz
 
 
     public void select(CPIQuadrant q){
+
+        selection = q;
+
         if (null == q){
-            info("select <*>");
+
+            //info("select <*>");
             p_SF.setStyle(Paint.Style.FILL);
             p_NF.setStyle(Paint.Style.FILL);
             p_NT.setStyle(Paint.Style.FILL);
@@ -144,28 +174,28 @@ public final class CPIViz
         else {
             switch(q){
             case ST:
-                info("select <ST>");
+                //info("select <ST>");
                 p_SF.setStyle(Paint.Style.STROKE);
                 p_NF.setStyle(Paint.Style.STROKE);
                 p_NT.setStyle(Paint.Style.STROKE);
                 p_ST.setStyle(Paint.Style.FILL);
                 break;
             case SF:
-                info("select <SF>");
+                //info("select <SF>");
                 p_SF.setStyle(Paint.Style.FILL);
                 p_NF.setStyle(Paint.Style.STROKE);
                 p_NT.setStyle(Paint.Style.STROKE);
                 p_ST.setStyle(Paint.Style.STROKE);
                 break;
             case NT:
-                info("select <NT>");
+                //info("select <NT>");
                 p_SF.setStyle(Paint.Style.STROKE);
                 p_NF.setStyle(Paint.Style.STROKE);
                 p_NT.setStyle(Paint.Style.FILL);
                 p_ST.setStyle(Paint.Style.STROKE);
                 break;
             case NF:
-                info("select <NF>");
+                //info("select <NF>");
                 p_SF.setStyle(Paint.Style.STROKE);
                 p_NF.setStyle(Paint.Style.FILL);
                 p_NT.setStyle(Paint.Style.STROKE);
@@ -176,14 +206,14 @@ public final class CPIViz
             }
         }
     }
-    protected void update(){
+    protected boolean update(){
 
         inside.reset();
 
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
         if (inventory.hasCPICodeData()){
 
-            info("update OK");
+            //info("update OK");
             /*
              * actual record data
              */
@@ -225,9 +255,52 @@ public final class CPIViz
             inside.lineTo(x2,y2);
             inside.lineTo(x3,y3);
             inside.close();
+
+            if (st > sf){
+                if (st > nt){
+                    if (st > nf){
+                        primary = CPIQuadrant.ST;
+                    }
+                    else {
+                        primary = CPIQuadrant.NF;
+                    }
+                }
+                else if (nt > nf){
+                    primary = CPIQuadrant.NT;
+                }
+                else {
+                    primary = CPIQuadrant.NF;
+                }
+            }
+            else if (sf > nt){
+                if (sf > nt){
+                    if (sf > nf){
+                        primary = CPIQuadrant.SF;
+                    }
+                    else {
+                        primary = CPIQuadrant.NF;
+                    }
+                }
+                else if (nt > nf){
+                    primary = CPIQuadrant.NT;
+                }
+                else {
+                    primary = CPIQuadrant.NF;
+                }
+            }
+            else if (nt > nf){
+                primary = CPIQuadrant.NT;
+            }
+            else {
+                primary = CPIQuadrant.NF;
+            }
+
+            return true;
         }
         else {
-            info("update NG");
+            //info("update NG");
+
+            return false;
         }
     }
     public final RectF bounds(){
@@ -294,21 +367,35 @@ public final class CPIViz
         }
         this.transform(m);
     }
-    protected void toggleDebug(){
-        debug = (!debug);
-
-        //info("debug "+debug);
-    }
     public void draw(Canvas c){
 
         //info("draw "+bounds());
 
         c.save();
-
         {
             c.clipPath(clip,Region.Op.REPLACE);
 
             c.drawPath(outside,p_BG);
+        }
+        {
+            final CPIQuadrant selection = this.selection;
+
+            if (null != selection){
+                switch(selection){
+                case ST:
+                    c.drawRect(clip_ST,s_ST);
+                    break;
+                case NT:
+                    c.drawRect(clip_NT,s_NT);
+                    break;
+                case NF:
+                    c.drawRect(clip_NF,s_NF);
+                    break;
+                case SF:
+                    c.drawRect(clip_SF,s_SF);
+                    break;
+                }
+            }
         }
         {
             c.clipRect(clip_ST,Region.Op.REPLACE);
