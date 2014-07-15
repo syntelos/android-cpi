@@ -6,6 +6,7 @@ package com.johnpritchard.cpi;
 import android.content.Context;
 import android.content.Intent;
 import static android.content.Intent.*;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -196,11 +197,33 @@ public final class CPI
     }
     protected final static void ScreenShot3D(){
     }
-    protected final static void Toast2D(String msg){
+    /**
+     * Requires call from looper thread
+     */
+    protected final static void ToastShort2D(String msg){
 
         Toast toast = Toast.makeText(Activity2D, msg, Toast.LENGTH_SHORT);
 
         toast.show();
+    }
+    /**
+     * Requires call from looper thread
+     */
+    protected final static void ToastLong2D(String msg){
+
+        Toast toast = Toast.makeText(Activity2D, msg, Toast.LENGTH_LONG);
+
+        toast.show();
+    }
+    /**
+     */
+    protected final static void ActionView2D(Uri uri){
+
+        Intent intent = new Intent(ACTION_VIEW);
+        {
+            intent.setData(uri);
+        }
+        Activity2D.startActivity(intent);
     }
     protected final static void Toast3D(String msg){
     }

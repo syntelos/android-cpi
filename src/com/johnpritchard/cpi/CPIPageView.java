@@ -5,6 +5,7 @@ package com.johnpritchard.cpi;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.net.Uri;
 
 /**
  * 
@@ -20,6 +21,25 @@ public final class CPIPageView
     protected final static ViewPage2DComponentRect Clip_NF = CPIViz.Instance.clip_NF;
     protected final static ViewPage2DComponentRect Clip_SF = CPIViz.Instance.clip_SF;
 
+    protected final static Uri U_ST = Uri.parse("http://www.cognitiveprofile.com/st/study");
+    protected final static Uri U_NT = Uri.parse("http://www.cognitiveprofile.com/nt/study");
+    protected final static Uri U_NF = Uri.parse("http://www.cognitiveprofile.com/nf/study");
+    protected final static Uri U_SF = Uri.parse("http://www.cognitiveprofile.com/sf/study");
+
+    protected final static CPIPostActionView2D UA_ST = new CPIPostActionView2D(U_ST);
+    protected final static CPIPostActionView2D UA_NT = new CPIPostActionView2D(U_NT);
+    protected final static CPIPostActionView2D UA_NF = new CPIPostActionView2D(U_NF);
+    protected final static CPIPostActionView2D UA_SF = new CPIPostActionView2D(U_SF);
+
+    protected final static String T_ST = "ST - Sensor Thinker";
+    protected final static String T_NT = "NT - Intuitive Thinker";
+    protected final static String T_NF = "NF - Intuitive Feeler";
+    protected final static String T_SF = "SF - Sensor Feeler";
+
+    protected final static CPIPostToastLong2D TA_ST = new CPIPostToastLong2D(T_ST);
+    protected final static CPIPostToastLong2D TA_NT = new CPIPostToastLong2D(T_NT);
+    protected final static CPIPostToastLong2D TA_NF = new CPIPostToastLong2D(T_NF);
+    protected final static CPIPostToastLong2D TA_SF = new CPIPostToastLong2D(T_SF);
 
 
     protected final static int VZ = 0;
@@ -88,9 +108,24 @@ public final class CPIPageView
             switch (in.type()){
 
             case Enter:
-                interior = false;
-                current(ViewPage2DComponentAbstract.Nil);
-                return;
+                switch(enter()){
+                case ST:
+                    CPI.Post2D(UA_ST);
+                    return;
+                case NT:
+                    CPI.Post2D(UA_NT);
+                    return;
+                case NF:
+                    CPI.Post2D(UA_NF);
+                    return;
+                case SF:
+                    CPI.Post2D(UA_SF);
+                    return;
+                default:
+                    interior = false;
+                    current(ViewPage2DComponentAbstract.Nil);
+                    return;
+                }
 
             default:
                 super.input(in);
@@ -133,18 +168,22 @@ public final class CPIPageView
             case ST:
                 super.current(Clip_ST);
                 viz.select(CPIQuadrant.ST);
+                CPI.Post2D(TA_ST);
                 break;
             case NT:
                 super.current(Clip_NT);
                 viz.select(CPIQuadrant.NT);
+                CPI.Post2D(TA_NT);
                 break;
             case NF:
                 super.current(Clip_NF);
                 viz.select(CPIQuadrant.NF);
+                CPI.Post2D(TA_NF);
                 break;
             default:
                 super.current(Clip_SF);
                 viz.select(CPIQuadrant.SF);
+                CPI.Post2D(TA_SF);
                 break;
             }
         }
@@ -158,15 +197,19 @@ public final class CPIPageView
         }
         else if (next == Clip_ST){
             viz.select(CPIQuadrant.ST);
+            CPI.Post2D(TA_ST);
         }
         else if (next == Clip_NT){
             viz.select(CPIQuadrant.NT);
+            CPI.Post2D(TA_NT);
         }
         else if (next == Clip_NF){
             viz.select(CPIQuadrant.NF);
+            CPI.Post2D(TA_NF);
         }
         else {
             viz.select(CPIQuadrant.SF);
+            CPI.Post2D(TA_SF);
         }
     }
     @Override
