@@ -4,7 +4,10 @@
 package com.johnpritchard.cpi;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 
 /**
@@ -16,22 +19,149 @@ public final class ViewPage2DNavigator
     implements ViewPage2DComponent
 {
 
+    private final static double SP4 = Math.sin(Math.PI/4.0);
 
-    protected final String baseName;
 
+    private final Path inside = new Path();
+
+    //private final Path outside = new Path();
+
+    protected final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 
     public ViewPage2DNavigator(){
         super();
-        baseName = ObjectLog.Basename(this.getClass().getName());
-    }
-    public ViewPage2DNavigator(float left, float top, float right, float bottom){
-        this();
-        set(left,top,right,bottom);
+
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.STROKE);
+
+        update('L','T','R','B','C',480,240);
     }
 
+
+    public void update(char left, char top, char right, char bottom, char center, 
+                       float screen_w, float screen_h)
+    {
+        final float screen_dim = Math.max(screen_w,screen_h);
+        final float dim = (screen_dim/10.0f);
+        final float pos = (screen_dim/20.0f);
+        final float s = (dim/5.0f);
+        final float s_d2 = (s/2.0f);
+        final float in_s = (float)(SP4*(double)s_d2);
+        {
+            this.left = (screen_w-dim-pos);
+            this.top = (pos);
+            this.right = (this.left+dim);
+            this.bottom = (this.top+dim);
+        }
+        final float mid_x = (this.left+this.right)/2.0f;
+        final float mid_y = (this.top+this.bottom)/2.0f;
+        // {
+        //     outside.reset();
+        //     outside.moveTo(this.left,mid_y);
+        //     outside.lineTo(mid_x,this.bottom);
+        //     outside.lineTo(this.right,mid_y);
+        //     outside.lineTo(mid_x,this.top);
+        //     outside.close();
+        // }
+
+        inside.reset();
+
+        final Path path = new Path();
+        final RectF src = new RectF();
+        final RectF dst = new RectF();
+        final Matrix m = new Matrix();
+        {
+            final float x = (this.left+in_s);
+            final float y = (mid_y-s_d2);
+
+            dst.set(x,y,(x+s),(y+s));
+
+            View2DFontFutural.Apply(left,path);
+
+            path.computeBounds(src,true);
+
+            m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
+
+            path.transform(m);
+
+            inside.addPath(path);
+        }
+        path.reset();
+        m.set(null);
+        {
+            final float x = (mid_x-s_d2);
+            final float y = (this.top+in_s);
+
+            dst.set(x,y,(x+s),(y+s));
+
+            View2DFontFutural.Apply(top,path);
+
+            path.computeBounds(src,true);
+
+            m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
+
+            path.transform(m);
+
+            inside.addPath(path);
+        }
+        path.reset();
+        m.set(null);
+        {
+            final float x = (this.right-in_s-s);
+            final float y = (mid_y-s_d2);
+
+            dst.set(x,y,(x+s),(y+s));
+
+            View2DFontFutural.Apply(right,path);
+
+            path.computeBounds(src,true);
+
+            m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
+
+            path.transform(m);
+
+            inside.addPath(path);
+        }
+        path.reset();
+        m.set(null);
+        {
+            final float x = (mid_x-s_d2);
+            final float y = (this.bottom-in_s-s);
+
+            dst.set(x,y,(x+s),(y+s));
+
+            View2DFontFutural.Apply(bottom,path);
+
+            path.computeBounds(src,true);
+
+            m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
+
+            path.transform(m);
+
+            inside.addPath(path);
+        }
+        path.reset();
+        m.set(null);
+        {
+            final float x = (mid_x-s_d2);
+            final float y = (mid_y-s_d2);
+
+            dst.set(x,y,(x+s),(y+s));
+
+            View2DFontFutural.Apply(center,path);
+
+            path.computeBounds(src,true);
+
+            m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
+
+            path.transform(m);
+
+            inside.addPath(path);
+        }
+    }
     public String getName(){
-        return baseName;
+        return "ViewPage2DNavigator";
     }
     public void setName(String name){
         throw new UnsupportedOperationException();
@@ -106,15 +236,10 @@ public final class ViewPage2DNavigator
     }
     public void transform(Matrix m){
 
-        float[] src = {left,top,right,bottom};
-        float[] dst = {0f,0f,0f,0f};
+        inside.transform(m);
+        // outside.transform(m);
 
-        m.mapPoints(dst,0,src,0,2);
-
-        left   = dst[0];
-        top    = dst[1];
-        right  = dst[2];
-        bottom = dst[3];
+        inside.computeBounds(this,true);
     }
     /**
      * Component coordinate space
@@ -165,5 +290,8 @@ public final class ViewPage2DNavigator
         throw new UnsupportedOperationException();
     }
     public void draw(Canvas c){
+
+        // c.drawPath(outside,paint);
+        c.drawPath(inside,paint);
     }
 }

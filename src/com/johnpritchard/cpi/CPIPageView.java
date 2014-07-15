@@ -14,7 +14,11 @@ public final class CPIPageView
     extends ViewPage2D
 {
 
+    protected final static ViewPage2DNavigator Navigator = new ViewPage2DNavigator();
+
+
     public final static CPIPageView Instance = new CPIPageView();
+
 
     protected final static ViewPage2DComponentRect Clip_ST = CPIViz.Instance.clip_ST;
     protected final static ViewPage2DComponentRect Clip_NT = CPIViz.Instance.clip_NT;
@@ -31,28 +35,21 @@ public final class CPIPageView
     protected final static CPIPostActionView2D UA_NF = new CPIPostActionView2D(U_NF);
     protected final static CPIPostActionView2D UA_SF = new CPIPostActionView2D(U_SF);
 
-    protected final static String T_ST = "ST - Sensor Thinker";
-    protected final static String T_NT = "NT - Intuitive Thinker";
-    protected final static String T_NF = "NF - Intuitive Feeler";
-    protected final static String T_SF = "SF - Sensor Feeler";
-
-    protected final static CPIPostToastLong2D TA_ST = new CPIPostToastLong2D(T_ST);
-    protected final static CPIPostToastLong2D TA_NT = new CPIPostToastLong2D(T_NT);
-    protected final static CPIPostToastLong2D TA_NF = new CPIPostToastLong2D(T_NF);
-    protected final static CPIPostToastLong2D TA_SF = new CPIPostToastLong2D(T_SF);
-
 
     protected final static int VZ = 0;
     protected final static int OT = 1;
-    protected final static int ST = 2;
-    protected final static int NT = 3;
-    protected final static int NF = 4;
-    protected final static int SF = 5;
+    protected final static int NA = 2;
+    protected final static int ST = 3;
+    protected final static int NT = 4;
+    protected final static int NF = 5;
+    protected final static int SF = 6;
 
 
     private final CPIViz viz;
 
     private final CPIOutputTitle title;
+
+    private final ViewPage2DNavigator navigator;
 
     private volatile boolean interior;
 
@@ -61,6 +58,7 @@ public final class CPIPageView
         super(new ViewPage2DComponent[]{
                 CPIViz.Instance,
                 CPIOutputTitle.Instance,
+                CPIPageView.Navigator,
                 CPIViz.Instance.Clip_ST,
                 CPIViz.Instance.Clip_NT,
                 CPIViz.Instance.Clip_NF,
@@ -69,6 +67,7 @@ public final class CPIPageView
 
         viz = CPIViz.Instance;
         title = CPIOutputTitle.Instance;
+        navigator = CPIPageView.Navigator;
     }
 
 
@@ -85,10 +84,14 @@ public final class CPIPageView
     @Override
     protected void focus(){
 
+        interior = false;
+
         if (viz.update()){
 
             title.update();
         }
+
+        navigator.update('C','C','C','C','R',width,height);
     }
     @Override
     public String name(){
@@ -108,6 +111,10 @@ public final class CPIPageView
             switch (in.type()){
 
             case Enter:
+                /*
+                 * This was better interaction without the web links,
+                 * but then how to do the web links
+                 */
                 switch(enter()){
                 case ST:
                     CPI.Post2D(UA_ST);
@@ -122,7 +129,6 @@ public final class CPIPageView
                     CPI.Post2D(UA_SF);
                     return;
                 default:
-                    interior = false;
                     current(ViewPage2DComponentAbstract.Nil);
                     return;
                 }
@@ -149,7 +155,6 @@ public final class CPIPageView
                 return;
 
             case Enter:
-                interior = true;
                 current(viz.primary);
                 return;
 
@@ -160,30 +165,33 @@ public final class CPIPageView
     }
     protected void current(CPIQuadrant q){
         if (null == q){
+            interior = false;
             super.current(ViewPage2DComponentAbstract.Nil);
             viz.select(null);
+            navigator.update('C','C','C','C','R',width,height);
         }
         else {
+            interior = true;
             switch(q){
             case ST:
                 super.current(Clip_ST);
                 viz.select(CPIQuadrant.ST);
-                CPI.Post2D(TA_ST);
+                navigator.update('C','C','R','R','W',width,height);
                 break;
             case NT:
                 super.current(Clip_NT);
                 viz.select(CPIQuadrant.NT);
-                CPI.Post2D(TA_NT);
+                navigator.update('C','R','R','C','W',width,height);
                 break;
             case NF:
                 super.current(Clip_NF);
                 viz.select(CPIQuadrant.NF);
-                CPI.Post2D(TA_NF);
+                navigator.update('R','R','C','C','W',width,height);
                 break;
             default:
                 super.current(Clip_SF);
                 viz.select(CPIQuadrant.SF);
-                CPI.Post2D(TA_SF);
+                navigator.update('R','C','C','R','W',width,height);
                 break;
             }
         }
@@ -193,28 +201,33 @@ public final class CPIPageView
         super.current(next);
 
         if (null == next){
+            interior = false;
             viz.select(null);
-        }
-        else if (next == Clip_ST){
-            viz.select(CPIQuadrant.ST);
-            CPI.Post2D(TA_ST);
-        }
-        else if (next == Clip_NT){
-            viz.select(CPIQuadrant.NT);
-            CPI.Post2D(TA_NT);
-        }
-        else if (next == Clip_NF){
-            viz.select(CPIQuadrant.NF);
-            CPI.Post2D(TA_NF);
+            navigator.update('C','C','C','C','R',width,height);
         }
         else {
-            viz.select(CPIQuadrant.SF);
-            CPI.Post2D(TA_SF);
+            interior = true;
+            if (next == Clip_ST){
+                viz.select(CPIQuadrant.ST);
+                navigator.update('C','C','R','R','W',width,height);
+            }
+            else if (next == Clip_NT){
+                viz.select(CPIQuadrant.NT);
+                navigator.update('C','R','R','C','W',width,height);
+            }
+            else if (next == Clip_NF){
+                viz.select(CPIQuadrant.NF);
+                navigator.update('R','R','C','C','W',width,height);
+            }
+            else {
+                viz.select(CPIQuadrant.SF);
+                navigator.update('R','C','C','R','W',width,height);
+            }
         }
     }
     @Override
     protected boolean navigationInclude(int index, ViewPage2DComponent c){
-        return (1 < index);
+        return (ST <= index);
     }
     @Override
     protected int first(){

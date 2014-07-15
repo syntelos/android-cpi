@@ -1,25 +1,31 @@
-07-11 19:25:55.398  8759  8783 I CPI     : CPIDatabase Input <55>
-07-11 19:25:55.458  8759  8783 I CPI     : CPIDatabase Session <insert> 56
-07-11 19:25:56.408  8759  8783 I CPI     : CPIDatabase Input <56>
-07-11 19:25:56.508  8759  8783 I CPI     : CPIDatabase Session <insert> 57
-07-11 19:25:57.408  8759  8783 I CPI     : CPIDatabase Input <57>
-07-11 19:25:57.469  8759  8783 I CPI     : CPIDatabase Session <insert> 58
-07-11 19:25:58.378  8759  8783 I CPI     : CPIDatabase Input <58>
-07-11 19:25:58.478  8759  8783 I CPI     : CPIDatabase Session <insert> 59
-07-11 19:25:59.478  8759  8783 I CPI     : CPIDatabase Input <completion>
-07-11 19:25:59.540  8759  8783 I CPI     : CPIDatabase Session <insert> 60
-07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults cursor <1>
-07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults identifier <9UUoy_n4j8GZqdVW>
-07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults title <Fri Jul 11 19:24:37 EDT 2014>
-07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults created <Fri Jul 11 19:24:37 EDT 2014>
-07-11 19:25:59.548  8759  8783 I CPI     : CPIInventoryRecord writeResults completed <Fri Jul 11 19:25:59 EDT 2014>
-07-11 19:25:59.598  8759  8783 I CPI     : CPIDatabase Completion CPIInventory.Complete <update:ID> 1
-07-11 19:25:59.638  8759  8783 I CPI     : CPIDatabase Completion CPIInventory.Complete clear-session <delete>
-07-11 19:25:59.638  8759  8783 I CPI     : CPI StartActivity finish inventory
-07-11 19:25:59.648  8759  8783 I CPI     : CPI StartActivity start view
-07-11 19:25:59.648  1655  2444 I ActivityManager: Starting: Intent { flg=0x4000008 cmp=com.johnpritchard.cpi/.CPIPageViewActivity } from pid 8759
-07-11 19:25:59.718  8759  8783 I CPI     : View/Animation inventory returning
-07-11 19:25:59.788  1655  1807 I ActivityManager: Displayed com.johnpritchard.cpi/.CPIPageViewActivity: +79ms
-07-11 19:25:59.788  8759  9191 I CPI     : CPIDatabase Completed readResults (0)
-07-11 19:25:59.798  8759  9191 I CPI     : CPIViz update NG
-07-11 19:26:36.418  8759  9191 I CPI     : View/Animation view returning
+07-14 23:33:37.608  1655  2037 I ActivityManager: Starting: Intent { flg=0x4000008 cmp=com.johnpritchard.cpi/.CPIPageViewActivity } from pid 19048
+07-14 23:33:37.667 19048 19048 D AndroidRuntime: Shutting down VM
+07-14 23:33:37.667 19048 19048 W dalvikvm: threadid=1: thread exiting with uncaught exception (group=0x40018560)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime: FATAL EXCEPTION: main
+07-14 23:33:37.677 19048 19048 E AndroidRuntime: java.lang.UnsupportedOperationException
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at com.johnpritchard.cpi.ViewPage2DNavigator.setCardinal(ViewPage2DNavigator.java:284)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at com.johnpritchard.cpi.ViewPage2D.navigation(ViewPage2D.java:484)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at com.johnpritchard.cpi.ViewPage.up(ViewPage.java:132)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at com.johnpritchard.cpi.View2D.surfaceChanged(View2D.java:148)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.SurfaceView.updateWindow(SurfaceView.java:549)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.SurfaceView.dispatchDraw(SurfaceView.java:348)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.ViewGroup.drawChild(ViewGroup.java:1644)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.ViewGroup.drawChild(ViewGroup.java:1644)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.View.draw(View.java:6883)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.widget.FrameLayout.draw(FrameLayout.java:357)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at com.android.internal.policy.impl.PhoneWindow$DecorView.draw(PhoneWindow.java:2094)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.ViewRoot.draw(ViewRoot.java:1525)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.ViewRoot.performTraversals(ViewRoot.java:1261)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.view.ViewRoot.handleMessage(ViewRoot.java:1862)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.os.Handler.dispatchMessage(Handler.java:99)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.os.Looper.loop(Looper.java:130)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at android.app.ActivityThread.main(ActivityThread.java:3806)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at java.lang.reflect.Method.invokeNative(Native Method)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at java.lang.reflect.Method.invoke(Method.java:507)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:839)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:597)
+07-14 23:33:37.677 19048 19048 E AndroidRuntime:        at dalvik.system.NativeStart.main(Native Method)
+07-14 23:33:37.677  1655  2015 W ActivityManager:   Force finishing activity com.johnpritchard.cpi/.CPIPageViewActivity
+07-14 23:33:38.188  1655  1679 W ActivityManager: Activity pause timeout for HistoryRecord{40d21788 com.johnpritchard.cpi/.CPIPageViewActivity}
