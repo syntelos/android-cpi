@@ -29,7 +29,7 @@ public final class ViewAnimation
 {
     public final static String TAG = ObjectLog.TAG;
 
-    protected final static long TouchInputFilter = 300L;
+    protected final static long TouchInputFilter = 150L;
 
     protected final static long OutputFilter = 20L;
 
@@ -285,6 +285,7 @@ public final class ViewAnimation
 
     private ViewAnimation(View view){
         super("View/Animation");
+        setPriority(8);
         if (null != view){
             this.view = view;
             this.holder = view.getHolder();

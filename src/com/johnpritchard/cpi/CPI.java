@@ -29,7 +29,7 @@ public final class CPI
     //private final static int IntentFlags = (FLAG_DEBUG_LOG_RESOLUTION);
 
 
-    private static ObjectActivity Activity2D;
+    private static volatile ObjectActivity Activity2D;
 
     /**
      * Called from {@link View2D#pageTo(com.johnpritchard.cpi.Page)} 
@@ -56,7 +56,7 @@ public final class CPI
             }
             else {
                 //Info("StartActivity finish start");
-                Activity2D.finish();
+                //Activity2D.finish();
             }
             break;
         case view:

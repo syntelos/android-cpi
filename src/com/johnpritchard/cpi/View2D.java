@@ -196,142 +196,160 @@ public final class View2D
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
 
-        switch(keyCode){
+        if (plumb){
 
-        case KeyEvent.KEYCODE_BACK:
-            return false;
+            switch(keyCode){
 
-        case KeyEvent.KEYCODE_SOFT_LEFT:
-        case KeyEvent.KEYCODE_DPAD_LEFT:
-        case KeyEvent.KEYCODE_ALT_LEFT:
-        case KeyEvent.KEYCODE_SHIFT_LEFT:
-        case KeyEvent.KEYCODE_LEFT_BRACKET:
-        case KeyEvent.KEYCODE_CTRL_LEFT:
-        case KeyEvent.KEYCODE_META_LEFT:
-            return true;
+            case KeyEvent.KEYCODE_BACK:
+                return false;
 
-        case KeyEvent.KEYCODE_SOFT_RIGHT:
-        case KeyEvent.KEYCODE_DPAD_RIGHT:
-        case KeyEvent.KEYCODE_ALT_RIGHT:
-        case KeyEvent.KEYCODE_SHIFT_RIGHT:
-        case KeyEvent.KEYCODE_RIGHT_BRACKET:
-        case KeyEvent.KEYCODE_CTRL_RIGHT:
-        case KeyEvent.KEYCODE_META_RIGHT:
-            return true;
+            case KeyEvent.KEYCODE_SOFT_LEFT:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_ALT_LEFT:
+            case KeyEvent.KEYCODE_SHIFT_LEFT:
+            case KeyEvent.KEYCODE_LEFT_BRACKET:
+            case KeyEvent.KEYCODE_CTRL_LEFT:
+            case KeyEvent.KEYCODE_META_LEFT:
+                return true;
 
-        case KeyEvent.KEYCODE_DPAD_UP:
-        case KeyEvent.KEYCODE_PAGE_UP:
-            return true;
+            case KeyEvent.KEYCODE_SOFT_RIGHT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_ALT_RIGHT:
+            case KeyEvent.KEYCODE_SHIFT_RIGHT:
+            case KeyEvent.KEYCODE_RIGHT_BRACKET:
+            case KeyEvent.KEYCODE_CTRL_RIGHT:
+            case KeyEvent.KEYCODE_META_RIGHT:
+                return true;
 
-        case KeyEvent.KEYCODE_DPAD_DOWN:
-        case KeyEvent.KEYCODE_PAGE_DOWN:
-            return true;
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_PAGE_UP:
+                return true;
 
-        case KeyEvent.KEYCODE_DPAD_CENTER:
-        case KeyEvent.KEYCODE_ENTER:
-            return true;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_PAGE_DOWN:
+                return true;
 
-        default:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+                return true;
+
+            default:
+                return false;
+            }
+        }
+        else {
             return false;
         }
     }
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event){
 
-        switch(keyCode){
+        if (plumb){
 
-        case KeyEvent.KEYCODE_BACK:
-            return false;
+            switch(keyCode){
 
-        case KeyEvent.KEYCODE_SOFT_LEFT:
-        case KeyEvent.KEYCODE_DPAD_LEFT:
-        case KeyEvent.KEYCODE_ALT_LEFT:
-        case KeyEvent.KEYCODE_SHIFT_LEFT:
-        case KeyEvent.KEYCODE_LEFT_BRACKET:
-        case KeyEvent.KEYCODE_CTRL_LEFT:
-        case KeyEvent.KEYCODE_META_LEFT:
-
-            if (this.pageId.simpleInput){
-
-                script(Input.Left);
-            }
-            else {
-                script(View.Script.Direction(Input.Left));
-            }
-            return true;
-
-        case KeyEvent.KEYCODE_SOFT_RIGHT:
-        case KeyEvent.KEYCODE_DPAD_RIGHT:
-        case KeyEvent.KEYCODE_ALT_RIGHT:
-        case KeyEvent.KEYCODE_SHIFT_RIGHT:
-        case KeyEvent.KEYCODE_RIGHT_BRACKET:
-        case KeyEvent.KEYCODE_CTRL_RIGHT:
-        case KeyEvent.KEYCODE_META_RIGHT:
-
-            if (this.pageId.simpleInput){
-
-                script(Input.Right);
-            }
-            else {
-                script(View.Script.Direction(Input.Right));
-            }
-            return true;
-
-        case KeyEvent.KEYCODE_DPAD_UP:
-        case KeyEvent.KEYCODE_PAGE_UP:
-
-            script(View.Script.Direction(Input.Up));
-            return true;
-
-        case KeyEvent.KEYCODE_DPAD_DOWN:
-        case KeyEvent.KEYCODE_PAGE_DOWN:
-
-            if (this.pageId.simpleInput){
-
-                script(Input.Down);
-            }
-            else {
-                script(View.Script.Direction(Input.Down));
-            }
-            return true;
-
-        case KeyEvent.KEYCODE_DPAD_CENTER:
-        case KeyEvent.KEYCODE_ENTER:
-
-            if (this.pageId.simpleInput){
-
-                script(Input.Enter);
-            }
-            else {
-                script(View.Script.Enter());
-            }
-            return true;
-
-        default:
-
-            if ((!this.pageId.simpleInput) && event.isPrintingKey()){
-
-                script((char)event.getUnicodeChar());
-
-                return true;
-            }
-            else {
+            case KeyEvent.KEYCODE_BACK:
                 return false;
+
+            case KeyEvent.KEYCODE_SOFT_LEFT:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_ALT_LEFT:
+            case KeyEvent.KEYCODE_SHIFT_LEFT:
+            case KeyEvent.KEYCODE_LEFT_BRACKET:
+            case KeyEvent.KEYCODE_CTRL_LEFT:
+            case KeyEvent.KEYCODE_META_LEFT:
+
+                if (this.pageId.simpleInput){
+
+                    script(Input.Left);
+                }
+                else {
+                    script(View.Script.Direction(Input.Left));
+                }
+                return true;
+
+            case KeyEvent.KEYCODE_SOFT_RIGHT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_ALT_RIGHT:
+            case KeyEvent.KEYCODE_SHIFT_RIGHT:
+            case KeyEvent.KEYCODE_RIGHT_BRACKET:
+            case KeyEvent.KEYCODE_CTRL_RIGHT:
+            case KeyEvent.KEYCODE_META_RIGHT:
+
+                if (this.pageId.simpleInput){
+
+                    script(Input.Right);
+                }
+                else {
+                    script(View.Script.Direction(Input.Right));
+                }
+                return true;
+
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_PAGE_UP:
+
+                script(View.Script.Direction(Input.Up));
+                return true;
+
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_PAGE_DOWN:
+
+                if (this.pageId.simpleInput){
+
+                    script(Input.Down);
+                }
+                else {
+                    script(View.Script.Direction(Input.Down));
+                }
+                return true;
+
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+
+                if (this.pageId.simpleInput){
+
+                    script(Input.Enter);
+                }
+                else {
+                    script(View.Script.Enter());
+                }
+                return true;
+
+            default:
+
+                if ((!this.pageId.simpleInput) && event.isPrintingKey()){
+
+                    script((char)event.getUnicodeChar());
+
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
+        }
+        else {
+            return false;
         }
     }
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
-        if (this.pageId.simpleInput){
+        if (plumb){
 
-            touch.onTouchEvent(event);
+            if (this.pageId.simpleInput){
+
+                touch.onTouchEvent(event);
+            }
+            else {
+
+                script(event);
+            }
+            return true;
         }
         else {
-
-            script(event);
+            return false;
         }
-        return true;
     }
     /**
      * @see android.view.GestureDetector$OnGestureListener
@@ -433,16 +451,28 @@ public final class View2D
     @Override
     public boolean onTrackballEvent(MotionEvent event){
 
-        script(event);
+        if (plumb){
 
-        return true;
+            script(event);
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     @Override
     public boolean onGenericMotionEvent(MotionEvent event){
 
-        script(event);
+        if (plumb){
 
-        return true;
+            script(event);
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     /**
      * Called from {@link ViewAnimator}

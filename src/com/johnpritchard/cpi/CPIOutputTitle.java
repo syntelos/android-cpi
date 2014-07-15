@@ -69,10 +69,4 @@ public final class CPIOutputTitle
 
         this.transform(m);
     }
-    public void draw(Canvas c){
-
-        //info("draw "+bounds());
-
-        super.draw(c);
-    }
 }

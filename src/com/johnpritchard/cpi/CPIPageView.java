@@ -51,6 +51,8 @@ public final class CPIPageView
 
     private final CPIOutputTitle title;
 
+    private final CPIOutputQuadrant quadrant;
+
     private final ViewPage2DNavigator navigator;
 
     private volatile boolean interior;
@@ -61,6 +63,7 @@ public final class CPIPageView
                 CPIViz.Instance,
                 CPIOutputTitle.Instance,
                 CPIPageView.Navigator,
+                CPIOutputQuadrant.Instance,
                 CPIViz.Instance.Clip_ST,
                 CPIViz.Instance.Clip_NT,
                 CPIViz.Instance.Clip_NF,
@@ -70,6 +73,7 @@ public final class CPIPageView
         viz = CPIViz.Instance;
         title = CPIOutputTitle.Instance;
         navigator = CPIPageView.Navigator;
+        quadrant = CPIOutputQuadrant.Instance;
     }
 
 
@@ -94,6 +98,7 @@ public final class CPIPageView
         }
 
         navigator.update(Left,Top,Right,Bottom,Square,width,height);
+        quadrant.update(null,width,height);
     }
     @Override
     public String name(){
@@ -184,6 +189,7 @@ public final class CPIPageView
             super.current(ViewPage2DComponentAbstract.Nil);
             viz.select(null);
             navigator.update(Left,Top,Right,Bottom,Square,width,height);
+            quadrant.update(null,width,height);
         }
         else {
             interior = true;
@@ -192,21 +198,25 @@ public final class CPIPageView
                 super.current(Clip_ST);
                 viz.select(CPIQuadrant.ST);
                 navigator.update(Left,Top,Square,Square,Circle,width,height);
+                quadrant.update(CPIQuadrant.ST,width,height);
                 break;
             case NT:
                 super.current(Clip_NT);
                 viz.select(CPIQuadrant.NT);
                 navigator.update(Left,Square,Square,Bottom,Circle,width,height);
+                quadrant.update(CPIQuadrant.NT,width,height);
                 break;
             case NF:
                 super.current(Clip_NF);
                 viz.select(CPIQuadrant.NF);
                 navigator.update(Square,Square,Right,Bottom,Circle,width,height);
+                quadrant.update(CPIQuadrant.NF,width,height);
                 break;
             default:
                 super.current(Clip_SF);
                 viz.select(CPIQuadrant.SF);
                 navigator.update(Square,Top,Right,Square,Circle,width,height);
+                quadrant.update(CPIQuadrant.SF,width,height);
                 break;
             }
         }
@@ -219,24 +229,29 @@ public final class CPIPageView
             interior = false;
             viz.select(null);
             navigator.update(Left,Top,Right,Bottom,Square,width,height);
+            quadrant.update(null,width,height);
         }
         else {
             interior = true;
             if (next == Clip_ST){
                 viz.select(CPIQuadrant.ST);
                 navigator.update(Left,Top,Square,Square,Circle,width,height);
+                quadrant.update(CPIQuadrant.ST,width,height);
             }
             else if (next == Clip_NT){
                 viz.select(CPIQuadrant.NT);
                 navigator.update(Left,Square,Square,Bottom,Circle,width,height);
+                quadrant.update(CPIQuadrant.NT,width,height);
             }
             else if (next == Clip_NF){
                 viz.select(CPIQuadrant.NF);
                 navigator.update(Square,Square,Right,Bottom,Circle,width,height);
+                quadrant.update(CPIQuadrant.NF,width,height);
             }
             else {
                 viz.select(CPIQuadrant.SF);
                 navigator.update(Square,Top,Right,Square,Circle,width,height);
+                quadrant.update(CPIQuadrant.SF,width,height);
             }
         }
     }

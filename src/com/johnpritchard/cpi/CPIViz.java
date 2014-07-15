@@ -379,9 +379,8 @@ public final class CPIViz
 
             c.drawPath(outside,p_BG);
         }
+        final CPIQuadrant selection = this.selection;
         {
-            final CPIQuadrant selection = this.selection;
-
             if (null != selection){
                 switch(selection){
                 case ST:
@@ -425,6 +424,30 @@ public final class CPIViz
             c.drawPath(axes,p_GRID);
             c.drawPath(outside,p_GRID);
         }
+        {
+            if (null != selection){
+
+                final RectF b = bounds();
+
+                c.clipPath(clip,Region.Op.REPLACE);
+
+                switch(selection){
+                case ST:
+                    c.drawLine(b.left,b.top,b.right,b.bottom,p_GRID);
+                    break;
+                case NT:
+                    c.drawLine(b.left,b.bottom,b.right,b.top,p_GRID);
+                    break;
+                case NF:
+                    c.drawLine(b.left,b.top,b.right,b.bottom,p_GRID);
+                    break;
+                case SF:
+                    c.drawLine(b.left,b.bottom,b.right,b.top,p_GRID);
+                    break;
+                }
+            }
+        }
+
         c.restore();
     }
 
