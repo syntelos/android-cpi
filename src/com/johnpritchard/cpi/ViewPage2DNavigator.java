@@ -3,6 +3,9 @@
  */
 package com.johnpritchard.cpi;
 
+import com.johnpritchard.cpi.View2DFontDPad.Char;
+import static com.johnpritchard.cpi.View2DFontDPad.Char.*;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -35,11 +38,11 @@ public final class ViewPage2DNavigator
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
 
-        update('L','T','R','B','C',480,240);
+        update(Left,Top,Right,Bottom,Circle,480,240);
     }
 
 
-    public void update(char left, char top, char right, char bottom, char center, 
+    public void update(Char left, Char top, Char right, Char bottom, Char center, 
                        float screen_w, float screen_h)
     {
         final float screen_dim = Math.max(screen_w,screen_h);
@@ -77,7 +80,7 @@ public final class ViewPage2DNavigator
 
             dst.set(x,y,(x+s),(y+s));
 
-            View2DFontFutural.Apply(left,path);
+            View2DFontDPad.Apply(left,path);
 
             path.computeBounds(src,true);
 
@@ -95,7 +98,7 @@ public final class ViewPage2DNavigator
 
             dst.set(x,y,(x+s),(y+s));
 
-            View2DFontFutural.Apply(top,path);
+            View2DFontDPad.Apply(top,path);
 
             path.computeBounds(src,true);
 
@@ -113,7 +116,7 @@ public final class ViewPage2DNavigator
 
             dst.set(x,y,(x+s),(y+s));
 
-            View2DFontFutural.Apply(right,path);
+            View2DFontDPad.Apply(right,path);
 
             path.computeBounds(src,true);
 
@@ -131,7 +134,7 @@ public final class ViewPage2DNavigator
 
             dst.set(x,y,(x+s),(y+s));
 
-            View2DFontFutural.Apply(bottom,path);
+            View2DFontDPad.Apply(bottom,path);
 
             path.computeBounds(src,true);
 
@@ -149,7 +152,7 @@ public final class ViewPage2DNavigator
 
             dst.set(x,y,(x+s),(y+s));
 
-            View2DFontFutural.Apply(center,path);
+            View2DFontDPad.Apply(center,path);
 
             path.computeBounds(src,true);
 

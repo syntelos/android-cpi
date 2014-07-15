@@ -55,7 +55,7 @@ public class View2DFontFutural {
      * 
      * A glyph may be dereferenced by index (char-' ').
      */
-    public final static float[][] GlyphSet = {
+    private final static float[][] GlyphSet = {
         {
              0.00f,  6.00f,  12.00f,
              0.00f,  0.00f,  0.00f,
@@ -2323,4 +2323,8 @@ public class View2DFontFutural {
 
     };
 
+
+    private View2DFontFutural(){
+        super();
+    }
 }

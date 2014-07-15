@@ -177,7 +177,7 @@ public class font {
                     out.println("     * ");
                     out.println("     * A glyph may be dereferenced by index (char-' ').");
                     out.println("     */");
-                    out.println("    public final static float[][] GlyphSet = {");
+                    out.println("    private final static float[][] GlyphSet = {");
 
                     /*
                      * char value = (' ' + cc)

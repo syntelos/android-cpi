@@ -3,6 +3,8 @@
  */
 package com.johnpritchard.cpi;
 
+import static com.johnpritchard.cpi.View2DFontDPad.Char.*;
+
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.net.Uri;
@@ -91,7 +93,7 @@ public final class CPIPageView
             title.update();
         }
 
-        navigator.update('C','C','C','C','R',width,height);
+        navigator.update(Left,Top,Right,Bottom,Square,width,height);
     }
     @Override
     public String name(){
@@ -103,6 +105,8 @@ public final class CPIPageView
     }
     @Override
     public void input(InputScript in){
+
+        //info("input "+in);
 
         if (interior){
             /*
@@ -117,23 +121,29 @@ public final class CPIPageView
                  */
                 switch(enter()){
                 case ST:
+                    //info("interior <post>");
                     CPI.Post2D(UA_ST);
                     return;
                 case NT:
+                    //info("interior <post>");
                     CPI.Post2D(UA_NT);
                     return;
                 case NF:
+                    //info("interior <post>");
                     CPI.Post2D(UA_NF);
                     return;
                 case SF:
+                    //info("interior <post>");
                     CPI.Post2D(UA_SF);
                     return;
                 default:
+                    //info("interior <deselect>");
                     current(ViewPage2DComponentAbstract.Nil);
                     return;
                 }
 
             default:
+                //info("interior <*>");
                 super.input(in);
                 return;
             }
@@ -146,19 +156,24 @@ public final class CPIPageView
 
             case Up:
             case Left:
+                //info("exterior <prev>");
                 view.script(new InputScript.Database(InputScript.Database.Op.CompletedPrev));
                 return;
 
             case Down:
             case Right:
+                //info("exterior <next>");
                 view.script(new InputScript.Database(InputScript.Database.Op.CompletedNext));
                 return;
 
             case Enter:
+                //info("exterior <select>");
                 current(viz.primary);
                 return;
 
             default:
+                //info("exterior <*>");
+                super.input(in);
                 return;
             }
         }
@@ -168,7 +183,7 @@ public final class CPIPageView
             interior = false;
             super.current(ViewPage2DComponentAbstract.Nil);
             viz.select(null);
-            navigator.update('C','C','C','C','R',width,height);
+            navigator.update(Left,Top,Right,Bottom,Square,width,height);
         }
         else {
             interior = true;
@@ -176,22 +191,22 @@ public final class CPIPageView
             case ST:
                 super.current(Clip_ST);
                 viz.select(CPIQuadrant.ST);
-                navigator.update('C','C','R','R','W',width,height);
+                navigator.update(Left,Top,Square,Square,Circle,width,height);
                 break;
             case NT:
                 super.current(Clip_NT);
                 viz.select(CPIQuadrant.NT);
-                navigator.update('C','R','R','C','W',width,height);
+                navigator.update(Left,Square,Square,Bottom,Circle,width,height);
                 break;
             case NF:
                 super.current(Clip_NF);
                 viz.select(CPIQuadrant.NF);
-                navigator.update('R','R','C','C','W',width,height);
+                navigator.update(Square,Square,Right,Bottom,Circle,width,height);
                 break;
             default:
                 super.current(Clip_SF);
                 viz.select(CPIQuadrant.SF);
-                navigator.update('R','C','C','R','W',width,height);
+                navigator.update(Square,Top,Right,Square,Circle,width,height);
                 break;
             }
         }
@@ -203,25 +218,25 @@ public final class CPIPageView
         if (null == next){
             interior = false;
             viz.select(null);
-            navigator.update('C','C','C','C','R',width,height);
+            navigator.update(Left,Top,Right,Bottom,Square,width,height);
         }
         else {
             interior = true;
             if (next == Clip_ST){
                 viz.select(CPIQuadrant.ST);
-                navigator.update('C','C','R','R','W',width,height);
+                navigator.update(Left,Top,Square,Square,Circle,width,height);
             }
             else if (next == Clip_NT){
                 viz.select(CPIQuadrant.NT);
-                navigator.update('C','R','R','C','W',width,height);
+                navigator.update(Left,Square,Square,Bottom,Circle,width,height);
             }
             else if (next == Clip_NF){
                 viz.select(CPIQuadrant.NF);
-                navigator.update('R','R','C','C','W',width,height);
+                navigator.update(Square,Square,Right,Bottom,Circle,width,height);
             }
             else {
                 viz.select(CPIQuadrant.SF);
-                navigator.update('R','C','C','R','W',width,height);
+                navigator.update(Square,Top,Right,Square,Circle,width,height);
             }
         }
     }

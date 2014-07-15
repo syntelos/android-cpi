@@ -208,6 +208,8 @@ public final class CPIViz
     }
     protected boolean update(){
 
+        select(null);
+
         inside.reset();
 
         final CPIInventoryRecord inventory = CPIInventoryRecord.Instance;
