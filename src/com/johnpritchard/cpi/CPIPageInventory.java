@@ -81,7 +81,7 @@ public class CPIPageInventory
         /*
          * Abstract words and buttons geometry
          */
-        RectF src = center(WO,WC);
+        RectF words = center(WO,WC);
 
         RectF buttons = center(BO,BC);
 
@@ -91,7 +91,7 @@ public class CPIPageInventory
 
         float p4 = (2.0f*p2);
 
-        float words_h = (src.bottom-src.top)*4.0f;
+        float words_h = (words.bottom-words.top)*4.0f;
 
         row(BO,BC,p2,(words_h+p4),(buttons.bottom-buttons.top),p2);
 
@@ -211,6 +211,7 @@ public class CPIPageInventory
     }
     @Override
     public void input(InputScript in){
+
         final Input type = in.type();
         switch (type){
 

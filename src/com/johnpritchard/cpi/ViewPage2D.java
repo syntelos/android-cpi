@@ -3,14 +3,10 @@
  */
 package com.johnpritchard.cpi;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.RectF;
-import android.view.InputDevice;
-import android.view.MotionEvent;
-import android.util.Log;
 
 /**
  * <h3>Layout</h3>
@@ -520,134 +516,6 @@ public abstract class ViewPage2D
                 }
             }
         }
-    }
-    /**
-     * Called from {@link ViewAnimation} to convert pointer activity
-     * to navigation activity for subsequent delivery to the input
-     * method.
-     */
-    @Override
-    public final InputScript[] script(MotionEvent event){
-        if (null != event){
-
-            if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)){
-                /*
-                 *  Absolute coordinate space
-                 */
-                switch(event.getActionMasked()){
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_POINTER_UP:
-                case MotionEvent.ACTION_MOVE:
-                    {
-                        final float[] xy = Convert(event);
-                        if (null != xy){
-
-                            //info("script motion <absolute> xy");
-
-                            return script(null,xy[0],xy[1],Float.MAX_VALUE,current);
-                        }
-                        else {
-                            //info("script motion <absolute> xy <null>");
-
-                            return null;
-                        }
-                    }
-                default:
-                    //info("script motion <absolute unknown>");
-                    break;
-                }
-            }
-            else {
-                //info("script motion <relative>");
-                /*
-                 * Relative coordinate space
-                 */
-                int px = event.getActionIndex();
-                final float dx = event.getX(px);
-                final float dy = event.getY(px);
-                if (0.0f != dx || 0.0f != dy){
-
-                    if (Math.abs(dx) > Math.abs(dy)){
-
-                        if (0.0f < dx){
-
-                            return new InputScript[]{Input.Left};
-                        }
-                        else {
-                            return new InputScript[]{Input.Right};
-                        }
-                    }
-                    else if (0.0f > dy){
-
-                        return new InputScript[]{Input.Up};
-                    }
-                    else {
-                        return new InputScript[]{Input.Down};
-                    }
-                }
-            }
-        }
-        // else {
-        //     info("script event <null>");
-        // }
-        return null;
-    }
-    /**
-     * Append to list while "distance" is decreasing or direction is "enter".
-     */
-    protected InputScript[] script(InputScript[] list, float x, float y, float distance, ViewPage2DComponent current){
-
-        if (null != current){
-
-            final Input dir = current.direction(x,y);
-
-            if (null == dir){
-
-                //info("script current "+current.getName()+" direction <null>");
-
-                return list;
-            }
-            else {
-                //info("script current "+current.getName()+" direction "+dir.name());
-
-                if (Input.Enter == dir){
-                    /*
-                     * Separate ENTER from selection process
-                     */
-                    if (null == list){
-
-                        return View.Script.Enter();
-                    }
-                    else {
-                        return list;
-                    }
-                }
-                else {
-                    final float dis = current.distance(x,y);
-
-                    if (dis < distance){
-                        /*
-                         * Visual code generation to not repeat {Deemphasis}
-                         */
-                        final InputScript[] add = View.Script.Direction(dir);
-
-                        if (null == list){
-
-                            list = add;
-                        }
-                        else {
-                            list = Input.Add(list,add);
-                        }
-
-                        return script(list,x,y,dis,current.getCardinal(dir));
-                    }
-                }
-            }
-        }
-        // else {
-        //     info("script current <null>" );
-        // }
-        return list;
     }
     @Override
     protected void input_emphasis(){

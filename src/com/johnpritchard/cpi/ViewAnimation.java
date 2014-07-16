@@ -5,7 +5,6 @@ package com.johnpritchard.cpi;
 
 import android.graphics.Canvas;
 import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.util.Log;
 
@@ -28,8 +27,6 @@ public final class ViewAnimation
     extends java.lang.Thread
 {
     public final static String TAG = ObjectLog.TAG;
-
-    protected final static long TouchInputFilter = 150L;
 
     protected final static long OutputFilter = 20L;
 
@@ -149,19 +146,6 @@ public final class ViewAnimation
     /**
      * Used by {@link View}
      */
-    protected static void Script(ViewPage page, MotionEvent event){
-
-        if (null != Instance){
-
-            Instance.script(page,event);
-        }
-        else {
-            //Warn("script: dropped motion");
-        }
-    }
-    /**
-     * Used by {@link View}
-     */
     protected static void Script(ViewPage page, char key){
 
         if (null != Instance){
@@ -184,11 +168,7 @@ public final class ViewAnimation
 
         private ViewPage page;
 
-        private MotionEvent motion;
-
         private InputScript[] input;
-
-        private boolean input_filtered = true;
 
         private Script next;
 
@@ -208,12 +188,6 @@ public final class ViewAnimation
 
             this.pageTo = pageTo;
         }
-        private Script(Script head, ViewPage page, MotionEvent motion){
-            this(head);
-
-            this.page = page;
-            this.motion = motion;
-        }
         private Script(Script head, ViewPage page, char key){
             this(head);
 
@@ -225,20 +199,6 @@ public final class ViewAnimation
 
             this.page = page;
             this.input = input;
-
-            boolean input_filtered = true;
-            {
-                for (InputScript in : input){
-
-                    if (!in.isFiltered()){
-
-                        input_filtered = false;
-
-                        break;
-                    }
-                }
-            }
-            this.input_filtered = input_filtered;
         }
 
 
@@ -322,15 +282,6 @@ public final class ViewAnimation
             this.monitor.notify();
         }
     }
-    private void script(ViewPage page, MotionEvent motion){
-
-        this.queue = (new Script(this.queue,page,motion)).head();
-
-        synchronized(this.monitor){
-
-            this.monitor.notify();
-        }
-    }
     private void script(ViewPage page, char key){
 
         this.queue = (new Script(this.queue,page,key)).head();
@@ -404,45 +355,9 @@ public final class ViewAnimation
                             }
                             else if (null != sequence.page && view.currentPage() == sequence.page.value()){
                                 /*
-                                 * motion and input
+                                 * input script
                                  */
-                                InputScript[] script = null;
-
-                                if (null != sequence.motion){
-                                    /*
-                                     * touch input filtering
-                                     */
-                                    if (touchInputFilter < SystemClock.uptimeMillis()){
-
-                                        //info("include motion");
-
-                                        script = sequence.page.script(sequence.motion);
-                                    }
-                                    else {
-                                        //warn("exclude motion");
-                                    }
-                                }
-                                else if (null != sequence.input){
-                                    /*
-                                     * touch input filtering
-                                     */
-                                    if (!sequence.input_filtered){
-
-                                        //info("include unfiltered input");
-
-                                        script = sequence.input;
-                                    }
-                                    else if (touchInputFilter < SystemClock.uptimeMillis()){
-
-                                        //info("include input");
-
-                                        script = sequence.input;
-                                    }
-                                    else {
-                                        //warn("exclude input");
-                                    }
-                                }
-
+                                InputScript[] script = sequence.input;
 
                                 if (null != script){
 
@@ -482,10 +397,6 @@ public final class ViewAnimation
                                         if (in.isSkipping()){
                                             skip = SKIP_SKIP;
                                         }
-                                    }
-
-                                    if (sequence.input_filtered){
-                                        touchInputFilter = SystemClock.uptimeMillis()+TouchInputFilter;
                                     }
                                 }
                                 else {
@@ -538,7 +449,7 @@ public final class ViewAnimation
 
                 recover2D = true;
 
-                warn("paint",exc);
+                //warn("paint",exc);
             }
         }
     }

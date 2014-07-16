@@ -3,14 +3,8 @@
  */
 package com.johnpritchard.cpi;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.RectF;
-import android.view.InputDevice;
-import android.view.MotionEvent;
-import android.util.Log;
 
 /**
  * One page is displayed by {@link View} at the exclusion of all other
@@ -165,13 +159,6 @@ public abstract class ViewPage
      */
     protected void focus(){
     }
-    /**
-     * Called from {@link ViewAnimation} to convert pointer activity
-     * to navigation activity for subsequent delivery to the input
-     * method.
-     */
-    public abstract InputScript[] script(MotionEvent event);
-
     /*
      * Back button programming that preserves semantics across
      * platforms (and versions) is typically the null case (no back
@@ -224,20 +211,6 @@ public abstract class ViewPage
         }
         else {
             throw new IllegalStateException();
-        }
-    }
-    protected static float[] Convert(MotionEvent event){
-        if (1 == event.getPointerCount()){
-
-            float[] re = new float[2];
-            {
-                re[0] = event.getX(0);
-                re[1] = event.getY(0);
-            }
-            return re;
-        }
-        else {
-            return null;
         }
     }
 

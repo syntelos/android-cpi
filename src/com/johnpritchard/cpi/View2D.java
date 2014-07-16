@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -54,6 +55,8 @@ public final class View2D
 {
     public final static String TAG = ObjectLog.TAG;
 
+    private final static long InputFilter = 100L;
+
 
     private final GestureDetector touch;
 
@@ -70,6 +73,8 @@ public final class View2D
     private boolean plumb = false;
 
     private int width = -1, height = -1;
+
+    private long inputFilter = 0L;
 
 
 
@@ -343,11 +348,12 @@ public final class View2D
             }
             else {
 
-                script(event);
+                ViewAnimation.Script(page,input(event)); //
             }
             return true;
         }
         else {
+
             return false;
         }
     }
@@ -453,7 +459,7 @@ public final class View2D
 
         if (plumb){
 
-            script(event);
+            ViewAnimation.Script(page,input(event)); //
 
             return true;
         }
@@ -466,7 +472,7 @@ public final class View2D
 
         if (plumb){
 
-            script(event);
+            ViewAnimation.Script(page,input(event)); //
 
             return true;
         }
@@ -551,10 +557,6 @@ public final class View2D
 
         ViewAnimation.Script(page,in);
     }
-    protected void script(MotionEvent event){
-
-        ViewAnimation.Script(page,event);
-    }
     protected void script(char key){
 
         ViewAnimation.Script(page,key);
@@ -577,6 +579,124 @@ public final class View2D
         else {
             //info("draw <*> "+Thread.currentThread().getName());
         }
+    }
+
+    /**
+     * Called from {@link ViewAnimation} to convert pointer activity
+     * to navigation activity for subsequent delivery to the input
+     * method.
+     */
+    private final InputScript[] input(MotionEvent event){
+
+        final long eventTime = event.getEventTime();
+
+        if (null != event && inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilter);
+
+            if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)){
+                /*
+                 *  Absolute coordinate space
+                 */
+                switch(event.getActionMasked()){
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                case MotionEvent.ACTION_MOVE:
+                    {
+                        final float[] xy = Convert(event);
+
+                        if (null != xy && null != page){
+
+                            return add(null,xy[0],xy[1],Float.MAX_VALUE,page.current);
+                        }
+                        else {
+                            return null;
+                        }
+                    }
+                default:
+                    break;
+                }
+            }
+            else {
+                /*
+                 * Relative coordinate space
+                 */
+                final int px = event.getActionIndex();
+
+                final float dx = event.getX(px);
+                final float dy = event.getY(px);
+
+                if (0.0f != dx || 0.0f != dy){
+
+                    if (Math.abs(dx) > Math.abs(dy)){
+
+                        if (0.0f < dx){
+
+                            return new InputScript[]{Input.Left};
+                        }
+                        else {
+                            return new InputScript[]{Input.Right};
+                        }
+                    }
+                    else if (0.0f > dy){
+
+                        return new InputScript[]{Input.Up};
+                    }
+                    else {
+                        return new InputScript[]{Input.Down};
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    /**
+     * Append to list while "distance" is decreasing or direction is "enter".
+     */
+    private InputScript[] add(InputScript[] list, float x, float y, float distance, ViewPage2DComponent current){
+
+        if (null != current){
+
+            final Input dir = current.direction(x,y);
+
+            if (null == dir){
+
+                return list;
+            }
+            else if (Input.Enter == dir){
+                /*
+                 * Separate ENTER from selection process
+                 */
+                if (null == list){
+
+                    return View.Script.Enter();
+                }
+                else {
+                    return list;
+                }
+            }
+            else {
+                final float dis = current.distance(x,y);
+
+                if (dis < distance){
+                    /*
+                     * Visual code generation to not repeat {Deemphasis}
+                     */
+                    final InputScript[] add = View.Script.Direction(dir);
+
+                    if (null == list){
+
+                        list = add;
+                    }
+                    else {
+                        list = Input.Add(list,add);
+                    }
+
+                    return add(list,x,y,dis,current.getCardinal(dir));
+                }
+            }
+        }
+        return list;
     }
 
     protected void verbose(String m){
@@ -614,5 +734,20 @@ public final class View2D
     }
     protected void wtf(String m, Throwable t){
         Log.wtf(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
+    }
+
+    protected static float[] Convert(MotionEvent event){
+        if (1 == event.getPointerCount()){
+
+            float[] re = new float[2];
+            {
+                re[0] = event.getX(0);
+                re[1] = event.getY(0);
+            }
+            return re;
+        }
+        else {
+            return null;
+        }
     }
 }

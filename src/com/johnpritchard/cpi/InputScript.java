@@ -10,8 +10,6 @@ public interface InputScript {
 
     boolean isEnum();
 
-    boolean isFiltered();
-
     boolean isSkipping();
 
     int ordinal();
@@ -43,9 +41,6 @@ public interface InputScript {
 
         public boolean isEnum(){
             return false;
-        }
-        public boolean isFiltered(){
-            return true;
         }
         public boolean isSkipping(){
             return false;
@@ -144,9 +139,6 @@ public interface InputScript {
 
 
         public boolean isEnum(){
-            return false;
-        }
-        public boolean isFiltered(){
             return false;
         }
         public boolean isSkipping(){

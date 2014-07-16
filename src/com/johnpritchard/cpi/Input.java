@@ -75,9 +75,6 @@ public enum Input
     public boolean isEnum(){
         return true;
     }
-    public boolean isFiltered(){
-        return true;
-    }
     public boolean isSkipping(){
         return (Skip == this);
     }
