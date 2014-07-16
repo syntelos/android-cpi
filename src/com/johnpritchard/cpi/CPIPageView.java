@@ -21,6 +21,11 @@ public final class CPIPageView
 
     public final static CPIPageView Instance = new CPIPageView();
 
+    public static void View(){
+
+        Instance.focus();
+    }
+
 
     protected final static ViewPage2DComponentRect Clip_ST = CPIViz.Instance.clip_ST;
     protected final static ViewPage2DComponentRect Clip_NT = CPIViz.Instance.clip_NT;

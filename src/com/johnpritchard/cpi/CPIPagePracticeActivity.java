@@ -71,7 +71,6 @@ public final class CPIPagePracticeActivity
     }
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
-        info("surfaceChanged");
 
         view.script(new InputScript[]{
                 //new InputScript.Database(InputScript.Database.Op.Init,view)

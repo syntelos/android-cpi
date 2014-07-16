@@ -1,0 +1,791 @@
+com.johnpritchard.cpi.B64 -> com.johnpritchard.cpi.a:
+    byte[] NEW_LINE -> a
+    byte[] ALPHABET -> b
+    byte[] DECODABET -> c
+    byte[] encode3to4(byte[],int,int,byte[],int) -> a
+    java.lang.String encodeBytes(byte[]) -> a
+    byte[] encode(byte[],int,int) -> a
+com.johnpritchard.cpi.CPI -> com.johnpritchard.cpi.CPI:
+    com.johnpritchard.cpi.ObjectActivity Activity2D -> a
+    void StartActivity(com.johnpritchard.cpi.Page) -> a
+    void Activate2D(com.johnpritchard.cpi.ObjectActivity) -> a
+    void Post2D(java.lang.Runnable) -> a
+    void ActionView2D(android.net.Uri) -> a
+com.johnpritchard.cpi.CPI$1 -> com.johnpritchard.cpi.b:
+    int[] $SwitchMap$com$johnpritchard$cpi$Page -> a
+com.johnpritchard.cpi.CPIButtonAbout -> com.johnpritchard.cpi.c:
+com.johnpritchard.cpi.CPIButtonCompleted -> com.johnpritchard.cpi.d:
+com.johnpritchard.cpi.CPIButtonFirst -> com.johnpritchard.cpi.e:
+    void draw(android.graphics.Canvas) -> a
+com.johnpritchard.cpi.CPIButtonIntro -> com.johnpritchard.cpi.f:
+com.johnpritchard.cpi.CPIButtonInventory -> com.johnpritchard.cpi.g:
+com.johnpritchard.cpi.CPIButtonInventoryAbstract -> com.johnpritchard.cpi.h:
+com.johnpritchard.cpi.CPIButtonL1 -> com.johnpritchard.cpi.i:
+com.johnpritchard.cpi.CPIButtonL2 -> com.johnpritchard.cpi.j:
+com.johnpritchard.cpi.CPIButtonL3 -> com.johnpritchard.cpi.k:
+com.johnpritchard.cpi.CPIButtonL4 -> com.johnpritchard.cpi.l:
+com.johnpritchard.cpi.CPIButtonPractice -> com.johnpritchard.cpi.m:
+com.johnpritchard.cpi.CPIButtonR1 -> com.johnpritchard.cpi.n:
+com.johnpritchard.cpi.CPIButtonR2 -> com.johnpritchard.cpi.o:
+com.johnpritchard.cpi.CPIButtonR3 -> com.johnpritchard.cpi.p:
+com.johnpritchard.cpi.CPIButtonR4 -> com.johnpritchard.cpi.q:
+com.johnpritchard.cpi.CPIDatabase -> com.johnpritchard.cpi.r:
+    java.lang.Object StaticMonitor -> b
+    com.johnpritchard.cpi.CPIDatabase Instance -> c
+    java.util.HashMap RESULTS_MAP_INTERNAL -> d
+    java.util.HashMap RESULTS_MAP_EXPORT -> e
+    java.util.HashMap SESSION_MAP_INTERNAL -> f
+    android.content.Context context -> a
+    void Init(android.content.Context) -> a
+    android.database.sqlite.SQLiteDatabase Readable() -> a
+    android.database.sqlite.SQLiteDatabase Writable() -> b
+    android.database.sqlite.SQLiteQueryBuilder QueryResultsExport() -> c
+    android.database.sqlite.SQLiteQueryBuilder QueryResultsExport(java.lang.String) -> a
+    android.database.sqlite.SQLiteQueryBuilder QueryResultsExport(long) -> a
+    android.database.sqlite.SQLiteQueryBuilder QueryResultsInternal() -> d
+    android.database.sqlite.SQLiteQueryBuilder QueryResultsInternal(long) -> b
+    android.database.sqlite.SQLiteQueryBuilder QuerySessionInternal() -> e
+    void Practice() -> f
+    void Inventory() -> g
+    void Session(android.database.sqlite.SQLiteDatabase,int,com.johnpritchard.cpi.CPIInventory) -> a
+    void Input(int,com.johnpritchard.cpi.CPIInventory) -> a
+    void Completion(int,com.johnpritchard.cpi.CPIInventory) -> b
+    void Completed() -> h
+    boolean CompletedPrev() -> i
+    boolean CompletedNext() -> j
+    void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
+    void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
+com.johnpritchard.cpi.CPIDatabaseTables -> com.johnpritchard.cpi.s:
+    android.net.Uri CONTENT_URI -> a
+com.johnpritchard.cpi.CPIDatabaseTables$Results -> com.johnpritchard.cpi.t:
+    java.lang.String[] InternalList -> a
+    java.lang.String[] ExportList -> b
+    java.lang.String[] ProjectionInternal() -> a
+    java.util.HashMap Internal() -> b
+    java.util.HashMap Export() -> c
+    java.lang.String[] Export(java.lang.String[]) -> a
+com.johnpritchard.cpi.CPIDatabaseTables$Session -> com.johnpritchard.cpi.u:
+    java.lang.String[] InternalList -> a
+    java.util.HashMap Internal() -> a
+com.johnpritchard.cpi.CPIInventory -> com.johnpritchard.cpi.v:
+    com.johnpritchard.cpi.CPIInventory L1 -> a
+    com.johnpritchard.cpi.CPIInventory L2 -> b
+    com.johnpritchard.cpi.CPIInventory L3 -> c
+    com.johnpritchard.cpi.CPIInventory L4 -> d
+    com.johnpritchard.cpi.CPIInventory R1 -> e
+    com.johnpritchard.cpi.CPIInventory R2 -> f
+    com.johnpritchard.cpi.CPIInventory R3 -> g
+    com.johnpritchard.cpi.CPIInventory R4 -> h
+    com.johnpritchard.cpi.CPIInventory[] $VALUES -> i
+    com.johnpritchard.cpi.CPIInventory[] values() -> values
+    com.johnpritchard.cpi.CPIInventory valueOf(java.lang.String) -> valueOf
+    boolean isLeft() -> a
+    void Complete(com.johnpritchard.cpi.CPIInventoryRecord) -> a
+    int ValueOf(com.johnpritchard.cpi.CPIInventory) -> a
+com.johnpritchard.cpi.CPIInventory$1 -> com.johnpritchard.cpi.w:
+    int[] $SwitchMap$com$johnpritchard$cpi$CPIInventory -> a
+    int[] $SwitchMap$com$johnpritchard$cpi$CPIQuadrant -> b
+com.johnpritchard.cpi.CPIInventory$Product -> com.johnpritchard.cpi.x:
+    float normalized_sf -> a
+    float normalized_st -> b
+    float normalized_nf -> c
+    float normalized_nt -> d
+com.johnpritchard.cpi.CPIInventoryCatalog -> com.johnpritchard.cpi.y:
+    com.johnpritchard.cpi.CPITextInventory[][] LIST -> b
+    android.graphics.RectF GROUP -> a
+    com.johnpritchard.cpi.CPITextInventory[] Item(int) -> a
+    void Init() -> a
+com.johnpritchard.cpi.CPIInventoryRecord -> com.johnpritchard.cpi.z:
+    com.johnpritchard.cpi.CPIInventoryRecord Instance -> a
+    com.johnpritchard.cpi.CPIProcess process -> b
+    long cursor -> c
+    java.lang.String identifier -> d
+    java.lang.String title -> e
+    float sf -> f
+    float st -> g
+    float nf -> h
+    float nt -> i
+    java.util.List session -> j
+    java.util.Date created -> k
+    java.util.Date completed -> l
+    void practice() -> a
+    void inventory() -> b
+    void completed() -> c
+    boolean isOpen() -> d
+    com.johnpritchard.cpi.CPIInventoryRecord clear() -> w
+    boolean hasCursor() -> e
+    boolean hasIdentifier() -> f
+    com.johnpritchard.cpi.CPIInventoryRecord setIdentifier() -> g
+    boolean hasTitle() -> h
+    java.lang.String getTitle() -> i
+    com.johnpritchard.cpi.CPIInventoryRecord setTitle() -> j
+    boolean hasSession() -> k
+    java.util.List getSession() -> l
+    java.util.List getCreateSession() -> m
+    com.johnpritchard.cpi.CPIInventoryRecord setSession() -> n
+    int getSessionIndex() -> o
+    void setSession(int,com.johnpritchard.cpi.CPIInventory) -> a
+    boolean hasCreated() -> p
+    com.johnpritchard.cpi.CPIInventoryRecord setCreated() -> q
+    boolean hasCompleted() -> r
+    com.johnpritchard.cpi.CPIInventoryRecord setCompleted() -> s
+    com.johnpritchard.cpi.CPIInventoryRecord setCompleted(com.johnpritchard.cpi.CPIInventory$Product) -> a
+    boolean hasCPICodeData() -> t
+    com.johnpritchard.cpi.CPIInventoryRecord readResults(android.database.Cursor) -> a
+    android.content.ContentValues writeResults() -> u
+    com.johnpritchard.cpi.CPIInventoryRecord readSession(android.database.Cursor) -> b
+    java.lang.String RandomIdentifier() -> v
+    java.lang.String RandomIdentifierPathclean(java.lang.String) -> a
+com.johnpritchard.cpi.CPIOutputQuadrant -> com.johnpritchard.cpi.aa:
+    com.johnpritchard.cpi.CPIOutputQuadrant Instance -> a
+    void update(com.johnpritchard.cpi.CPIQuadrant,float,float) -> a
+    void group(android.graphics.RectF,float) -> a
+com.johnpritchard.cpi.CPIOutputTitle -> com.johnpritchard.cpi.ab:
+    com.johnpritchard.cpi.CPIOutputTitle Instance -> a
+    void Init() -> a
+    void update() -> d_
+    void group(android.graphics.RectF,float) -> a
+com.johnpritchard.cpi.CPIPageAbout -> com.johnpritchard.cpi.ac:
+    com.johnpritchard.cpi.CPIPageAbout Instance -> a
+    java.lang.String name() -> a
+    com.johnpritchard.cpi.Page value() -> b
+    void input(com.johnpritchard.cpi.InputScript) -> a
+com.johnpritchard.cpi.CPIPageAbout$1 -> com.johnpritchard.cpi.ad:
+    int[] $SwitchMap$com$johnpritchard$cpi$Input -> a
+com.johnpritchard.cpi.CPIPageAboutActivity -> com.johnpritchard.cpi.CPIPageAboutActivity:
+    com.johnpritchard.cpi.View2D view -> d
+    com.johnpritchard.cpi.Page currentPage() -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+com.johnpritchard.cpi.CPIPageIntro -> com.johnpritchard.cpi.ae:
+    com.johnpritchard.cpi.CPIPageIntro Instance -> a
+    java.lang.String name() -> a
+    com.johnpritchard.cpi.Page value() -> b
+    void input(com.johnpritchard.cpi.InputScript) -> a
+com.johnpritchard.cpi.CPIPageIntro$1 -> com.johnpritchard.cpi.af:
+    int[] $SwitchMap$com$johnpritchard$cpi$Input -> a
+com.johnpritchard.cpi.CPIPageIntroActivity -> com.johnpritchard.cpi.CPIPageIntroActivity:
+    com.johnpritchard.cpi.View2D view -> d
+    com.johnpritchard.cpi.Page currentPage() -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+com.johnpritchard.cpi.CPIPageInventory -> com.johnpritchard.cpi.ag:
+    com.johnpritchard.cpi.CPIPageInventory Instance -> a
+    int inventoryIndex -> b
+    boolean back -> c
+    void View() -> c
+    void init() -> d
+    void layout() -> e
+    void input() -> f
+    com.johnpritchard.cpi.CPITextInventory[] catalog() -> g
+    void words() -> h
+    void refocus() -> i
+    void focus() -> j
+    int first() -> k
+    boolean navigationInclude(int,com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    java.lang.String name() -> a
+    com.johnpritchard.cpi.Page value() -> b
+    void input(com.johnpritchard.cpi.InputScript) -> a
+com.johnpritchard.cpi.CPIPageInventory$1 -> com.johnpritchard.cpi.ah:
+    int[] $SwitchMap$com$johnpritchard$cpi$Input -> a
+com.johnpritchard.cpi.CPIPageInventoryActivity -> com.johnpritchard.cpi.CPIPageInventoryActivity:
+    com.johnpritchard.cpi.View2D view -> d
+    com.johnpritchard.cpi.Page currentPage() -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+com.johnpritchard.cpi.CPIPagePractice -> com.johnpritchard.cpi.ai:
+    com.johnpritchard.cpi.CPITextInventory[] CatalogExample -> b
+    com.johnpritchard.cpi.CPIPagePractice Instance -> c
+    void View() -> l
+    com.johnpritchard.cpi.CPITextInventory[] catalog() -> g
+    void focus() -> j
+    java.lang.String name() -> a
+    com.johnpritchard.cpi.Page value() -> b
+com.johnpritchard.cpi.CPIPagePracticeActivity -> com.johnpritchard.cpi.CPIPagePracticeActivity:
+    com.johnpritchard.cpi.View2D view -> d
+    com.johnpritchard.cpi.Page currentPage() -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+com.johnpritchard.cpi.CPIPageStart -> com.johnpritchard.cpi.aj:
+    com.johnpritchard.cpi.CPIPageStart Instance -> a
+    void init() -> d
+    int first() -> k
+    java.lang.String name() -> a
+    com.johnpritchard.cpi.Page value() -> b
+    void input(com.johnpritchard.cpi.InputScript) -> a
+com.johnpritchard.cpi.CPIPageStartActivity -> com.johnpritchard.cpi.CPIPageStartActivity:
+    com.johnpritchard.cpi.View2D view -> d
+    com.johnpritchard.cpi.Page currentPage() -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+com.johnpritchard.cpi.CPIPageView -> com.johnpritchard.cpi.ak:
+    com.johnpritchard.cpi.ViewPage2DNavigator Navigator -> a
+    com.johnpritchard.cpi.CPIPageView Instance -> b
+    com.johnpritchard.cpi.ViewPage2DComponentRect Clip_ST -> c
+    com.johnpritchard.cpi.ViewPage2DComponentRect Clip_NT -> d
+    com.johnpritchard.cpi.ViewPage2DComponentRect Clip_NF -> e
+    com.johnpritchard.cpi.ViewPage2DComponentRect Clip_SF -> f
+    android.net.Uri U_ST -> g
+    android.net.Uri U_NT -> h
+    android.net.Uri U_NF -> i
+    android.net.Uri U_SF -> j
+    com.johnpritchard.cpi.CPIPostActionView2D UA_ST -> k
+    com.johnpritchard.cpi.CPIPostActionView2D UA_NT -> l
+    com.johnpritchard.cpi.CPIPostActionView2D UA_NF -> m
+    com.johnpritchard.cpi.CPIPostActionView2D UA_SF -> n
+    com.johnpritchard.cpi.CPIViz viz -> y
+    com.johnpritchard.cpi.CPIOutputTitle title -> z
+    com.johnpritchard.cpi.CPIOutputQuadrant quadrant -> A
+    com.johnpritchard.cpi.ViewPage2DNavigator navigator -> B
+    boolean interior -> F
+    void View() -> c
+    void init() -> d
+    void layout() -> e
+    void focus() -> j
+    java.lang.String name() -> a
+    com.johnpritchard.cpi.Page value() -> b
+    void input(com.johnpritchard.cpi.InputScript) -> a
+    void current(com.johnpritchard.cpi.CPIQuadrant) -> a
+    void current(com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    boolean navigationInclude(int,com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    int first() -> k
+com.johnpritchard.cpi.CPIPageView$1 -> com.johnpritchard.cpi.al:
+    int[] $SwitchMap$com$johnpritchard$cpi$CPIQuadrant -> a
+    int[] $SwitchMap$com$johnpritchard$cpi$Input -> b
+com.johnpritchard.cpi.CPIPageViewActivity -> com.johnpritchard.cpi.CPIPageViewActivity:
+    com.johnpritchard.cpi.View2D view -> d
+    com.johnpritchard.cpi.Page currentPage() -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+com.johnpritchard.cpi.CPIPostActionView2D -> com.johnpritchard.cpi.am:
+    android.net.Uri uri -> a
+    void run() -> run
+com.johnpritchard.cpi.CPIProcess -> com.johnpritchard.cpi.an:
+    com.johnpritchard.cpi.CPIProcess Practice -> a
+    com.johnpritchard.cpi.CPIProcess Inventory -> b
+    com.johnpritchard.cpi.CPIProcess Completed -> c
+    com.johnpritchard.cpi.CPIProcess[] $VALUES -> d
+    com.johnpritchard.cpi.CPIProcess[] values() -> values
+    com.johnpritchard.cpi.CPIProcess valueOf(java.lang.String) -> valueOf
+com.johnpritchard.cpi.CPIProvider -> com.johnpritchard.cpi.CPIProvider:
+    android.content.UriMatcher QueryMatcher -> a
+    boolean onCreate() -> onCreate
+    android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String) -> query
+    java.lang.String getType(android.net.Uri) -> getType
+    android.net.Uri insert(android.net.Uri,android.content.ContentValues) -> insert
+    int delete(android.net.Uri,java.lang.String,java.lang.String[]) -> delete
+    int update(android.net.Uri,android.content.ContentValues,java.lang.String,java.lang.String[]) -> update
+com.johnpritchard.cpi.CPIQuadrant -> com.johnpritchard.cpi.ao:
+    com.johnpritchard.cpi.CPIQuadrant ST -> a
+    com.johnpritchard.cpi.CPIQuadrant SF -> b
+    com.johnpritchard.cpi.CPIQuadrant NT -> c
+    com.johnpritchard.cpi.CPIQuadrant NF -> d
+    com.johnpritchard.cpi.CPIQuadrant[] $VALUES -> e
+    com.johnpritchard.cpi.CPIQuadrant[] values() -> values
+    com.johnpritchard.cpi.CPIQuadrant valueOf(java.lang.String) -> valueOf
+    com.johnpritchard.cpi.CPIQuadrant For(boolean,int) -> a
+com.johnpritchard.cpi.CPITextInventory -> com.johnpritchard.cpi.ap:
+    android.graphics.RectF src -> a
+    android.graphics.Matrix center -> b
+    com.johnpritchard.cpi.CPITextInventory group(android.graphics.RectF) -> a
+    com.johnpritchard.cpi.CPITextInventory center(android.graphics.RectF) -> b
+    void draw(android.graphics.Canvas) -> a
+    android.graphics.RectF bounds() -> e_
+    void transform(android.graphics.Matrix) -> a
+    void reset() -> c_
+    com.johnpritchard.cpi.ViewPage2DComponentPath setText(java.lang.String) -> a
+    void group(android.graphics.RectF,float) -> a
+com.johnpritchard.cpi.CPIViz -> com.johnpritchard.cpi.aq:
+    com.johnpritchard.cpi.CPIViz Instance -> a
+    com.johnpritchard.cpi.ViewPage2DComponentRect Clip_ST -> b
+    com.johnpritchard.cpi.ViewPage2DComponentRect Clip_NT -> c
+    com.johnpritchard.cpi.ViewPage2DComponentRect Clip_NF -> d
+    com.johnpritchard.cpi.ViewPage2DComponentRect Clip_SF -> e
+    com.johnpritchard.cpi.ViewPage2DComponentRect clip_ST -> f
+    com.johnpritchard.cpi.ViewPage2DComponentRect clip_NT -> g
+    com.johnpritchard.cpi.ViewPage2DComponentRect clip_NF -> h
+    com.johnpritchard.cpi.ViewPage2DComponentRect clip_SF -> i
+    com.johnpritchard.cpi.ViewPage2DPath outside -> j
+    com.johnpritchard.cpi.ViewPage2DPath inside -> k
+    com.johnpritchard.cpi.ViewPage2DPath axes -> l
+    android.graphics.Paint p_BG -> m
+    android.graphics.Paint p_SF -> n
+    android.graphics.Paint p_NF -> o
+    android.graphics.Paint p_NT -> p
+    android.graphics.Paint p_ST -> q
+    android.graphics.Paint p_GRID -> r
+    android.graphics.Paint s_SF -> s
+    android.graphics.Paint s_NF -> t
+    android.graphics.Paint s_NT -> u
+    android.graphics.Paint s_ST -> v
+    float sf -> w
+    float st -> x
+    float nf -> y
+    float nt -> z
+    com.johnpritchard.cpi.CPIQuadrant selection -> A
+    com.johnpritchard.cpi.CPIQuadrant primary -> B
+    void Init() -> b
+    void select(com.johnpritchard.cpi.CPIQuadrant) -> a
+    boolean update() -> f_
+    android.graphics.RectF bounds() -> e_
+    void transform(android.graphics.Matrix) -> a
+    void group(android.graphics.RectF,float) -> a
+    void draw(android.graphics.Canvas) -> a
+com.johnpritchard.cpi.CPIViz$1 -> com.johnpritchard.cpi.ar:
+    int[] $SwitchMap$com$johnpritchard$cpi$CPIQuadrant -> a
+com.johnpritchard.cpi.Epsilon -> com.johnpritchard.cpi.as:
+    float Z(float) -> a
+    float DE(float,float) -> a
+    void Transform(android.graphics.RectF,android.graphics.Matrix) -> a
+com.johnpritchard.cpi.Input -> com.johnpritchard.cpi.at:
+    com.johnpritchard.cpi.Input Up -> a
+    com.johnpritchard.cpi.Input Down -> b
+    com.johnpritchard.cpi.Input Left -> c
+    com.johnpritchard.cpi.Input Right -> d
+    com.johnpritchard.cpi.Input Enter -> e
+    com.johnpritchard.cpi.Input Back -> f
+    com.johnpritchard.cpi.Input Skip -> g
+    com.johnpritchard.cpi.Input Emphasis -> h
+    com.johnpritchard.cpi.Input Deemphasis -> i
+    com.johnpritchard.cpi.Input Key -> j
+    com.johnpritchard.cpi.Input Database -> k
+    com.johnpritchard.cpi.Input[] List -> l
+    int ListCount -> m
+    com.johnpritchard.cpi.Input[] Geometric -> n
+    int GeometricCount -> o
+    int index -> p
+    boolean geometric -> q
+    com.johnpritchard.cpi.Input[] $VALUES -> r
+    com.johnpritchard.cpi.Input[] values() -> values
+    com.johnpritchard.cpi.Input valueOf(java.lang.String) -> valueOf
+    boolean isSkipping() -> a
+    com.johnpritchard.cpi.Input type() -> b
+    com.johnpritchard.cpi.Input[] Head(com.johnpritchard.cpi.Input[],int) -> a
+    com.johnpritchard.cpi.InputScript[] Add(com.johnpritchard.cpi.InputScript[],com.johnpritchard.cpi.InputScript[]) -> a
+com.johnpritchard.cpi.InputScript -> com.johnpritchard.cpi.au:
+    boolean isSkipping() -> a
+    com.johnpritchard.cpi.Input type() -> b
+com.johnpritchard.cpi.InputScript$1 -> com.johnpritchard.cpi.av:
+    int[] $SwitchMap$com$johnpritchard$cpi$InputScript$Database$Op -> a
+com.johnpritchard.cpi.InputScript$Database -> com.johnpritchard.cpi.aw:
+    com.johnpritchard.cpi.Input type -> a
+    com.johnpritchard.cpi.InputScript$Database$Op op -> b
+    int index -> c
+    com.johnpritchard.cpi.CPIInventory input -> d
+    com.johnpritchard.cpi.ObjectActivity context -> e
+    boolean isSkipping() -> a
+    com.johnpritchard.cpi.Input type() -> b
+    java.lang.String toString() -> toString
+    void eval() -> c
+com.johnpritchard.cpi.InputScript$Database$Op -> com.johnpritchard.cpi.ax:
+    com.johnpritchard.cpi.InputScript$Database$Op Init -> a
+    com.johnpritchard.cpi.InputScript$Database$Op Practice -> b
+    com.johnpritchard.cpi.InputScript$Database$Op Inventory -> c
+    com.johnpritchard.cpi.InputScript$Database$Op Input -> d
+    com.johnpritchard.cpi.InputScript$Database$Op Completed -> e
+    com.johnpritchard.cpi.InputScript$Database$Op CompletedPrev -> f
+    com.johnpritchard.cpi.InputScript$Database$Op CompletedNext -> g
+    com.johnpritchard.cpi.InputScript$Database$Op[] $VALUES -> h
+    com.johnpritchard.cpi.InputScript$Database$Op[] values() -> values
+    com.johnpritchard.cpi.InputScript$Database$Op valueOf(java.lang.String) -> valueOf
+com.johnpritchard.cpi.InputScript$Key -> com.johnpritchard.cpi.ay:
+    com.johnpritchard.cpi.Input type -> a
+    char key -> b
+    boolean isSkipping() -> a
+    com.johnpritchard.cpi.Input type() -> b
+    java.lang.String toString() -> toString
+com.johnpritchard.cpi.ObjectActivity -> com.johnpritchard.cpi.az:
+    java.lang.String className -> a
+    java.lang.String baseName -> b
+    android.content.SharedPreferences preferences -> c
+    com.johnpritchard.cpi.Page currentPage() -> a
+    void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    java.lang.String toString() -> toString
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+    void onStart() -> onStart
+    void onStop() -> onStop
+    void onDestroy() -> onDestroy
+com.johnpritchard.cpi.ObjectLog -> com.johnpritchard.cpi.ba:
+    com.johnpritchard.cpi.ObjectActivity context -> C
+    java.lang.String className -> D
+    java.lang.String baseName -> E
+    void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    java.lang.String toString() -> toString
+    java.lang.String Basename(java.lang.String) -> b
+    java.lang.String[] Add(java.lang.String[],java.lang.String) -> a
+com.johnpritchard.cpi.Page -> com.johnpritchard.cpi.bb:
+    com.johnpritchard.cpi.Page intro -> a
+    com.johnpritchard.cpi.Page start -> b
+    com.johnpritchard.cpi.Page view -> c
+    com.johnpritchard.cpi.Page practice -> d
+    com.johnpritchard.cpi.Page inventory -> e
+    com.johnpritchard.cpi.Page about -> f
+    com.johnpritchard.cpi.ViewPage page -> g
+    boolean simpleInput -> h
+    com.johnpritchard.cpi.Page[] $VALUES -> i
+    com.johnpritchard.cpi.Page[] values() -> values
+    com.johnpritchard.cpi.Page valueOf(java.lang.String) -> valueOf
+com.johnpritchard.cpi.View -> com.johnpritchard.cpi.bc:
+    boolean is2D() -> a
+    boolean is3D() -> b
+    android.view.SurfaceHolder getHolder() -> getHolder
+    void pageTo(com.johnpritchard.cpi.Page) -> a
+    com.johnpritchard.cpi.Page currentPage() -> c
+    android.content.SharedPreferences preferences() -> d
+    void script(com.johnpritchard.cpi.InputScript) -> a
+com.johnpritchard.cpi.View$Script -> com.johnpritchard.cpi.bd:
+    com.johnpritchard.cpi.InputScript[] Direction(com.johnpritchard.cpi.Input) -> a
+    com.johnpritchard.cpi.InputScript[] Enter() -> a
+com.johnpritchard.cpi.View2D -> com.johnpritchard.cpi.be:
+    android.view.GestureDetector touch -> b
+    android.view.SurfaceHolder holder -> c
+    android.content.SharedPreferences preferences -> d
+    com.johnpritchard.cpi.Page pageId -> a
+    com.johnpritchard.cpi.ViewPage2D page -> e
+    int bg -> f
+    boolean plumb -> g
+    int width -> h
+    int height -> i
+    long inputFilter -> j
+    boolean is2D() -> a
+    boolean is3D() -> b
+    com.johnpritchard.cpi.Page currentPage() -> c
+    android.content.SharedPreferences preferences() -> d
+    void onCreate(android.content.SharedPreferences) -> a
+    void onResume() -> e
+    void onPause(android.content.SharedPreferences$Editor) -> a
+    void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    boolean onKeyUp(int,android.view.KeyEvent) -> onKeyUp
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    boolean onSingleTapUp(android.view.MotionEvent) -> onSingleTapUp
+    void onLongPress(android.view.MotionEvent) -> onLongPress
+    boolean onScroll(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onScroll
+    boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onFling
+    void onShowPress(android.view.MotionEvent) -> onShowPress
+    boolean onDown(android.view.MotionEvent) -> onDown
+    boolean onSingleTapConfirmed(android.view.MotionEvent) -> onSingleTapConfirmed
+    boolean onDoubleTap(android.view.MotionEvent) -> onDoubleTap
+    boolean onDoubleTapEvent(android.view.MotionEvent) -> onDoubleTapEvent
+    boolean onTrackballEvent(android.view.MotionEvent) -> onTrackballEvent
+    boolean onGenericMotionEvent(android.view.MotionEvent) -> onGenericMotionEvent
+    void pageTo(com.johnpritchard.cpi.Page) -> a
+    void script(com.johnpritchard.cpi.InputScript) -> a
+    void script(com.johnpritchard.cpi.InputScript[]) -> a
+    void script(char) -> a
+    void onDraw(android.graphics.Canvas) -> onDraw
+    com.johnpritchard.cpi.InputScript[] gesture(long,float,float) -> a
+    com.johnpritchard.cpi.InputScript[] generic(android.view.MotionEvent) -> b
+    com.johnpritchard.cpi.InputScript[] add(com.johnpritchard.cpi.InputScript[],float,float,float,com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    float[] Convert(android.view.MotionEvent) -> a
+com.johnpritchard.cpi.View2DFontDPad -> com.johnpritchard.cpi.bf:
+    android.graphics.Path Apply(com.johnpritchard.cpi.View2DFontDPad$Char,android.graphics.Path) -> a
+com.johnpritchard.cpi.View2DFontDPad$1 -> com.johnpritchard.cpi.bg:
+    int[] $SwitchMap$com$johnpritchard$cpi$View2DFontDPad$Char -> a
+com.johnpritchard.cpi.View2DFontDPad$Char -> com.johnpritchard.cpi.bh:
+    com.johnpritchard.cpi.View2DFontDPad$Char Circle -> a
+    com.johnpritchard.cpi.View2DFontDPad$Char Left -> b
+    com.johnpritchard.cpi.View2DFontDPad$Char Top -> c
+    com.johnpritchard.cpi.View2DFontDPad$Char Right -> d
+    com.johnpritchard.cpi.View2DFontDPad$Char Bottom -> e
+    com.johnpritchard.cpi.View2DFontDPad$Char Square -> f
+    com.johnpritchard.cpi.View2DFontDPad$Char[] $VALUES -> g
+    com.johnpritchard.cpi.View2DFontDPad$Char[] values() -> values
+    com.johnpritchard.cpi.View2DFontDPad$Char valueOf(java.lang.String) -> valueOf
+com.johnpritchard.cpi.ViewAnimation -> com.johnpritchard.cpi.bi:
+    java.lang.Object StaticMonitor -> a
+    com.johnpritchard.cpi.ViewAnimation Instance -> b
+    com.johnpritchard.cpi.View view -> c
+    android.view.SurfaceHolder holder -> d
+    boolean is2D -> e
+    boolean is3D -> f
+    java.lang.Object monitor -> g
+    com.johnpritchard.cpi.ViewAnimation$Script queue -> h
+    boolean running -> i
+    boolean recover2D -> j
+    void Start(com.johnpritchard.cpi.View) -> a
+    void Stop(com.johnpritchard.cpi.View) -> b
+    void Exit(com.johnpritchard.cpi.ViewAnimation) -> a
+    void Script() -> a
+    void Script(com.johnpritchard.cpi.ViewPage,com.johnpritchard.cpi.InputScript[]) -> a
+    void Script(com.johnpritchard.cpi.ViewPage,char) -> a
+    void script() -> b
+    void script(com.johnpritchard.cpi.ViewPage,char) -> b
+    void script(com.johnpritchard.cpi.ViewPage,com.johnpritchard.cpi.InputScript[]) -> b
+    void shutdown() -> c
+    void run() -> run
+    void paint() -> d
+    void info(java.lang.String) -> a
+    void error(java.lang.String,java.lang.Throwable) -> a
+com.johnpritchard.cpi.ViewAnimation$1 -> com.johnpritchard.cpi.bj:
+com.johnpritchard.cpi.ViewAnimation$Script -> com.johnpritchard.cpi.bk:
+    com.johnpritchard.cpi.ViewAnimation$Script head -> a
+    com.johnpritchard.cpi.Page pageTo -> b
+    com.johnpritchard.cpi.ViewPage page -> c
+    com.johnpritchard.cpi.InputScript[] input -> d
+    com.johnpritchard.cpi.ViewAnimation$Script next -> e
+    com.johnpritchard.cpi.ViewAnimation$Script head() -> a
+    com.johnpritchard.cpi.ViewAnimation$Script append(com.johnpritchard.cpi.ViewAnimation$Script) -> f
+    com.johnpritchard.cpi.ViewAnimation$Script pop() -> b
+    com.johnpritchard.cpi.ViewAnimation$Script access$100(com.johnpritchard.cpi.ViewAnimation$Script) -> a
+    com.johnpritchard.cpi.Page access$500(com.johnpritchard.cpi.ViewAnimation$Script) -> b
+    com.johnpritchard.cpi.ViewPage access$600(com.johnpritchard.cpi.ViewAnimation$Script) -> c
+    com.johnpritchard.cpi.InputScript[] access$700(com.johnpritchard.cpi.ViewAnimation$Script) -> d
+    com.johnpritchard.cpi.ViewAnimation$Script access$800(com.johnpritchard.cpi.ViewAnimation$Script) -> e
+com.johnpritchard.cpi.ViewAnimation$Shutdown -> com.johnpritchard.cpi.bl:
+com.johnpritchard.cpi.ViewPage -> com.johnpritchard.cpi.bm:
+    int width -> o
+    int height -> p
+    float pad -> q
+    boolean plumb -> r
+    com.johnpritchard.cpi.View view -> s
+    boolean landscape -> t
+    boolean portrait -> u
+    java.lang.String name() -> a
+    com.johnpritchard.cpi.Page value() -> b
+    com.johnpritchard.cpi.ViewPage up(com.johnpritchard.cpi.View,int,int) -> a
+    void down() -> m
+    void down(android.content.SharedPreferences$Editor) -> a
+    void init() -> d
+    void layout() -> e
+    void navigation() -> n
+    void focus() -> j
+    void input_back() -> o
+    void input_emphasis() -> p
+    void input_deemphasis() -> q
+    void input(com.johnpritchard.cpi.InputScript) -> a
+    android.content.SharedPreferences preferences() -> r
+com.johnpritchard.cpi.ViewPage$1 -> com.johnpritchard.cpi.bn:
+    int[] $SwitchMap$com$johnpritchard$cpi$Input -> a
+com.johnpritchard.cpi.ViewPage2D -> com.johnpritchard.cpi.bo:
+    com.johnpritchard.cpi.ViewPage2DComponent[] components -> v
+    com.johnpritchard.cpi.ViewPage2DComponent current -> w
+    com.johnpritchard.cpi.ViewPageComponentInteractive interactive -> x
+    android.graphics.RectF measure() -> s
+    android.graphics.RectF measure(int,int) -> a
+    void scale() -> t
+    void scale(int,int) -> b
+    float pad(android.graphics.RectF) -> a
+    android.graphics.RectF center(int,int) -> c
+    android.graphics.RectF group(int,int,android.graphics.RectF) -> a
+    android.graphics.RectF group(int,int,android.graphics.RectF,float) -> a
+    void group_vertical() -> u
+    void group_vertical(int,int) -> d
+    android.graphics.RectF location(int,int,android.graphics.RectF,float,float) -> a
+    android.graphics.RectF row(int,int,float,float,float,float) -> a
+    android.graphics.RectF col(int,int,float,float,float,float) -> b
+    void init() -> d
+    void layout() -> e
+    void down(android.content.SharedPreferences$Editor) -> a
+    boolean navigationInclude(int,com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    void navigation() -> n
+    void focus() -> j
+    void input_emphasis() -> p
+    void input_deemphasis() -> q
+    void input(com.johnpritchard.cpi.InputScript) -> a
+    void draw(android.graphics.Canvas) -> a
+    int enter() -> v
+    int current() -> w
+    com.johnpritchard.cpi.ViewPage2DComponent current(com.johnpritchard.cpi.Input) -> a
+    void current(com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    int first() -> k
+com.johnpritchard.cpi.ViewPage2DButtonGroup -> com.johnpritchard.cpi.bp:
+com.johnpritchard.cpi.ViewPage2DButtonPlain -> com.johnpritchard.cpi.bq:
+    void setCurrent() -> c
+    void clearCurrent() -> d
+com.johnpritchard.cpi.ViewPage2DClip -> com.johnpritchard.cpi.br:
+com.johnpritchard.cpi.ViewPage2DComponent -> com.johnpritchard.cpi.bs:
+    void setCardinal(com.johnpritchard.cpi.Input,com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    com.johnpritchard.cpi.ViewPage2DComponent getCardinal(com.johnpritchard.cpi.Input) -> a
+    void draw(android.graphics.Canvas) -> a
+com.johnpritchard.cpi.ViewPage2DComponentAbstract -> com.johnpritchard.cpi.bt:
+    com.johnpritchard.cpi.ViewPage2DComponent Nil -> F
+    com.johnpritchard.cpi.ViewPage2DComponent[] cardinals -> G
+    com.johnpritchard.cpi.ViewPage2DClip clip -> H
+    void clearCardinals() -> e
+    int countCardinals() -> f
+    void setCardinal(com.johnpritchard.cpi.Input,com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    com.johnpritchard.cpi.ViewPage2DComponent getCardinal(com.johnpritchard.cpi.Input) -> a
+    com.johnpritchard.cpi.Input direction(float,float) -> b
+com.johnpritchard.cpi.ViewPage2DComponentPath -> com.johnpritchard.cpi.bu:
+    com.johnpritchard.cpi.ViewPage2DPath path -> c
+    com.johnpritchard.cpi.ViewPage2DPath group -> d
+    android.graphics.Paint fill -> e
+    android.graphics.Paint stroke -> f
+    void emphasis(boolean) -> a
+    com.johnpritchard.cpi.ViewPage2DComponentPath setText(java.lang.String) -> a
+    void group(android.graphics.RectF,float) -> a
+    android.graphics.RectF bounds() -> e_
+    com.johnpritchard.cpi.ViewPage2DComponentPath plainFillType() -> a_
+    com.johnpritchard.cpi.ViewPage2DComponentPath inverseFillType() -> b_
+    void transform(android.graphics.Matrix) -> a
+    void draw(android.graphics.Canvas) -> a
+    com.johnpritchard.cpi.ViewPage2DComponentPath path(path.Operand[]) -> a
+    com.johnpritchard.cpi.ViewPage2DComponentPath group(path.Operand[]) -> b
+    void reset() -> c_
+    java.lang.String toString() -> toString
+com.johnpritchard.cpi.ViewPage2DComponentRect -> com.johnpritchard.cpi.ViewPage2DComponentRect:
+    java.lang.String baseName -> a
+    boolean current -> b
+    com.johnpritchard.cpi.ViewPage2DComponent[] cardinals -> c
+    android.graphics.RectF bounds() -> e_
+    float getCX() -> g_
+    float getCY() -> g
+    float getX() -> h
+    float getY() -> i
+    void translate(float,float) -> a_
+    void transform(android.graphics.Matrix) -> a
+    float distance(float,float) -> c
+    float distance(com.johnpritchard.cpi.ViewPageComponent) -> a
+    com.johnpritchard.cpi.Input direction(com.johnpritchard.cpi.ViewPageComponent) -> b
+    void setCurrent() -> c
+    void clearCurrent() -> d
+    void clearCardinals() -> e
+    int countCardinals() -> f
+    void setCardinal(com.johnpritchard.cpi.Input,com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    com.johnpritchard.cpi.ViewPage2DComponent getCardinal(com.johnpritchard.cpi.Input) -> a
+    com.johnpritchard.cpi.Input direction(float,float) -> b
+    void draw(android.graphics.Canvas) -> a
+com.johnpritchard.cpi.ViewPage2DNavigator -> com.johnpritchard.cpi.ViewPage2DNavigator:
+    double SP4 -> b
+    android.graphics.Path inside -> c
+    android.graphics.Paint paint -> a
+    void update(com.johnpritchard.cpi.View2DFontDPad$Char,com.johnpritchard.cpi.View2DFontDPad$Char,com.johnpritchard.cpi.View2DFontDPad$Char,com.johnpritchard.cpi.View2DFontDPad$Char,com.johnpritchard.cpi.View2DFontDPad$Char,float,float) -> a
+    android.graphics.RectF bounds() -> e_
+    float getCX() -> g_
+    float getCY() -> g
+    float getX() -> h
+    float getY() -> i
+    void translate(float,float) -> a_
+    void transform(android.graphics.Matrix) -> a
+    float distance(float,float) -> c
+    com.johnpritchard.cpi.Input direction(com.johnpritchard.cpi.ViewPageComponent) -> b
+    void setCurrent() -> c
+    void clearCurrent() -> d
+    void clearCardinals() -> e
+    int countCardinals() -> f
+    void setCardinal(com.johnpritchard.cpi.Input,com.johnpritchard.cpi.ViewPage2DComponent) -> a
+    com.johnpritchard.cpi.ViewPage2DComponent getCardinal(com.johnpritchard.cpi.Input) -> a
+    com.johnpritchard.cpi.Input direction(float,float) -> b
+    void draw(android.graphics.Canvas) -> a
+com.johnpritchard.cpi.ViewPage2DPath -> com.johnpritchard.cpi.bv:
+    boolean rounding -> a
+    float margin -> b
+    com.johnpritchard.cpi.ViewPage2DPath margin(float) -> a
+    com.johnpritchard.cpi.ViewPage2DPath rounding(boolean) -> a
+    com.johnpritchard.cpi.ViewPage2DPath set(android.graphics.RectF) -> a
+    com.johnpritchard.cpi.ViewPage2DPath rect(android.graphics.RectF,float) -> a
+    com.johnpritchard.cpi.ViewPage2DPath rrect(android.graphics.RectF,float) -> b
+    com.johnpritchard.cpi.ViewPage2DPath incCapacity(int) -> a
+    com.johnpritchard.cpi.ViewPage2DPath plainFillType() -> a
+    com.johnpritchard.cpi.ViewPage2DPath inverseFillType() -> b
+    void add(path.Op,float[]) -> a
+    void moveTo(float[]) -> a
+    void lineTo(float[]) -> b
+    void quadTo(float[]) -> c
+    void cubicTo(float[]) -> d
+    com.johnpritchard.cpi.ViewPage2DPath apply(path.Operand[]) -> a
+    void add(com.johnpritchard.cpi.ViewPage2DPath) -> a
+    java.lang.String toString() -> toString
+com.johnpritchard.cpi.ViewPage2DPath$1 -> com.johnpritchard.cpi.bw:
+    int[] $SwitchMap$android$graphics$Path$FillType -> a
+    int[] $SwitchMap$path$Winding -> b
+    int[] $SwitchMap$path$Op -> c
+com.johnpritchard.cpi.ViewPage2DTextLabel -> com.johnpritchard.cpi.bx:
+    void draw(android.graphics.Canvas) -> a
+com.johnpritchard.cpi.ViewPage2DTextMultiline -> com.johnpritchard.cpi.by:
+    int line_width -> a
+    com.johnpritchard.cpi.ViewPage2DComponentPath setText(java.lang.String) -> a
+com.johnpritchard.cpi.ViewPageComponent -> com.johnpritchard.cpi.bz:
+    float getCX() -> g_
+    float getCY() -> g
+    float getX() -> h
+    float getY() -> i
+    android.graphics.RectF bounds() -> e_
+    void translate(float,float) -> a_
+    void transform(android.graphics.Matrix) -> a
+    float distance(float,float) -> c
+    com.johnpritchard.cpi.Input direction(com.johnpritchard.cpi.ViewPageComponent) -> b
+    com.johnpritchard.cpi.Input direction(float,float) -> b
+    void clearCardinals() -> e
+    int countCardinals() -> f
+    void setCurrent() -> c
+    void clearCurrent() -> d
+com.johnpritchard.cpi.ViewPageComponentAbstract -> com.johnpritchard.cpi.ca:
+    com.johnpritchard.cpi.ViewPageOperatorSelection NSel -> I
+    java.lang.String name -> J
+    boolean current -> K
+    android.graphics.RectF bounds -> L
+    com.johnpritchard.cpi.ViewPageOperatorSelection selection -> M
+    void clear() -> j
+    void appendName(java.lang.String) -> c
+    android.graphics.RectF bounds() -> e_
+    float getCX() -> g_
+    float getCY() -> g
+    float getX() -> h
+    float getY() -> i
+    void translate(float,float) -> a_
+    void transform(android.graphics.Matrix) -> a
+    float distance(float,float) -> c
+    float distance(com.johnpritchard.cpi.ViewPageComponent) -> a
+    com.johnpritchard.cpi.Input direction(com.johnpritchard.cpi.ViewPageComponent) -> b
+    void setCurrent() -> c
+    void clearCurrent() -> d
+com.johnpritchard.cpi.ViewPageComponentEmphasis -> com.johnpritchard.cpi.cb:
+    void emphasis(boolean) -> a
+com.johnpritchard.cpi.ViewPageComponentGroup -> com.johnpritchard.cpi.cc:
+    void group(android.graphics.RectF,float) -> a
+com.johnpritchard.cpi.ViewPageComponentInteractive -> com.johnpritchard.cpi.cd:
+    boolean interactive() -> j
+    boolean input(com.johnpritchard.cpi.InputScript) -> a
+com.johnpritchard.cpi.ViewPageOperatorSelection -> com.johnpritchard.cpi.ce:
+    void open(int) -> a
+    void update(int,android.graphics.RectF) -> a
+    void close() -> a
+path.Op -> a.a:
+    path.Op MoveTo -> a
+    path.Op LineTo -> b
+    path.Op QuadTo -> c
+    path.Op CubicTo -> d
+    path.Op Close -> e
+    int operands -> f
+    path.Op[] $VALUES -> g
+    path.Op[] values() -> values
+    path.Op valueOf(java.lang.String) -> valueOf
+    java.lang.String format(float[]) -> a
+path.Operand -> a.b:
+    float[] EmptySet -> a
+    path.Op op -> b
+    float[] vertices -> c
+    java.lang.StringBuilder format(java.lang.StringBuilder) -> a
+    java.lang.String toString() -> toString
+path.Operand$1 -> a.c:
+    int[] $SwitchMap$path$Op -> a
+path.Winding -> a.d:
+    path.Winding EvenOdd -> a
+    path.Winding NonZero -> b
+    path.Winding Future -> c
+    java.lang.String label -> d
+    path.Winding Default -> e
+    java.util.Map Map -> f
+    path.Winding[] $VALUES -> g
+    path.Winding[] values() -> values
+    path.Winding valueOf(java.lang.String) -> valueOf
+    java.lang.String toString() -> toString

@@ -161,12 +161,7 @@ public final class CPIDatabase
                 try {
                     if (cursor.moveToFirst()){
 
-                        //Info("Inventory readResults (1)");
-
                         inventory.readResults(cursor);
-                    }
-                    else {
-                        //Info("Inventory readResults (0)");
                     }
                 }
                 finally {
@@ -175,8 +170,6 @@ public final class CPIDatabase
                 /*
                  */
                 if (inventory.isOpen()){
-
-                    //Info("Inventory <not completed>");
 
                     SQLiteQueryBuilder sQ = CPIDatabase.QuerySessionInternal();
 
@@ -192,7 +185,6 @@ public final class CPIDatabase
                     }
                 }
                 else {
-                    //Info("Inventory <completed>");
                     /*
                      * The most recent session has completed,
                      * therefore create a new session
@@ -213,8 +205,6 @@ public final class CPIDatabase
                     ContentValues values = inventory.writeResults();
 
                     inventory.cursor = db.insert(CPIDatabase.RESULTS,CPIDatabaseTables.Results.TITLE,values);
-
-                    //Info("Inventory <new record> "+inventory.cursor);
                 }
             }
             finally {
@@ -236,8 +226,6 @@ public final class CPIDatabase
 
         try {
             long cursor = db.insert(CPIDatabase.SESSION,null,values);
-
-            //Info("Session <insert> "+cursor);
         }
         catch (SQLiteException exc){
 
@@ -246,8 +234,6 @@ public final class CPIDatabase
             final String[] whereArgs = null;
 
             int rows = db.update(CPIDatabase.SESSION,values,where,whereArgs);
-
-            //Info("Session <update> "+rows);
         }
 
         inventory.setSession(index,input);
@@ -258,26 +244,21 @@ public final class CPIDatabase
         {
             if (CPIProcess.Practice == inventory.process){
 
-                //Info("Input <practice>");
-
                 CPI.StartActivity(Page.start);
             }
             else if (-1 < index && index < CPIInventory.Term){
 
-                //Info("Input <"+index+">");
-
                 SQLiteDatabase db = CPIDatabase.Writable();
                 try {
                     Session(db,index,input);
-
-                    CPIPageInventory.View();
                 }
                 finally {
                     db.close();
                 }
+
+                CPIPageInventory.View();
             }
             else {
-                //Info("Input <completion> (index "+index+")");
 
                 Completion(index,input);
             }
@@ -308,8 +289,6 @@ public final class CPIDatabase
                         final String[] whereArgs = null;
 
                         int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
-
-                        //Info("Completion <results update by id> "+rows);
                     }
                     else {
 
@@ -318,8 +297,6 @@ public final class CPIDatabase
                         final String[] whereArgs = null;
 
                         int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
-
-                        //Info("Completion <results update by identifier> "+rows);
                     }
                 }
                 finally {
@@ -331,15 +308,13 @@ public final class CPIDatabase
                     final String[] whereArgs = null;
 
                     int rows = db.delete(CPIDatabase.SESSION,where,whereArgs);
-
-                    //Info("Completion <session delete> "+rows);
                 }
-
-                CPI.StartActivity(Page.view);
             }
             finally {
                 db.close();
             }
+
+            CPI.StartActivity(Page.view);
         }
     }
     /**
@@ -372,19 +347,13 @@ public final class CPIDatabase
                 Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
                 try {
                     if (cursor.moveToFirst()){
-
-                        //Info("Completed readResults (1)");
                         /*
                          * Have history
                          */
                         inventory.readResults(cursor);
                     }
-                    else {
-                        /*
-                         * No history
-                         */
-                        //Info("Completed readResults (0)");
-                    }
+
+                    CPIPageView.View();
                 }
                 finally {
                     cursor.close();
@@ -430,12 +399,11 @@ public final class CPIDatabase
 
                         inventory.readResults(cursor);
 
-                        //Info("history prev: ok");
+                        CPIPageView.View();
 
                         return true;
                     }
                     else {
-                        //Info("history prev: <end>");
 
                         return false;
                     }
@@ -449,12 +417,10 @@ public final class CPIDatabase
             }
         }
         else if (0L > id){
-            //Info("history prev: <missing cursor>");
 
             return false;
         }
         else {
-            //Info("history prev: <end>");
 
             return false;
         }
@@ -490,15 +456,14 @@ public final class CPIDatabase
                 Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
                 try {
                     if (cursor.moveToFirst()){
+
                         CPIInventoryRecord.Instance.readResults(cursor);
 
-                        //Info("history next: ok");
+                        CPIPageView.View();
 
                         return true;
                     }
                     else {
-
-                        //Info("history next: <end>");
 
                         return false;
                     }
@@ -512,7 +477,6 @@ public final class CPIDatabase
             }
         }
         else {
-            //Info("history next: <missing cursor>");
 
             return false;
         }

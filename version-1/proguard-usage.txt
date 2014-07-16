@@ -1,0 +1,524 @@
+android.annotation.SuppressLint
+android.annotation.TargetApi
+com.johnpritchard.cpi.B64:
+    public static final int MAX_LINE_LENGTH
+    public static final byte EQUALS_SIGN
+    private static final byte BAD_ENCODING
+    private static final byte WHITE_SPACE_ENC
+    private static final byte EQUALS_SIGN_ENC
+    13:13:public B64()
+    91:91:private static final byte[] encode3to4(byte[])
+    106:108:private static final byte[] encode3to4(byte[],int)
+    126:127:private static final byte[] encode3to4(byte[],byte[],int)
+    199:206:public static final java.lang.String encodeBytes(java.lang.String)
+    232:235:public static final byte[] encode(byte[])
+    240:247:public static final void encode(byte[],java.io.OutputStream)
+    304:311:private static final byte[] decode4to3(byte[])
+    338:391:private static final int decode4to3(byte[],int,byte[],int)
+    396:402:public static final byte[] decode(java.lang.String)
+    406:409:public static final byte[] decode(byte[])
+    421:451:public static final byte[] decode(byte[],int,int)
+com.johnpritchard.cpi.BuildConfig
+com.johnpritchard.cpi.CPI:
+    private static final java.lang.String TAG
+    protected static final int FileModePublic
+    private static final int IntentFlags
+    166:166:protected static final void Activate3D(com.johnpritchard.cpi.ObjectActivity)
+    173:173:protected static final void Post3D(java.lang.Runnable)
+    175:175:protected static final void ScreenShot3D()
+    181:184:protected static final void ToastShort2D(java.lang.String)
+    190:193:protected static final void ToastLong2D(java.lang.String)
+    205:205:protected static final void Toast3D(java.lang.String)
+    207:207:protected static final java.io.File ExternalDirectory2D(java.lang.String)
+    210:210:protected static final java.io.File ExternalDirectory3D(java.lang.String)
+    215:215:protected static final java.io.FileOutputStream InternalFile2D(java.lang.String)
+    220:220:protected static final java.io.FileOutputStream InternalFile3D(java.lang.String)
+    230:231:protected void verbose(java.lang.String)
+    233:234:protected void verbose(java.lang.String,java.lang.Throwable)
+    236:237:protected void debug(java.lang.String)
+    239:240:protected void debug(java.lang.String,java.lang.Throwable)
+    242:243:protected void info(java.lang.String)
+    245:246:protected void info(java.lang.String,java.lang.Throwable)
+    248:249:protected void warn(java.lang.String)
+    251:252:protected void warn(java.lang.String,java.lang.Throwable)
+    254:255:protected void error(java.lang.String)
+    257:258:protected void error(java.lang.String,java.lang.Throwable)
+    260:261:protected void wtf(java.lang.String)
+    263:264:protected void wtf(java.lang.String,java.lang.Throwable)
+    266:267:protected static void Verbose(java.lang.String)
+    269:270:protected static void Verbose(java.lang.String,java.lang.Throwable)
+    272:273:protected static void Debug(java.lang.String)
+    275:276:protected static void Debug(java.lang.String,java.lang.Throwable)
+    278:279:protected static void Info(java.lang.String)
+    281:282:protected static void Info(java.lang.String,java.lang.Throwable)
+    284:285:protected static void Warn(java.lang.String)
+    287:288:protected static void Warn(java.lang.String,java.lang.Throwable)
+    290:291:protected static void Error(java.lang.String)
+    293:294:protected static void Error(java.lang.String,java.lang.Throwable)
+    296:297:protected static void WTF(java.lang.String)
+    299:300:protected static void WTF(java.lang.String,java.lang.Throwable)
+com.johnpritchard.cpi.CPIButtonShareFB
+com.johnpritchard.cpi.CPIButtonShareGM
+com.johnpritchard.cpi.CPIButtonShareGP
+com.johnpritchard.cpi.CPIButtonShareTW
+com.johnpritchard.cpi.CPICode
+com.johnpritchard.cpi.CPICode$Data
+com.johnpritchard.cpi.CPICode$Decode
+com.johnpritchard.cpi.CPICode$Encode
+com.johnpritchard.cpi.CPIDatabase:
+    private static final java.lang.String TAG
+    protected static final java.lang.String NAME
+    protected static final int VERSION
+    protected static final java.lang.String RESULTS
+    protected static final java.lang.String SESSION
+    37:37:public static boolean IsUp()
+    41:41:public static boolean IsDown()
+    97:97:public static android.database.sqlite.SQLiteQueryBuilder QueryResultsInternal(java.lang.String)
+    529:530:protected static void Verbose(java.lang.String)
+    532:533:protected static void Verbose(java.lang.String,java.lang.Throwable)
+    535:536:protected static void Debug(java.lang.String)
+    538:539:protected static void Debug(java.lang.String,java.lang.Throwable)
+    541:542:protected static void Info(java.lang.String)
+    544:545:protected static void Info(java.lang.String,java.lang.Throwable)
+    547:548:protected static void Warn(java.lang.String)
+    550:551:protected static void Warn(java.lang.String,java.lang.Throwable)
+    553:554:protected static void Error(java.lang.String)
+    556:557:protected static void Error(java.lang.String,java.lang.Throwable)
+    559:560:protected static void WTF(java.lang.String)
+    562:563:protected static void WTF(java.lang.String,java.lang.Throwable)
+com.johnpritchard.cpi.CPIDatabaseTables:
+    public static final java.lang.String AUTHORITY
+    public static final java.lang.String CONTENT_TYPE_LIST
+    public static final java.lang.String CONTENT_TYPE_ITEM
+    162:163:private CPIDatabaseTables()
+com.johnpritchard.cpi.CPIDatabaseTables$Results:
+    protected static final java.lang.String IDENTIFIER
+    protected static final java.lang.String TITLE
+    public static final java.lang.String SF
+    public static final java.lang.String ST
+    public static final java.lang.String NF
+    public static final java.lang.String NT
+    public static final java.lang.String CREATED
+    public static final java.lang.String COMPLETED
+    84:84:protected static final java.lang.String[] ProjectionExport()
+    122:123:private CPIDatabaseTables$Results()
+com.johnpritchard.cpi.CPIDatabaseTables$Session:
+    protected static final java.lang.String INDEX
+    protected static final java.lang.String CHOICE
+    145:145:protected static final java.lang.String[] ProjectionInternal()
+    156:157:private CPIDatabaseTables$Session()
+com.johnpritchard.cpi.CPIInventory:
+    public static final int Size
+    public static final int Term
+    42:48:public static final boolean IsComplete(com.johnpritchard.cpi.CPIInventoryRecord)
+    73:73:public static final com.johnpritchard.cpi.CPICode$Encode Encode(com.johnpritchard.cpi.CPIInventoryRecord)
+com.johnpritchard.cpi.CPIInventoryCatalog:
+    107:108:private CPIInventoryCatalog()
+com.johnpritchard.cpi.CPIInventoryRecord:
+    private static final int RandomIdentifierOctets
+    55:55:public boolean inProcess()
+    59:59:public com.johnpritchard.cpi.CPIProcess whichProcess()
+    89:89:public boolean isClosed()
+    111:111:public boolean hasNotCursor()
+    114:114:public long getCursor()
+    117:118:public com.johnpritchard.cpi.CPIInventoryRecord setCursor(long)
+    124:124:public boolean hasNotIdentifier()
+    127:127:public java.lang.String getIdentifier()
+    134:135:public com.johnpritchard.cpi.CPIInventoryRecord setIdentifier(java.lang.String)
+    141:141:public boolean hasNotTitle()
+    147:148:public com.johnpritchard.cpi.CPIInventoryRecord setTitle(java.lang.String)
+    158:158:public boolean hasNotSession()
+    161:161:public boolean isNotEmptySession()
+    216:216:public boolean hasNotCreated()
+    219:219:public java.util.Date getCreated()
+    226:227:public com.johnpritchard.cpi.CPIInventoryRecord setCreated(java.util.Date)
+    233:233:public boolean hasNotCompleted()
+    236:236:public java.util.Date getCompleted()
+    251:252:public com.johnpritchard.cpi.CPIInventoryRecord setCompleted(java.util.Date)
+    256:256:public com.johnpritchard.cpi.CPICode$Encode getCPICodeEncode()
+    264:264:public boolean hasNotCPICodeData()
+    268:268:public java.lang.String toStringSf()
+    272:272:public java.lang.String toStringSt()
+    276:276:public java.lang.String toStringNf()
+    280:280:public java.lang.String toStringNt()
+com.johnpritchard.cpi.CPIOutputQuadrant:
+    22:22:public static final void Init()
+com.johnpritchard.cpi.CPIPageInventory:
+    private static final int NONE
+    private static final int LABEL_LEFT
+    private static final int LABEL_RIGHT
+    private static final int BUTTON_L4
+    private static final int BUTTON_L3
+    private static final int BUTTON_L2
+    private static final int BUTTON_L1
+    private static final int FIRST
+    private static final int BUTTON_R1
+    private static final int BUTTON_R2
+    private static final int BUTTON_R3
+    private static final int BUTTON_R4
+    private static final int WO
+    private static final int WC
+    private static final int BO
+    private static final int BC
+com.johnpritchard.cpi.CPIPageStart:
+    private static final int INTRO
+    private static final int PRACTICE
+    private static final int INVENTORY
+    private static final int COMPLETED
+    private static final int ABOUT
+com.johnpritchard.cpi.CPIPageView:
+    protected static final int VZ
+    protected static final int OT
+    protected static final int NA
+    protected static final int QU
+    protected static final int ST
+    protected static final int NT
+    protected static final int NF
+    protected static final int SF
+com.johnpritchard.cpi.CPIPostToastLong2D
+com.johnpritchard.cpi.CPIProvider:
+    private static final int QUERY_LIST
+    private static final int QUERY_ID
+com.johnpritchard.cpi.CPIQuadrant:
+    12:46:public static final com.johnpritchard.cpi.CPIQuadrant For(java.lang.String)
+com.johnpritchard.cpi.CPIViz:
+    55:56:public static final void Update()
+com.johnpritchard.cpi.CPIViz$Color
+com.johnpritchard.cpi.Epsilon:
+    protected static final float EPSILON_F
+    protected static final double EPSILON_D
+    protected static final double DEG
+    protected static final float PAD_RATIO
+    26:29:protected static final double Z(double)
+    76:76:protected static final float Seconds(double)
+    80:80:protected static final float ClampRP(double,double)
+    84:84:protected static final float AddClampRP(double,double,double)
+    88:88:protected static final float SubClampRP(double,double,double)
+    92:92:protected static final float MulClampRP(double,double,double)
+    96:96:protected static final float DivClampRP(double,double,double)
+    101:106:protected static final long ClampZP(long)
+    111:111:protected static final long AddClampZP(long,long)
+    115:115:protected static final long SubClampZP(long,long)
+    119:119:protected static final long MulClampZP(long,long)
+    123:123:protected static final long DivClampZP(long,long)
+    131:148:protected static final java.lang.String Format7(float)
+    152:187:protected static final java.lang.String FormatT(float)
+    190:207:protected static final java.lang.String Format4(double)
+    211:228:protected static final java.lang.String Format5(double)
+    232:249:protected static final java.lang.String Format6(double)
+    253:270:protected static final java.lang.String Format8(double)
+com.johnpritchard.cpi.Hex
+com.johnpritchard.cpi.Input:
+    public static final int NonGeometricCount
+    76:76:public boolean isEnum()
+    110:156:public static final com.johnpritchard.cpi.InputScript[] Add(com.johnpritchard.cpi.InputScript[],com.johnpritchard.cpi.InputScript[],int)
+    161:170:public static final int IndexOf(com.johnpritchard.cpi.InputScript[],com.johnpritchard.cpi.InputScript)
+    174:183:public static final int LastIndexOf(com.johnpritchard.cpi.InputScript[],com.johnpritchard.cpi.InputScript)
+com.johnpritchard.cpi.InputScript:
+    public abstract boolean isEnum()
+    public abstract int ordinal()
+    public abstract java.lang.String name()
+    public abstract java.lang.String toString()
+com.johnpritchard.cpi.InputScript$Database:
+    142:142:public boolean isEnum()
+    148:148:public int ordinal()
+    151:151:public java.lang.String name()
+com.johnpritchard.cpi.InputScript$Key:
+    43:43:public boolean isEnum()
+    49:49:public int ordinal()
+    52:52:public java.lang.String name()
+com.johnpritchard.cpi.ObjectActivity:
+    protected static final java.lang.String TAG
+    95:95:protected void attach(android.hardware.Camera)
+    98:98:protected android.content.SharedPreferences preferences()
+    102:104:protected android.view.Display display()
+    108:114:protected android.util.DisplayMetrics displayMetrics()
+    118:118:protected android.hardware.SensorManager sensorManager()
+    122:122:protected android.hardware.Sensor sensor(int)
+    126:126:protected boolean sensorRegister(android.hardware.SensorEventListener,android.hardware.Sensor,int)
+    130:131:protected void sensorUnregister(android.hardware.SensorEventListener)
+    133:134:protected void verbose(java.lang.String)
+    136:137:protected void verbose(java.lang.String,java.lang.Throwable)
+    139:140:protected void debug(java.lang.String)
+    142:143:protected void debug(java.lang.String,java.lang.Throwable)
+    145:146:protected void info(java.lang.String)
+    148:149:protected void info(java.lang.String,java.lang.Throwable)
+    151:152:protected void warn(java.lang.String)
+    154:155:protected void warn(java.lang.String,java.lang.Throwable)
+    157:158:protected void error(java.lang.String)
+    160:161:protected void error(java.lang.String,java.lang.Throwable)
+    163:164:protected void wtf(java.lang.String)
+    166:167:protected void wtf(java.lang.String,java.lang.Throwable)
+com.johnpritchard.cpi.ObjectLog:
+    public static final java.lang.String TAG
+    50:50:public com.johnpritchard.cpi.ObjectActivity getContext()
+    64:65:protected void attach(android.hardware.Camera)
+    68:68:protected android.view.Display display()
+    72:72:protected android.util.DisplayMetrics displayMetrics()
+    76:76:protected android.hardware.SensorManager sensorManager()
+    80:80:protected android.hardware.Sensor sensor(int)
+    84:84:protected boolean sensorRegister(android.hardware.SensorEventListener,android.hardware.Sensor,int)
+    88:89:protected void sensorUnregister(android.hardware.SensorEventListener)
+    91:92:protected void verbose(java.lang.String)
+    94:95:protected void verbose(java.lang.String,java.lang.Throwable)
+    97:98:protected void debug(java.lang.String)
+    100:101:protected void debug(java.lang.String,java.lang.Throwable)
+    103:104:protected void info(java.lang.String)
+    106:107:protected void info(java.lang.String,java.lang.Throwable)
+    109:110:protected void warn(java.lang.String)
+    112:113:protected void warn(java.lang.String,java.lang.Throwable)
+    115:116:protected void error(java.lang.String)
+    118:119:protected void error(java.lang.String,java.lang.Throwable)
+    121:122:protected void wtf(java.lang.String)
+    124:125:protected void wtf(java.lang.String,java.lang.Throwable)
+com.johnpritchard.cpi.R
+com.johnpritchard.cpi.R$attr
+com.johnpritchard.cpi.R$drawable
+com.johnpritchard.cpi.R$layout
+com.johnpritchard.cpi.R$string
+com.johnpritchard.cpi.View:
+    public abstract void onCreate(android.content.SharedPreferences)
+    public abstract void onResume()
+    public abstract void onPause(android.content.SharedPreferences$Editor)
+    public abstract void script(com.johnpritchard.cpi.Page)
+    public abstract void script(com.johnpritchard.cpi.InputScript[])
+com.johnpritchard.cpi.View$Script:
+    55:56:private View$Script()
+com.johnpritchard.cpi.View2D:
+    public static final java.lang.String TAG
+    private static final long InputFilterGeneric
+    private static final long InputFilterGesture
+    494:495:protected void repaint()
+    502:503:public void script(com.johnpritchard.cpi.Page)
+    692:693:protected void verbose(java.lang.String)
+    695:696:protected void verbose(java.lang.String,java.lang.Throwable)
+    698:699:protected void debug(java.lang.String)
+    701:702:protected void debug(java.lang.String,java.lang.Throwable)
+    704:705:protected void info(java.lang.String)
+    707:708:protected void info(java.lang.String,java.lang.Throwable)
+    710:711:protected void warn(java.lang.String)
+    713:714:protected void warn(java.lang.String,java.lang.Throwable)
+    716:717:protected void error(java.lang.String)
+    719:720:protected void error(java.lang.String,java.lang.Throwable)
+    722:723:protected void wtf(java.lang.String)
+    725:726:protected void wtf(java.lang.String,java.lang.Throwable)
+com.johnpritchard.cpi.View2DFontDPad:
+    public static final float Em
+    public static final float Ascent
+    public static final float Descent
+    public static final float Leading
+    private static final float Z
+    private static final float C
+    85:86:private View2DFontDPad()
+com.johnpritchard.cpi.View2DFontFutural
+com.johnpritchard.cpi.ViewAnimation:
+    public static final java.lang.String TAG
+    protected static final long OutputFilter
+    private static final int SKIP_NOT
+    private static final int SKIP_SKIP
+    private static final int SKIP_OP
+    112:119:protected static void Script(com.johnpritchard.cpi.Page)
+    266:272:private void script(com.johnpritchard.cpi.Page)
+    453:455:protected void verbose(java.lang.String)
+    457:459:protected void verbose(java.lang.String,java.lang.Throwable)
+    461:463:protected void debug(java.lang.String)
+    465:467:protected void debug(java.lang.String,java.lang.Throwable)
+    473:475:protected void info(java.lang.String,java.lang.Throwable)
+    477:479:protected void warn(java.lang.String)
+    481:483:protected void warn(java.lang.String,java.lang.Throwable)
+    485:487:protected void error(java.lang.String)
+    493:495:protected void wtf(java.lang.String)
+    497:499:protected void wtf(java.lang.String,java.lang.Throwable)
+    502:503:protected static void Verbose(java.lang.String)
+    506:507:protected static void Verbose(java.lang.String,java.lang.Throwable)
+    510:511:protected static void Debug(java.lang.String)
+    514:515:protected static void Debug(java.lang.String,java.lang.Throwable)
+    518:519:protected static void Info(java.lang.String)
+    522:523:protected static void Info(java.lang.String,java.lang.Throwable)
+    526:527:protected static void Warn(java.lang.String)
+    530:531:protected static void Warn(java.lang.String,java.lang.Throwable)
+    534:535:protected static void Error(java.lang.String)
+    538:539:protected static void Error(java.lang.String,java.lang.Throwable)
+    542:543:protected static void WTF(java.lang.String)
+    545:546:protected static void WTF(java.lang.String,java.lang.Throwable)
+com.johnpritchard.cpi.ViewAnimation$Script:
+    187:190:private ViewAnimation$Script(com.johnpritchard.cpi.ViewAnimation$Script,com.johnpritchard.cpi.Page)
+    163:163:synthetic ViewAnimation$Script(com.johnpritchard.cpi.ViewAnimation$Script,com.johnpritchard.cpi.Page,com.johnpritchard.cpi.ViewAnimation$1)
+com.johnpritchard.cpi.ViewPage:
+    public abstract void draw(android.graphics.Canvas)
+    107:107:public final boolean simpleInput()
+com.johnpritchard.cpi.ViewPage2D:
+    86:86:protected android.graphics.RectF scale(float)
+    89:100:protected android.graphics.RectF scale(int,int,float)
+    103:104:protected void scale(android.graphics.RectF)
+    107:121:protected void scale(int,int,android.graphics.RectF)
+    172:172:protected static float pad(android.graphics.RectF,android.graphics.RectF)
+    226:227:protected void center(android.graphics.RectF)
+    229:250:protected void center(int,int,android.graphics.RectF)
+    283:295:protected void vertical()
+    377:399:protected void row(int,int,float,float,float,float,float)
+    703:708:protected android.graphics.Path$FillType getFillType()
+    711:717:protected void setFillType(android.graphics.Path$FillType)
+    719:725:protected void rotateFillType()
+    727:733:protected void logFillType()
+com.johnpritchard.cpi.ViewPage2DButtonGroup:
+    18:19:public ViewPage2DButtonGroup()
+    24:25:public ViewPage2DButtonGroup(path.Operand[])
+    27:28:public ViewPage2DButtonGroup(path.Operand[],path.Operand[])
+    30:31:public ViewPage2DButtonGroup(path.Operand[],path.Operand[],path.Operand[])
+com.johnpritchard.cpi.ViewPage2DButtonPlain:
+    17:18:public ViewPage2DButtonPlain()
+    29:30:public ViewPage2DButtonPlain(path.Operand[],path.Operand[],path.Operand[])
+com.johnpritchard.cpi.ViewPage2DComponent:
+    public abstract com.johnpritchard.cpi.ViewPage2DClip clip()
+com.johnpritchard.cpi.ViewPage2DComponentAbstract:
+    38:38:public final com.johnpritchard.cpi.ViewPage2DClip clip()
+    41:46:public com.johnpritchard.cpi.ViewPage2DComponentAbstract clip(path.Operand[])
+com.johnpritchard.cpi.ViewPage2DComponentPath:
+    protected static final float TextSize
+    57:59:public ViewPage2DComponentPath(com.johnpritchard.cpi.ViewPageOperatorSelection,java.lang.String)
+    70:74:public ViewPage2DComponentPath(path.Operand[],path.Operand[],path.Operand[])
+    90:91:public final varargs void format(java.lang.String,java.lang.Object[])
+    149:149:public boolean isEmpty()
+    152:153:public com.johnpritchard.cpi.ViewPage2DComponentPath incCapacity(int)
+    156:156:public boolean isInverseFillType()
+    159:160:public void toggleInverseFillType()
+    172:172:public android.graphics.Path$FillType getFillType()
+    175:176:public void setFillType(android.graphics.Path$FillType)
+    179:181:public com.johnpritchard.cpi.ViewPage2DComponentPath rotateFillType()
+    184:212:public com.johnpritchard.cpi.ViewPage2DComponentPath logFillType()
+    241:241:public java.lang.Iterable toPathIterable()
+    245:245:public java.util.Iterator toPathIterator()
+    249:250:public path.Path setWinding(path.Winding)
+    254:254:public path.Winding getWinding()
+    258:258:public boolean isWindingNonZero()
+    262:262:public boolean isWindingEvenOdd()
+    266:266:public path.Path setWindingNonZero()
+    270:270:public path.Path setWindingEvenOdd()
+    274:274:public float[] getVerticesPath(int,path.Op,float[])
+    278:279:public void add(path.Op,float[])
+    282:283:public void moveTo(float[])
+    286:287:public void moveTo(float,float)
+    290:291:public void lineTo(float[])
+    294:295:public void lineTo(float,float)
+    298:299:public void quadTo(float[])
+    303:304:public void quadTo(float,float,float,float)
+    307:308:public void cubicTo(float[])
+    313:315:public void cubicTo(float,float,float,float,float,float)
+    318:319:public void close()
+    322:322:public path.Path apply(java.lang.String)
+    326:328:public path.Path apply(path.Parser)
+    354:356:public void set(path.Path)
+    359:361:public void add(path.Path)
+com.johnpritchard.cpi.ViewPage2DComponentPath$1
+com.johnpritchard.cpi.ViewPage2DComponentRect:
+    31:33:public ViewPage2DComponentRect(float,float,float,float)
+    36:36:public java.lang.String getName()
+    39:39:public void setName(java.lang.String)
+    42:42:public boolean hasSelection()
+    45:45:public boolean hasSelectionGroup()
+    48:48:public com.johnpritchard.cpi.ViewPageOperatorSelection getSelection()
+    51:51:public com.johnpritchard.cpi.ViewPageOperatorGroup getSelectionGroup()
+    54:54:public void setSelection(com.johnpritchard.cpi.ViewPageOperatorSelection)
+    84:84:public final float getWidth()
+    88:88:public final float getHeight()
+    100:108:public final void scale(float)
+    147:147:public final boolean isCurrent()
+    158:158:public com.johnpritchard.cpi.ViewPage2DClip clip()
+com.johnpritchard.cpi.ViewPage2DDisplay
+com.johnpritchard.cpi.ViewPage2DNavigator:
+    167:167:public java.lang.String getName()
+    170:170:public void setName(java.lang.String)
+    173:173:public boolean hasSelection()
+    176:176:public boolean hasSelectionGroup()
+    179:179:public com.johnpritchard.cpi.ViewPageOperatorSelection getSelection()
+    182:182:public com.johnpritchard.cpi.ViewPageOperatorGroup getSelectionGroup()
+    185:185:public void setSelection(com.johnpritchard.cpi.ViewPageOperatorSelection)
+    215:215:public final float getWidth()
+    219:219:public final float getHeight()
+    231:239:public final void scale(float)
+    259:264:public final float distance(com.johnpritchard.cpi.ViewPageComponent)
+    272:272:public final boolean isCurrent()
+    279:279:public com.johnpritchard.cpi.ViewPage2DClip clip()
+com.johnpritchard.cpi.ViewPage2DPath:
+    35:35:public float margin()
+    50:50:public boolean rounding()
+    77:77:public com.johnpritchard.cpi.ViewPage2DPath rect(android.graphics.RectF)
+    95:95:public com.johnpritchard.cpi.ViewPage2DPath rrect(android.graphics.RectF)
+    120:120:public com.johnpritchard.cpi.ViewPage2DPath circle(android.graphics.RectF)
+    124:134:public com.johnpritchard.cpi.ViewPage2DPath circle(android.graphics.RectF,float)
+    140:143:public com.johnpritchard.cpi.ViewPage2DPath circle(float,float,float)
+    176:190:public com.johnpritchard.cpi.ViewPage2DPath rotateFillType()
+    193:193:public java.lang.Iterable toPathIterable()
+    196:196:public java.util.Iterator toPathIterator()
+    199:209:public path.Path setWinding(path.Winding)
+    212:221:public path.Winding getWinding()
+    225:225:public boolean isWindingNonZero()
+    228:228:public boolean isWindingEvenOdd()
+    231:231:public path.Path setWindingNonZero()
+    234:234:public path.Path setWindingEvenOdd()
+    237:237:public float[] getVerticesPath(int,path.Op,float[])
+    292:292:public path.Path apply(java.lang.String)
+    296:298:public path.Path apply(path.Parser)
+    312:315:public void set(com.johnpritchard.cpi.ViewPage2DPath)
+    317:319:public void set(path.Path)
+    326:345:public void add(path.Path)
+com.johnpritchard.cpi.ViewPage2DTextGroup
+com.johnpritchard.cpi.ViewPage2DTextLabel:
+    26:27:public ViewPage2DTextLabel(com.johnpritchard.cpi.ViewPageOperatorSelection)
+    29:30:public ViewPage2DTextLabel(java.lang.String)
+    32:33:public ViewPage2DTextLabel(com.johnpritchard.cpi.ViewPageOperatorSelection,java.lang.String)
+com.johnpritchard.cpi.ViewPage2DTextMultiline:
+    public static final int DefaultLineWidth
+    40:41:public ViewPage2DTextMultiline(com.johnpritchard.cpi.ViewPageOperatorSelection,java.lang.String)
+    43:52:public ViewPage2DTextMultiline(com.johnpritchard.cpi.ViewPageOperatorSelection,java.lang.String,int)
+com.johnpritchard.cpi.ViewPage2DTextSelection
+com.johnpritchard.cpi.ViewPageComponent:
+    public abstract java.lang.String getName()
+    public abstract void setName(java.lang.String)
+    public abstract float getWidth()
+    public abstract float getHeight()
+    public abstract boolean hasSelection()
+    public abstract boolean hasSelectionGroup()
+    public abstract com.johnpritchard.cpi.ViewPageOperatorSelection getSelection()
+    public abstract com.johnpritchard.cpi.ViewPageOperatorGroup getSelectionGroup()
+    public abstract void setSelection(com.johnpritchard.cpi.ViewPageOperatorSelection)
+    public abstract void scale(float)
+    public abstract float distance(com.johnpritchard.cpi.ViewPageComponent)
+    public abstract boolean isCurrent()
+com.johnpritchard.cpi.ViewPageComponentAbstract:
+    48:48:public final java.lang.String getName()
+    52:58:public final void setName(java.lang.String)
+    71:71:public final boolean hasSelection()
+    75:75:public final boolean hasSelectionGroup()
+    79:79:public final com.johnpritchard.cpi.ViewPageOperatorSelection getSelection()
+    83:83:public final com.johnpritchard.cpi.ViewPageOperatorGroup getSelectionGroup()
+    91:92:public final void setSelection(com.johnpritchard.cpi.ViewPageOperatorSelection)
+    121:123:public final float getWidth()
+    126:128:public final float getHeight()
+    143:151:public final void scale(float)
+    180:180:public final boolean isCurrent()
+com.johnpritchard.cpi.ViewPageOperatorGroup
+com.johnpritchard.cpi.ViewPageOperatorSelection:
+    public abstract void update(int,double)
+    public abstract void update(int,double,double)
+    public abstract void update(int,double,double,double,double)
+    public abstract void update(float[])
+path.Formatter
+path.Geometry
+path.Geometry$Cubic
+path.Geometry$Quadratic
+path.Iterator
+path.Op:
+    64:73:public static final path.Op[] Add(path.Op[],path.Op)
+path.Operand:
+    73:82:public Operand(path.Path,int,path.Op[],float[])
+path.Parser
+path.Parser$1
+path.Path
+path.Token
+path.Token$1
+path.Winding:
+    76:82:public static final path.Winding For(int)
+    100:100:public static final path.Winding For(java.lang.String)
+path.Winding$Missing
