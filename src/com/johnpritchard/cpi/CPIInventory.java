@@ -48,35 +48,25 @@ public enum CPIInventory
             return false;
         }
     }
-    public final static boolean Complete(CPIInventoryRecord record){
-        if (null != record){
+    public final static void Complete(CPIInventoryRecord record){
 
-            if (record.hasSession()){
+        if (record.hasSession()){
 
-                final List<CPIInventory> session = record.getSession();
+            final List<CPIInventory> session = record.getSession();
 
-                final int session_size = session.size();
+            final int session_size = session.size();
 
-                if (Size == session_size){
+            if (Size == session_size){
 
-                    //Log.i(ObjectLog.TAG,"CPIInventory Complete Product");
-
-                    record.setCompleted(new CPIInventory.Product(session));
-
-                    return true;
-                }
-                else {
-                    Log.e(ObjectLog.TAG,"CPIInventory Complete <session size "+session_size+">");
-                }
+                record.setCompleted(new CPIInventory.Product(session));
             }
             else {
-                Log.e(ObjectLog.TAG,"CPIInventory Complete <missing session>");
+                throw new IllegalArgumentException("CPIInventory Complete <session size "+session_size+">");
             }
         }
         else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("CPIInventory Complete <missing session>");
         }
-        return false;
     }
     public final static CPICode.Encode Encode(CPIInventoryRecord record){
 

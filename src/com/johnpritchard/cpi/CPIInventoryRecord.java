@@ -30,19 +30,19 @@ public final class CPIInventoryRecord
 
     protected volatile CPIProcess process;
 
-    protected long cursor = -1L;
+    protected volatile long cursor = -1L;
 
-    protected String identifier, title;
+    protected volatile String identifier, title;
 
-    protected float sf, st, nf, nt;
+    protected volatile float sf, st, nf, nt;
     /**
      * As many as sixty elements
      */
-    protected List<CPIInventory> session;
+    protected volatile List<CPIInventory> session;
 
-    protected Date created;
+    protected volatile Date created;
 
-    protected Date completed;
+    protected volatile Date completed;
 
 
     public CPIInventoryRecord(){
@@ -283,13 +283,9 @@ public final class CPIInventoryRecord
 
         this.cursor = cursor.getLong(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results._ID));
 
-        //info("readResults cursor <"+this.cursor+">");
-
         this.identifier = cursor.getString(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.IDENTIFIER));
-        //info("readResults identifier <"+this.identifier+">");
 
         this.title = cursor.getString(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.TITLE));
-        //info("readResults title <"+this.title+">");
 
         this.sf = cursor.getFloat(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.SF));
         this.st = cursor.getFloat(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.ST));
@@ -299,11 +295,9 @@ public final class CPIInventoryRecord
         final long created = cursor.getLong(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.CREATED));
         if (0 < created){
             this.created = new Date(created);
-            //info("readResults created <"+this.created+">");
         }
         else {
             this.created = null;
-            //info("readResults created <*>");
         }
 
         final long completed = cursor.getLong(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Results.COMPLETED));
@@ -311,13 +305,11 @@ public final class CPIInventoryRecord
             this.completed = new Date(completed);
 
             this.process = CPIProcess.Completed;
-            //info("readResults completed <"+this.completed+">");
         }
         else {
             this.completed = null;
 
             this.process = CPIProcess.Inventory;
-            //info("readResults completed <*>");
         }
         return this;
     }
@@ -325,25 +317,15 @@ public final class CPIInventoryRecord
         ContentValues values = new ContentValues();
         if (hasCursor()){
 
-            //info("writeResults cursor <"+this.cursor+">");
             values.put(CPIDatabaseTables.Results._ID,this.cursor);
         }
-        else {
-            //info("writeResults cursor <*>");
-        }
+
         if (hasIdentifier()){
-            //info("writeResults identifier <"+this.identifier+">");
             values.put(CPIDatabaseTables.Results.IDENTIFIER,this.identifier);
         }
-        else {
-            //info("writeResults identifier <*>");
-        }
+
         if (hasTitle()){
-            //info("writeResults title <"+this.title+">");
             values.put(CPIDatabaseTables.Results.TITLE,this.title);
-        }
-        else {
-            //info("writeResults title <*>");
         }
 
         values.put(CPIDatabaseTables.Results.SF,this.sf);
@@ -355,20 +337,13 @@ public final class CPIInventoryRecord
         values.put(CPIDatabaseTables.Results.NT,this.nt);
 
         if (hasCreated()){
-            //info("writeResults created <"+this.created+">");
             values.put(CPIDatabaseTables.Results.CREATED,this.created.getTime());
-        }
-        else {
-            //info("writeResults created <*>");
         }
 
         if (hasCompleted()){
-            //info("writeResults completed <"+this.completed+">");
             values.put(CPIDatabaseTables.Results.COMPLETED,this.completed.getTime());
         }
-        else {
-            //info("writeResults completed <*>");
-        }
+
         return values;
     }
     public CPIInventoryRecord readSession(Cursor cursor){
@@ -376,8 +351,6 @@ public final class CPIInventoryRecord
         final int index = cursor.getInt(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Session.INDEX));
 
         final String choice = cursor.getString(cursor.getColumnIndexOrThrow(CPIDatabaseTables.Session.CHOICE));
-
-        //info("readSession <"+index+">");
 
         setSession(index,CPIInventory.valueOf(choice));
 

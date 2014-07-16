@@ -9,7 +9,7 @@ i)
     set -x
     adb -d logcat -c
     adb -d install bin/CPI-debug.apk
-    adb -d logcat | grep CPI
+    adb -d logcat | tee /tmp/logcat | grep CPI
     ;;
 *)
     cat<<EOF>&2

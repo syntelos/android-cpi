@@ -41,10 +41,12 @@ public final class CPIPageView
     protected final static int VZ = 0;
     protected final static int OT = 1;
     protected final static int NA = 2;
-    protected final static int ST = 3;
-    protected final static int NT = 4;
-    protected final static int NF = 5;
-    protected final static int SF = 6;
+    protected final static int QU = 3;
+
+    protected final static int ST = 4;
+    protected final static int NT = 5;
+    protected final static int NF = 6;
+    protected final static int SF = 7;
 
 
     private final CPIViz viz;
@@ -111,8 +113,6 @@ public final class CPIPageView
     @Override
     public void input(InputScript in){
 
-        //info("input "+in);
-
         if (interior){
             /*
              * nav within viz
@@ -124,31 +124,39 @@ public final class CPIPageView
                  * This was better interaction without the web links,
                  * but then how to do the web links
                  */
-                switch(enter()){
-                case ST:
-                    //info("interior <post>");
-                    CPI.Post2D(UA_ST);
-                    return;
-                case NT:
-                    //info("interior <post>");
-                    CPI.Post2D(UA_NT);
-                    return;
-                case NF:
-                    //info("interior <post>");
-                    CPI.Post2D(UA_NF);
-                    return;
-                case SF:
-                    //info("interior <post>");
-                    CPI.Post2D(UA_SF);
-                    return;
-                default:
-                    //info("interior <deselect>");
-                    current(ViewPage2DComponentAbstract.Nil);
-                    return;
+                final CPIQuadrant q = viz.selection;
+
+                if (null != q){
+
+                    switch(q){
+
+                    case ST:
+
+                        CPI.Post2D(UA_ST);
+                        break;
+
+                    case NT:
+
+                        CPI.Post2D(UA_NT);
+                        break;
+
+                    case NF:
+
+                        CPI.Post2D(UA_NF);
+                        break;
+
+                    case SF:
+
+                        CPI.Post2D(UA_SF);
+                        break;
+
+                    default:
+                        break;
+                    }
                 }
+                return;
 
             default:
-                //info("interior <*>");
                 super.input(in);
                 return;
             }
@@ -161,23 +169,23 @@ public final class CPIPageView
 
             case Up:
             case Left:
-                //info("exterior <prev>");
+
                 view.script(new InputScript.Database(InputScript.Database.Op.CompletedPrev));
                 return;
 
             case Down:
             case Right:
-                //info("exterior <next>");
+
                 view.script(new InputScript.Database(InputScript.Database.Op.CompletedNext));
                 return;
 
             case Enter:
-                //info("exterior <select>");
+
                 current(viz.primary);
                 return;
 
             default:
-                //info("exterior <*>");
+
                 super.input(in);
                 return;
             }

@@ -56,6 +56,9 @@ public final class CPIPageAboutActivity
     }
     @Override
     protected void onResume(){
+
+        CPI.Activate2D(this);
+
         super.onResume();
         {
             view.pageTo(Page.about);

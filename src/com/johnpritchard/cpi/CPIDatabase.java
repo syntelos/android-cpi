@@ -137,7 +137,7 @@ public final class CPIDatabase
             inventory.setSession();
             inventory.setTitle();
 
-            SQLiteDatabase db = CPIDatabase.Readable();
+            SQLiteDatabase db = CPIDatabase.Writable();
             try {
                 SQLiteQueryBuilder rQ = CPIDatabase.QueryResultsInternal();
                 /*
@@ -192,7 +192,7 @@ public final class CPIDatabase
                     }
                 }
                 else {
-                    //Info("Inventory <new>");
+                    //Info("Inventory <completed>");
                     /*
                      * The most recent session has completed,
                      * therefore create a new session
@@ -270,14 +270,14 @@ public final class CPIDatabase
                 try {
                     Session(db,index,input);
 
-                    CPIPageInventory.Input();
+                    CPIPageInventory.View();
                 }
                 finally {
                     db.close();
                 }
             }
             else {
-                //Info("Input <completion>");
+                //Info("Input <completion> (index "+index+")");
 
                 Completion(index,input);
             }
@@ -294,56 +294,48 @@ public final class CPIDatabase
             try {
                 Session(db,index,input);
 
-                if (CPIInventory.Complete(inventory)){
-                    try {
-                        /*
-                         * State
-                         */
-                        ContentValues state = inventory.writeResults();
+                CPIInventory.Complete(inventory);
+                try {
+                    /*
+                     * State
+                     */
+                    ContentValues state = inventory.writeResults();
 
-                        if (-1L < inventory.cursor){
+                    if (-1L < inventory.cursor){
 
-                            final String where = CPIDatabaseTables.Results._ID+" = "+inventory.cursor;
+                        final String where = CPIDatabaseTables.Results._ID+" = "+inventory.cursor;
 
-                            final String[] whereArgs = null;
+                        final String[] whereArgs = null;
 
-                            int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
+                        int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
 
-                            //Info("Completion CPIInventory.Complete <update:ID> "+rows);
-                        }
-                        else {
-
-                            final String where = CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier;
-
-                            final String[] whereArgs = null;
-
-                            int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
-
-                            //Info("Completion CPIInventory.Complete <update:IDENTIFIER> "+rows);
-                        }
+                        //Info("Completion <results update by id> "+rows);
                     }
-                    finally {
-                        /*
-                         * Session
-                         */
-                        if (inventory.hasCompleted()){
-                            /*
-                             * Clear the session table
-                             */
-                            db.delete(CPIDatabase.SESSION,null,null);
+                    else {
 
-                            //Info("Completion CPIInventory.Complete clear-session <delete>");
-                        }
-                        else {
-                            //Info("Completion CPIInventory.Complete clear-session <*>");
-                        }
+                        final String where = CPIDatabaseTables.Results.IDENTIFIER+" = "+inventory.identifier;
+
+                        final String[] whereArgs = null;
+
+                        int rows = db.update(CPIDatabase.RESULTS,state,where,whereArgs);
+
+                        //Info("Completion <results update by identifier> "+rows);
                     }
+                }
+                finally {
+                    /*
+                     * Clear the session table
+                     */
+                    final String where = "1";
 
-                    CPI.StartActivity(Page.view);
+                    final String[] whereArgs = null;
+
+                    int rows = db.delete(CPIDatabase.SESSION,where,whereArgs);
+
+                    //Info("Completion <session delete> "+rows);
                 }
-                else {
-                    throw new IllegalStateException();
-                }
+
+                CPI.StartActivity(Page.view);
             }
             finally {
                 db.close();

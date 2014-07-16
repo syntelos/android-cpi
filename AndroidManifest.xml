@@ -23,7 +23,8 @@
     <activity android:name="CPIPageStartActivity"
               android:exported="true"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:label="@string/app_name">
+              android:label="@string/app_name"
+              android:windowSoftInputMode="stateAlwaysHidden">
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -33,23 +34,28 @@
 
     <activity android:name="CPIPageAboutActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:label="@string/app_name"/>
+              android:label="@string/app_name"
+              android:windowSoftInputMode="stateAlwaysHidden"/>
 
     <activity android:name="CPIPageIntroActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:label="@string/app_name"/>
+              android:label="@string/app_name"
+              android:windowSoftInputMode="stateAlwaysHidden"/>
 
     <activity android:name="CPIPageInventoryActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:label="@string/app_name"/>
+              android:label="@string/app_name"
+              android:windowSoftInputMode="stateAlwaysHidden"/>
 
     <activity android:name="CPIPagePracticeActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:label="@string/app_name"/>
+              android:label="@string/app_name"
+              android:windowSoftInputMode="stateAlwaysHidden"/>
 
     <activity android:name="CPIPageViewActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:label="@string/app_name"/>
+              android:label="@string/app_name"
+              android:windowSoftInputMode="stateAlwaysHidden"/>
 
   </application>
 

@@ -44,13 +44,11 @@ public class CPIPageInventory
 
     public final static CPIPageInventory Instance = new CPIPageInventory();
 
-    public final static void Input(){
+    public static void View(){
 
         Instance.input();
 
         ViewAnimation.Script();
-    }
-    public static void View(){
     }
 
 

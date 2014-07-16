@@ -56,6 +56,9 @@ public final class CPIPagePracticeActivity
     }
     @Override
     protected void onResume(){
+
+        CPI.Activate2D(this);
+
         super.onResume();
         {
             CPIDatabase.Practice();

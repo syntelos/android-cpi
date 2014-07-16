@@ -313,8 +313,6 @@ public final class ViewAnimation
         try {
             //info("running");
 
-            long touchInputFilter = 0L;
-
             int skip = 0;
 
             this.paint();
@@ -333,8 +331,6 @@ public final class ViewAnimation
 
                     if (null == sequence){
 
-                        //info("waiting");
-
                         synchronized(this.monitor){
 
                             this.monitor.wait();
@@ -346,8 +342,6 @@ public final class ViewAnimation
                         while (null != sequence){
 
                             if (null != sequence.pageTo){
-
-                                //info("pageTo");
                                 /*
                                  * pageTo
                                  */
@@ -364,8 +358,6 @@ public final class ViewAnimation
                                     final ViewPage page = sequence.page;
 
                                     final int count = script.length;
-
-                                    //info("exec script "+count);
 
                                     for (int cc = 0; cc < count; cc++){
 
@@ -390,17 +382,24 @@ public final class ViewAnimation
 
                                         in = script[cc];
 
-                                        //info("input "+in+" to "+page);
+                                        try {
+                                            page.input(in);
+                                        }
+                                        catch (Shutdown exi){
 
-                                        page.input(in);
+                                            info("shutdown");
+
+                                            return;
+                                        }
+                                        catch (Exception exc){
+
+                                            error("input "+in+" to "+page,exc);
+                                        }
 
                                         if (in.isSkipping()){
                                             skip = SKIP_SKIP;
                                         }
                                     }
-                                }
-                                else {
-                                    //warn("ignore script <null>");
                                 }
                             }
 
@@ -423,11 +422,8 @@ public final class ViewAnimation
         catch (InterruptedException inx){
             return;
         }
-        catch (Shutdown inx){
-            return;
-        }
         finally {
-            //info("returning"); 
+            //info("returning");
 
             Exit(this);
         }
