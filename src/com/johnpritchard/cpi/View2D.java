@@ -55,7 +55,9 @@ public final class View2D
 {
     public final static String TAG = ObjectLog.TAG;
 
-    private final static long InputFilter = 100L;
+    private final static long InputFilterGeneric = 100L;
+
+    private final static long InputFilterGesture = 150L;
 
 
     private final GestureDetector touch;
@@ -112,12 +114,10 @@ public final class View2D
      * Occurs before surface created
      */
     public void onCreate(SharedPreferences state){
-        //info("onCreate");
 
         this.preferences = state;
     }
     public void onResume(){
-        //info("onResume");
 
         if (plumb){
 
@@ -125,7 +125,6 @@ public final class View2D
         }
     }
     public void onPause(SharedPreferences.Editor state){
-        //info("onPause");
 
         ViewAnimation.Stop(this);
 
@@ -136,12 +135,10 @@ public final class View2D
         this.plumb = false;
     }
     public void surfaceCreated(SurfaceHolder holder){
-        //info("surfaceCreated");
 
         this.plumb = false;
     }
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
-        //info("surfaceChanged");
 
         this.width = w;
         this.height = h;
@@ -157,7 +154,6 @@ public final class View2D
 
     }
     public void surfaceDestroyed(SurfaceHolder holder){
-        //info("surfaceDestroyed");
 
         ViewAnimation.Stop(this);
 
@@ -348,7 +344,7 @@ public final class View2D
             }
             else {
 
-                ViewAnimation.Script(page,input(event)); //
+                ViewAnimation.Script(page,generic(event)); //
             }
             return true;
         }
@@ -362,95 +358,59 @@ public final class View2D
      */
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        //info("onSingleTapUp");
 
         return false;
     }
     public void onLongPress(MotionEvent e) {
-        //info("onLongPress {Enter}");
 
-        script(Input.Enter);
+        final long eventTime = e.getEventTime();
+
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGesture);
+
+            script(Input.Enter);
+        }
     }
     public boolean onScroll(MotionEvent e1, MotionEvent e2,
                             float dx, float dy)
     {
-        //info("onScroll");
+        ViewAnimation.Script(page,gesture(e2.getEventTime(),dx,dy));
 
-        /*
-         * Relative coordinate space for gestures
-         */
-        if (Math.abs(dx) > Math.abs(dy)){
-
-            if (0.0f < dx){
-
-                script(Input.Left);
-            }
-            else {
-                script(Input.Right);
-            }
-        }
-        else if (0.0f < dy){
-
-            script(Input.Up);
-        }
-        else {
-            script(Input.Down);
-        }
         return true;
     }
     public boolean onFling(MotionEvent e1, MotionEvent e2,
                            float dx, float dy)
     {
-        //info("onFling");
+        ViewAnimation.Script(page,gesture(e2.getEventTime(),dx,dy));
 
-        /*
-         * Relative coordinate space for gestures
-         */
-        if (Math.abs(dx) > Math.abs(dy)){
-
-            if (0.0f < dx){
-
-                script(Input.Left);
-            }
-            else {
-                script(Input.Right);
-            }
-        }
-        else if (0.0f < dy){
-
-            script(Input.Up);
-        }
-        else {
-            script(Input.Down);
-        }
         return true;
     }
     public void onShowPress(MotionEvent e){
-        //info("onShowPress");
-
     }
     public boolean onDown(MotionEvent e){
-        //info("onDown");
-
         return false;
     }
     /**
      * @see android.view.GestureDetector$OnDoubleTapListener
      */
     public boolean onSingleTapConfirmed(MotionEvent e){
-        //info("onSingleTapConfirmed {Enter}");
 
-        script(Input.Enter);
+        final long eventTime = e.getEventTime();
 
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGesture);
+
+            script(Input.Enter);
+        }
         return true;
     }
     public boolean onDoubleTap(MotionEvent e){
-        //info("onDoubleTap {Enter}");
 
         return true;
     }
     public boolean onDoubleTapEvent(MotionEvent e){
-        //info("onDoubleTapEvent");
 
         return true;
     }
@@ -459,7 +419,7 @@ public final class View2D
 
         if (plumb){
 
-            ViewAnimation.Script(page,input(event)); //
+            ViewAnimation.Script(page,generic(event)); //
 
             return true;
         }
@@ -472,7 +432,7 @@ public final class View2D
 
         if (plumb){
 
-            ViewAnimation.Script(page,input(event)); //
+            ViewAnimation.Script(page,generic(event)); //
 
             return true;
         }
@@ -581,18 +541,47 @@ public final class View2D
         }
     }
 
+    private final InputScript[] gesture(long eventTime, float dx, float dy){
+
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGesture);
+
+            /*
+             * Relative coordinate space for gestures
+             */
+            if (Math.abs(dx) > Math.abs(dy)){
+
+                if (0.0f < dx){
+
+                    return new InputScript[]{Input.Left};
+                }
+                else {
+                    return new InputScript[]{Input.Right};
+                }
+            }
+            else if (0.0f < dy){
+
+                return new InputScript[]{Input.Up};
+            }
+            else {
+                return new InputScript[]{Input.Down};
+            }
+        }
+        return null;
+    }
     /**
      * Called from {@link ViewAnimation} to convert pointer activity
      * to navigation activity for subsequent delivery to the input
      * method.
      */
-    private final InputScript[] input(MotionEvent event){
+    private final InputScript[] generic(MotionEvent event){
 
         final long eventTime = event.getEventTime();
 
-        if (null != event && inputFilter < eventTime){
+        if (inputFilter < eventTime){
 
-            inputFilter = (eventTime + InputFilter);
+            inputFilter = (eventTime + InputFilterGeneric);
 
             if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)){
                 /*
